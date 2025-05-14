@@ -154,7 +154,7 @@ const TallTinyROICalculator = () => {
         <div className="text-center mb-8">
           <div className="mb-6">
             <img 
-              src="/assets/talltiny-logo.png" 
+              src="/assets/talltiny-logo.png"
               alt="Tall Tiny Logo" 
               className="mx-auto h-16 md:h-20"
             />
