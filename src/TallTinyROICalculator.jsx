@@ -202,7 +202,12 @@ const TallTinyROICalculator = () => {
   };
   
   const formatCurrency = (amount) => {
-    return `${formatNumber(amount)}`;
+    return new Intl.NumberFormat('en-AU', {
+      style: 'currency',
+      currency: 'AUD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
   };
   
   const formatNumber = (num) => {
@@ -215,7 +220,7 @@ const TallTinyROICalculator = () => {
   
   return (
     <div className="min-h-screen bg-neutral-lighter font-body">
-      <div className="max-w-lg py-large">
+      <div className="max-w-lg mx-auto py-large px-medium md:px-medium lg:px-large">
         {/* Header with Logo */}
         <header className="text-center mb-medium">
           <div className="mb-xsmall">
@@ -229,8 +234,7 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Added Investment Calculator Title */}
-          <h1 className="text-h2 font-light text-neutral-darkest mb-medium" 
-              style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 48'}}>
+          <h1 className="text-h3 md:text-h2 font-light text-neutral-darkest mb-medium">
             Investment Calculator
           </h1>
           
@@ -239,14 +243,14 @@ const TallTinyROICalculator = () => {
             <img 
               src="/assets/talltiny-residence-ribbongum.png" 
               alt="Tall Tiny Residence in Ribbon Gum" 
-              className="w-full"
+              className="w-full h-full object-cover"
             />
           </div>
           
-          <h2 className="text-h3 font-light text-neutral-darkest mb-xxsmall">
+          <h2 className="text-h4 md:text-h3 font-light text-neutral-darkest mb-xxsmall">
             Your Backyard, Your Guest House
           </h2>
-          <p className="text-large mb-small text-neutral-darkest">
+          <p className="text-medium md:text-large mb-small text-neutral-darkest">
             Sustainable accommodation that pays for itself
           </p>
           
@@ -271,37 +275,37 @@ const TallTinyROICalculator = () => {
         </header>
         
         {/* Model Selection */}
-        <section className="mb-medium">
+        <section className="mb-large">
+          <h2 className="text-h4 font-light text-neutral-darkest mb-small text-center">
+            Choose Your Tiny Home Model
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(modelData).map(([key, data]) => (
               <div
                 key={key}
                 onClick={() => handleModelChange(key)}
-                className={`border border-neutral-light rounded-standard p-medium cursor-pointer bg-white ${
-                  model === key 
-                    ? 'border-tt-timber bg-neutral-lightest' 
-                    : 'hover:border-neutral'
+                className={`model-card border-2 rounded-standard p-xxsmall cursor-pointer transition-all bg-white ${
+                  model === key ? 'active' : ''
                 }`}
-                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
               >
-                <div className="mb-xxsmall flex justify-center h-24">
+                {/* Model Image */}
+                <div className="mb-xxsmall h-32 flex items-center justify-center overflow-hidden">
                   <img 
                     src={data.image} 
                     alt={`${key} model`} 
-                    className="object-contain h-full"
+                    className="object-contain h-full w-full"
                   />
                 </div>
-                <h3 className="font-light capitalize text-h5 mb-tiny text-neutral-darkest"
-                    style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+                <h3 className="font-semibold capitalize text-large mb-tiny text-neutral-darkest">
                   {key}
                 </h3>
                 <p className="text-small text-neutral mb-tiny">{data.size}</p>
-                <p className="text-small text-neutral mb-medium">{data.features}</p>
-                <p className="font-bold text-tt-timber text-h5">
-                  ${formatNumber(data.price)}
+                <p className="text-small text-neutral mb-tiny">{data.features}</p>
+                <p className="font-bold text-tt-timber">
+                  {formatCurrency(data.price)}
                 </p>
                 <p className="text-tiny text-neutral-light mt-tiny">
-                  Suggested nightly rate: ${data.suggestedRate}
+                  Suggested nightly rate: {formatCurrency(data.suggestedRate)}
                 </p>
               </div>
             ))}
@@ -311,24 +315,22 @@ const TallTinyROICalculator = () => {
         {/* Calculator Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Panel */}
-          <div className="bg-white rounded-standard p-medium shadow-small">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-medium"
-                style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+          <div className="bg-white rounded-standard p-medium shadow-small calculator-card">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your Investment Details
             </h3>
             
             {/* Selected Model Info */}
-            <div className="bg-light-card-bg rounded-standard p-small mb-medium border border-light-card-border">
+            <div className="bg-light-card-bg rounded-standard p-xxsmall mb-medium border border-light-card-border">
               <div className="flex items-center">
                 <div className="flex-1">
-                  <h4 className="font-light text-h6 capitalize mb-tiny text-neutral-darkest"
-                      style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'}}>
+                  <h4 className="font-semibold text-large capitalize mb-tiny text-neutral-darkest">
                     {model} Model
                   </h4>
                   <p className="text-neutral text-small mb-tiny">{modelData[model].description}</p>
-                  <p className="text-neutral text-small mb-medium">Size: {modelData[model].size}</p>
+                  <p className="text-neutral text-small mb-tiny">Size: {modelData[model].size}</p>
                   <p className="font-bold text-large text-tt-timber">
-                    ${formatNumber(modelData[model].price)}
+                    {formatCurrency(modelData[model].price)}
                   </p>
                 </div>
                 <div className="w-24 h-24 ml-2">
@@ -342,7 +344,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Nightly Rate */}
-            <div className="mb-medium">
+            <div className="mb-small">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Base Nightly Rate (Peak +20% automatically applied)
               </label>
@@ -363,7 +365,7 @@ const TallTinyROICalculator = () => {
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="ml-1 text-tt-timber"
+                  className="ml-1 underline text-tt-timber"
                 >
                   (Source: AirDNA)
                 </a>
@@ -371,7 +373,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Average Stay Length */}
-            <div className="mb-medium">
+            <div className="mb-small">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Average Length of Stay (nights)
               </label>
@@ -389,7 +391,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Peak Season Occupancy */}
-            <div className="mb-medium">
+            <div className="mb-small">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Peak Season Occupancy: {peakOccupancy}%
               </label>
@@ -411,7 +413,7 @@ const TallTinyROICalculator = () => {
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-tt-timber"
+                  className="underline text-tt-timber"
                 >
                   Source: AirDNA Blue Mountains Market Data
                 </a>
@@ -502,24 +504,22 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Results Panel */}
-          <div className="bg-white rounded-standard p-medium shadow-small border-l-4 border-tt-timber">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-medium"
-                style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+          <div className="bg-white rounded-standard p-medium shadow-small border-l-4 border-tt-timber calculator-card">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your ROI Projection
             </h3>
             
             {/* Key Metrics */}
-            <div className="space-y-medium mb-medium">
-              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
+            <div className="space-y-small mb-medium">
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Annual Revenue</p>
-                <p className="text-h4 font-light text-tt-timber" 
-                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
-                  ${formatNumber(results.annualRevenue)}
+                <p className="text-h4 font-light text-tt-timber">
+                  {formatCurrency(results.annualRevenue)}
                 </p>
               </div>
               
               <div 
-                className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border cursor-pointer"
+                className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border cursor-pointer"
                 onClick={toggleExpenses}
               >
                 <div className="flex justify-between items-center">
@@ -528,9 +528,8 @@ const TallTinyROICalculator = () => {
                   </p>
                   <span>{showExpenses ? '▲' : '▼'}</span>
                 </div>
-                <p className="text-h4 font-light text-neutral-darkest"
-                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
-                  ${formatNumber(results.annualExpenses)}
+                <p className="text-h4 font-light text-neutral-darkest">
+                  {formatCurrency(results.annualExpenses)}
                 </p>
                 
                 {/* Expense Breakdown */}
@@ -542,7 +541,7 @@ const TallTinyROICalculator = () => {
                           return (
                             <div key={key} className="flex justify-between text-small">
                               <span className="capitalize">{key}</span>
-                              <span>${formatNumber(value)}</span>
+                              <span>{formatCurrency(value)}</span>
                             </div>
                           );
                         }
@@ -553,23 +552,18 @@ const TallTinyROICalculator = () => {
                 )}
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Net Annual Income</p>
-                <p className="text-h4 font-light text-tt-timber"
-                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
-                  ${formatNumber(results.netIncome)}
+                <p className="text-h4 font-light text-tt-timber">
+                  {formatCurrency(results.netIncome)}
                 </p>
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Payback Period</p>
-                <div>
-                  <p className="text-h4 font-light text-tt-timber"
-                     style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
-                    {results.paybackYears.toFixed(1)}
-                  </p>
-                  <p className="text-large text-tt-timber">years</p>
-                </div>
+                <p className="text-h4 font-light text-tt-timber">
+                  {results.paybackYears.toFixed(1)} years
+                </p>
               </div>
             </div>
             
@@ -624,14 +618,14 @@ const TallTinyROICalculator = () => {
             <div className="space-y-xxsmall">
               <button
                 onClick={() => setShowContact(true)}
-                className="w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 bg-tt-green text-white"
+                className="btn btn-primary w-full"
               >
                 Get Your Free Site Assessment
               </button>
               
               <button
                 onClick={() => setShowDownloadForm(true)}
-                className="w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 border border-tt-green text-tt-green bg-white"
+                className="btn btn-secondary w-full"
               >
                 Download Our Tech Specs
               </button>
@@ -640,7 +634,7 @@ const TallTinyROICalculator = () => {
                 href="https://calendly.com/hello-talltiny/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 text-center bg-tt-timber text-white"
+                className="btn btn-accent w-full block"
               >
                 Let's Chat!
               </a>
@@ -657,47 +651,56 @@ const TallTinyROICalculator = () => {
         </div>
         
         {/* Updated Blue Mountains Context */}
-        <div className="mt-large bg-white rounded-standard p-medium shadow-small border-t-4 border-tt-timber">
-          <h3 className="text-h5 font-light text-neutral-darkest mb-xxsmall">
+        <div className="mt-large bg-white rounded-standard p-medium shadow-small border-t-4 border-tt-timber calculator-card">
+          <h3 className="text-h5 font-light text-neutral-darkest mb-medium mobile-text-center">
             Why Invest In A Tiny Home in The Blue Mountains
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-small">
-            <div>
-              <p className="font-semibold text-tt-timber">3.2M Annual Visitors</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-small">
+            <div className="p-small rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber mb-tiny">3.2M Annual Visitors</p>
               <p className="text-neutral-darkest">Generating $1.1B in tourism revenue</p>
             </div>
-            <div>
-              <p className="font-semibold text-tt-timber">UNESCO World Heritage</p>
+            <div className="p-small rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber mb-tiny">UNESCO World Heritage</p>
               <p className="text-neutral-darkest">Premium eco-tourism destination</p>
             </div>
-            <div>
-              <p className="font-semibold text-tt-timber">Accommodation Shortage</p>
+            <div className="p-small rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber mb-tiny">Accommodation Shortage</p>
               <p className="text-neutral-darkest">Growing demand, limited supply</p>
             </div>
           </div>
         </div>
         
-        {/* Added Website Link Section */}
+        {/* Website Link Section with Hero Image Background */}
         <div className="mt-large relative rounded-standard overflow-hidden shadow-large">
-          <img 
-            src="/assets/talltiny-weekender-lawson.avif" 
-            alt="Tall Tiny Weekender in Lawson" 
-            className="w-full"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-            <a 
-              href="https://talltiny.com.au" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="px-medium py-xxsmall bg-white bg-opacity-90 rounded-standard text-h4 font-light transition hover:scale-105 text-neutral-darkest"
-              style={{
-                fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif",
-                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30',
-                fontWeight: 300
-              }}
-            >
-              Explore Our Website & Guides
-            </a>
+          <div className="w-full h-full relative">
+            <img 
+              src="/assets/talltiny-weekender-lawson.avif" 
+              alt="Tall Tiny Weekender in Lawson" 
+              className="w-full h-full object-cover"
+              style={{ minHeight: '350px' }}
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <div className="text-center px-medium py-medium">
+                <h3 className="text-h4 font-light text-white mb-medium font-heading">
+                  Building a Greener Future
+                </h3>
+                <p className="text-medium text-white mb-small max-w-md mx-auto">
+                  With each home, we don't just create spaces; we offset our carbon footprint by helping
+                  restore forests, and set new standards for sustainable living. Choose Tall Tiny and be part
+                  of a movement rethinking how we build and live.
+                </p>
+                <a 
+                  href="https://talltiny.com.au" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="website-cta inline-block px-medium py-xxsmall bg-white bg-opacity-90 rounded-xl text-h5 font-light transition-transform text-neutral-darkest"
+                >
+                  Explore Our Website & Guides
+                  <span className="ml-xxsmall">→</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -723,7 +726,7 @@ const TallTinyROICalculator = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="input-field"
                   />
                 </div>
                 <div className="mb-small">
@@ -734,7 +737,7 @@ const TallTinyROICalculator = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="input-field"
                   />
                 </div>
                 <div className="mb-small">
@@ -745,7 +748,7 @@ const TallTinyROICalculator = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="input-field"
                   />
                 </div>
                 <div className="mb-small">
@@ -764,13 +767,13 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowContact(false)}
-                    className="flex-1 px-small py-tiny border border-neutral-light rounded-button hover:bg-neutral-lighter"
+                    className="btn btn-secondary flex-1"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-small py-tiny rounded-button hover:opacity-90 bg-tt-green text-white"
+                    className="btn btn-primary flex-1"
                   >
                     Get Assessment
                   </button>
@@ -802,7 +805,7 @@ const TallTinyROICalculator = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="input-field"
                   />
                 </div>
                 <div className="mb-small">
@@ -832,13 +835,13 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowDownloadForm(false)}
-                    className="flex-1 px-small py-tiny border border-neutral-light rounded-button hover:bg-neutral-lighter"
+                    className="btn btn-secondary flex-1"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-small py-tiny rounded-button hover:opacity-90 bg-tt-green text-white"
+                    className="btn btn-primary flex-1"
                   >
                     Download Now
                   </button>
@@ -859,9 +862,9 @@ const TallTinyROICalculator = () => {
               />
             </a>
           </div>
-          <div className="mb-small text-small text-neutral-darkest">
-            <p>39 Park St, Lawson, NSW 2783</p>
-            <p>
+          <div className="mb-small text-small text-neutral-darkest md:flex md:justify-center md:gap-6 mobile-text-center">
+            <p className="mb-tiny md:mb-0">39 Park St, Lawson, NSW 2783</p>
+            <p className="mb-tiny md:mb-0">
               <a href="mailto:hello@talltiny.com.au" className="underline hover:text-tt-timber">hello@talltiny.com.au</a>
             </p>
             <p>
@@ -869,7 +872,7 @@ const TallTinyROICalculator = () => {
             </p>
           </div>
           <div className="text-tiny text-neutral-light">
-            <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
+            <p className="mb-tiny">&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
             <p>
               <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-tt-timber">Privacy Policy</a>
               {' | '}
