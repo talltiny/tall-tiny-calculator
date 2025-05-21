@@ -169,27 +169,40 @@ const TallTinyROICalculator = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#ecebe4', fontFamily: 'Arial, sans-serif' }}>
       <div className="max-w-6xl mx-auto p-6">
-        {/* Header with Logo */}
-        <div className="text-center mb-8">
-          <div className="mb-6">
-            <img 
-              src="/assets/talltiny-logo.png" 
-              alt="Tall Tiny Logo" 
-              className="mx-auto h-16 md:h-20"
-            />
-          </div>
-          <h1 className="text-4xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-            Your Backyard, Your Guest House
-          </h1>
-          <p className="text-xl mb-6" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-            Sustainable accommodation that pays for itself
-          </p>
-          <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#c67a3e' }}>
-            <p className="font-semibold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
-              ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
-            </p>
-          </div>
-        </div>
+{/* Header with Logo */}
+<div className="text-center mb-8">
+  <div className="mb-6">
+    <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
+      <img 
+        src="/assets/talltiny-logo.png" 
+        alt="Tall Tiny Logo" 
+        className="mx-auto h-16 md:h-20"
+      />
+    </a>
+  </div>
+  <h1 className="text-4xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+    Your Backyard, Your Guest House
+  </h1>
+  <p className="text-xl mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+    Sustainable accommodation that pays for itself
+  </p>
+  
+  {/* New intro text */}
+  <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+    <p className="mb-3">
+      This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
+    </p>
+    <p>
+      With no council approval required and delivery in just 12 weeks, you can transform your backyard into a revenue-generating guest accommodation that pays for itself.
+    </p>
+  </div>
+  
+  <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#c67a3e' }}>
+    <p style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+      ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
+    </p>
+  </div>
+</div>
         
         {/* Model Selection */}
         <div className="mb-8">
