@@ -48,6 +48,9 @@ const TallTinyROICalculator = () => {
   const [personalUse, setPersonalUse] = useState(30);
   const [averageStayLength, setAverageStayLength] = useState(2);
   
+  // State for expense breakdown visibility
+  const [showExpenses, setShowExpenses] = useState(false);
+  
   // Contact form state
   const [showContact, setShowContact] = useState(false);
   const [showDownloadForm, setShowDownloadForm] = useState(false);
@@ -96,13 +99,12 @@ const TallTinyROICalculator = () => {
     const cleaningRevenue = totalBookings * cleaningFee;
     const totalRevenue = peakRoomRevenue + offPeakRoomRevenue + cleaningRevenue;
     
-    // Calculate expenses (Blue Mountains specific)
+    // Calculate expenses (Blue Mountains specific) - Removed marketing costs
     const annualExpenses = {
       insurance: 1200,
       maintenance: 1500,
       cleaning: 0, // Included in cleaning fee
       utilities: 800,
-      marketing: 500,
       councilRates: 0, // No additional rates for caravan classification
       total: 0
     };
@@ -211,12 +213,16 @@ const TallTinyROICalculator = () => {
     return Math.round(num).toLocaleString();
   };
   
+  const toggleExpenses = () => {
+    setShowExpenses(!showExpenses);
+  };
+  
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#ecebe4', fontFamily: 'Arial, sans-serif' }}>
       <div className="max-w-6xl mx-auto p-6">
         {/* Header with Logo */}
-        <div className="text-center mb-8">
-          <div className="mb-6">
+        <div className="text-center mb-4">
+          <div className="mb-3">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
               <img 
                 src="/assets/talltiny-logo.png" 
@@ -225,9 +231,24 @@ const TallTinyROICalculator = () => {
               />
             </a>
           </div>
-          <h1 className="text-4xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-            Your Backyard, Your Guest House
+          
+          {/* Added Investment Calculator Title */}
+          <h1 className="text-4xl font-bold mb-6" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            Investment Calculator
           </h1>
+          
+          {/* Hero Image */}
+          <div className="rounded-lg overflow-hidden mb-6 shadow-lg">
+            <img 
+              src="/assets/talltiny-residence-ribbongum.png" 
+              alt="Tall Tiny Residence in Ribbon Gum" 
+              className="w-full"
+            />
+          </div>
+          
+          <h2 className="text-3xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            Your Backyard, Your Guest House
+          </h2>
           <p className="text-xl mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
             Sustainable accommodation that pays for itself
           </p>
@@ -236,6 +257,9 @@ const TallTinyROICalculator = () => {
           <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
             <p className="mb-3">
               This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
+            </p>
+            <p className="mb-3">
+              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
             </p>
             <p>
               Simply adjust the parameters below to see what your potential return could be with a Tall Tiny home placed on your property.
@@ -506,9 +530,44 @@ const TallTinyROICalculator = () => {
                 </p>
               </div>
               
+              <div 
+                className="bg-white rounded-lg p-4 shadow-sm border cursor-pointer"
+                style={{ borderColor: '#c67a3e' }}
+                onClick={toggleExpenses}
+              >
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+                    Annual Expenses <span className="text-xs text-gray-500">(click to view details)</span>
+                  </p>
+                  <span>{showExpenses ? '▲' : '▼'}</span>
+                </div>
+                <p className="text-2xl font-bold" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                  {formatCurrency(results.annualExpenses)}
+                </p>
+                
+                {/* Expense Breakdown */}
+                {showExpenses && (
+                  <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="space-y-1">
+                      {Object.entries(results.breakdownDetails.annualExpenses || {}).map(([key, value]) => {
+                        if (key !== 'total' && key !== 'cleaning' && value > 0) {
+                          return (
+                            <div key={key} className="flex justify-between text-sm">
+                              <span className="capitalize">{key}</span>
+                              <span>{formatCurrency(value)}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
               <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
                 <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>Net Annual Income</p>
-                <p className="text-2xl font-bold" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                <p className="text-2xl font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
                   {formatCurrency(results.netIncome)}
                 </p>
               </div>
@@ -607,9 +666,11 @@ const TallTinyROICalculator = () => {
           </div>
         </div>
         
-        {/* Blue Mountains Context */}
+        {/* Updated Blue Mountains Context */}
         <div className="mt-8 bg-white rounded-lg p-6 shadow-sm" style={{ borderTop: '4px solid #c67a3e' }}>
-          <h3 className="text-xl font-semibold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Why Blue Mountains?</h3>
+          <h3 className="text-xl font-semibold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            Why Invest In A Tiny Home in The Blue Mountains
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
             <div>
               <p className="font-semibold" style={{ color: '#c67a3e' }}>3.2M Annual Visitors</p>
@@ -623,6 +684,26 @@ const TallTinyROICalculator = () => {
               <p className="font-semibold" style={{ color: '#c67a3e' }}>Accommodation Shortage</p>
               <p style={{ color: '#424732' }}>Growing demand, limited supply</p>
             </div>
+          </div>
+        </div>
+        
+        {/* Added Website Link Section */}
+        <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg">
+          <img 
+            src="/assets/talltiny-weekender-lawson.avif" 
+            alt="Tall Tiny Weekender in Lawson" 
+            className="w-full"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+            <a 
+              href="https://talltiny.com.au" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-8 py-4 bg-white bg-opacity-90 rounded-lg text-2xl font-bold transition-transform transform hover:scale-105"
+              style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}
+            >
+              Explore Our Website & Guides
+            </a>
           </div>
         </div>
         
@@ -783,7 +864,7 @@ const TallTinyROICalculator = () => {
           </div>
         )}
         
-        {/* Footer */}
+        {/* Updated Footer with Phone Number */}
         <footer className="mt-12 pt-6 border-t border-gray-300 text-center">
           <div className="mb-4">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
@@ -798,6 +879,9 @@ const TallTinyROICalculator = () => {
             <p>39 Park St, Lawson, NSW 2783</p>
             <p>
               <a href="mailto:hello@talltiny.com.au" className="underline hover:text-c67a3e">hello@talltiny.com.au</a>
+            </p>
+            <p>
+              <a href="tel:0400755135" className="underline hover:text-c67a3e">0400 755 135</a>
             </p>
           </div>
           <div className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
