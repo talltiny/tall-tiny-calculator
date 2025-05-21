@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css'; // Import styles
 
 const TallTinyROICalculator = () => {
   // Model pricing and details
@@ -218,11 +219,11 @@ const TallTinyROICalculator = () => {
   };
   
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#ecebe4', fontFamily: 'Arial, sans-serif' }}>
-      <div className="max-w-6xl mx-auto p-6">
+    <div className="min-h-screen bg-neutral-lighter font-body">
+      <div className="max-w-lg mx-auto py-large px-medium">
         {/* Header with Logo */}
-        <div className="text-center mb-4">
-          <div className="mb-3">
+        <header className="text-center mb-medium">
+          <div className="mb-xsmall">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
               <img 
                 src="/assets/talltiny-logo.png" 
@@ -233,12 +234,12 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Added Investment Calculator Title */}
-          <h1 className="text-4xl font-bold mb-6" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <h1 className="text-h2 font-light text-neutral-darkest mb-medium">
             Investment Calculator
           </h1>
           
           {/* Hero Image */}
-          <div className="rounded-lg overflow-hidden mb-6 shadow-lg">
+          <div className="rounded-standard overflow-hidden mb-medium shadow-medium">
             <img 
               src="/assets/talltiny-residence-ribbongum.png" 
               alt="Tall Tiny Residence in Ribbon Gum" 
@@ -246,19 +247,19 @@ const TallTinyROICalculator = () => {
             />
           </div>
           
-          <h2 className="text-3xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <h2 className="text-h3 font-light text-neutral-darkest mb-xxsmall">
             Your Backyard, Your Guest House
           </h2>
-          <p className="text-xl mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <p className="text-large mb-small text-neutral-darkest">
             Sustainable accommodation that pays for itself
           </p>
           
           {/* New intro text */}
-          <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-            <p className="mb-3">
+          <div className="max-w-md mx-auto mb-medium text-regular text-neutral-darkest">
+            <p className="mb-xxsmall">
               This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
             </p>
-            <p className="mb-3">
+            <p className="mb-xxsmall">
               Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
             </p>
             <p>
@@ -266,16 +267,16 @@ const TallTinyROICalculator = () => {
             </p>
           </div>
           
-          <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#c67a3e' }}>
-            <p style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+          <div className="bg-white border rounded-standard p-xxsmall inline-block border-tt-timber">
+            <p className="text-tt-timber">
               ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
             </p>
           </div>
-        </div>
+        </header>
         
         {/* Model Selection */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-center" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+        <section className="mb-large">
+          <h2 className="text-h4 font-light text-neutral-darkest mb-small text-center">
             Choose Your Tiny Home Model
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -283,55 +284,54 @@ const TallTinyROICalculator = () => {
               <div
                 key={key}
                 onClick={() => handleModelChange(key)}
-                className={`border-2 rounded-lg p-4 cursor-pointer transition-all bg-white ${
+                className={`border-2 rounded-standard p-xxsmall cursor-pointer transition-all bg-white ${
                   model === key 
-                    ? 'border-2' 
-                    : 'border-gray-200 hover:border-gray-400'
+                    ? 'border-tt-timber bg-neutral-lightest' 
+                    : 'border-neutral-light hover:border-neutral'
                 }`}
-                style={model === key ? { borderColor: '#c67a3e', backgroundColor: '#fdf8f3' } : {}}
               >
                 {/* Model Image */}
-                <div className="mb-3 h-32 flex items-center justify-center overflow-hidden">
+                <div className="mb-xxsmall h-32 flex items-center justify-center overflow-hidden">
                   <img 
                     src={data.image} 
                     alt={`${key} model`} 
                     className="object-contain h-full w-full"
                   />
                 </div>
-                <h3 className="font-semibold capitalize text-lg mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                <h3 className="font-semibold capitalize text-large mb-tiny text-neutral-darkest">
                   {key}
                 </h3>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>{data.size}</p>
-                <p className="text-sm text-gray-600 mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>{data.features}</p>
-                <p className="font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+                <p className="text-small text-neutral mb-tiny">{data.size}</p>
+                <p className="text-small text-neutral mb-tiny">{data.features}</p>
+                <p className="font-bold text-tt-timber">
                   {formatCurrency(data.price)}
                 </p>
-                <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+                <p className="text-tiny text-neutral-light mt-tiny">
                   Suggested nightly rate: {formatCurrency(data.suggestedRate)}
                 </p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
         
         {/* Calculator Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Panel */}
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <div className="bg-white rounded-standard p-medium shadow-small">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your Investment Details
             </h3>
             
             {/* Selected Model Info */}
-            <div className="bg-white rounded-lg p-4 mb-6 border" style={{ borderColor: '#c67a3e' }}>
+            <div className="bg-light-card-bg rounded-standard p-xxsmall mb-medium border border-light-card-border">
               <div className="flex items-center">
                 <div className="flex-1">
-                  <h4 className="font-semibold text-lg capitalize mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                  <h4 className="font-semibold text-large capitalize mb-tiny text-neutral-darkest">
                     {model} Model
                   </h4>
-                  <p className="text-gray-600 text-sm mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>{modelData[model].description}</p>
-                  <p className="text-gray-600 text-sm mb-2" style={{ fontFamily: 'Arial, sans-serif' }}>Size: {modelData[model].size}</p>
-                  <p className="font-bold text-lg" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+                  <p className="text-neutral text-small mb-tiny">{modelData[model].description}</p>
+                  <p className="text-neutral text-small mb-tiny">Size: {modelData[model].size}</p>
+                  <p className="font-bold text-large text-tt-timber">
                     {formatCurrency(modelData[model].price)}
                   </p>
                 </div>
@@ -346,30 +346,28 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Nightly Rate */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Base Nightly Rate (Peak +20% automatically applied)
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
                 <input
                   type="number"
                   value={nightlyRate}
                   onChange={(e) => setNightlyRate(Number(e.target.value))}
-                  className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  className="w-full pl-8 pr-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   min="0"
                   step="10"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-tiny text-neutral-light mt-tiny">
                 Blue Mountains average: $220-$280 
                 <a 
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="ml-1 underline"
-                  style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  className="ml-1 underline text-tt-timber"
                 >
                   (Source: AirDNA)
                 </a>
@@ -377,27 +375,26 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Average Stay Length */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Average Length of Stay (nights)
               </label>
               <input
                 type="number"
                 value={averageStayLength}
                 onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                 min="1"
                 step="0.5"
               />
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-tiny text-neutral-light mt-tiny">
                 Blue Mountains average: 2-3 nights
               </p>
             </div>
             
             {/* Peak Season Occupancy */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Peak Season Occupancy: {peakOccupancy}%
               </label>
               <input
@@ -407,20 +404,18 @@ const TallTinyROICalculator = () => {
                 value={peakOccupancy}
                 onChange={(e) => setPeakOccupancy(Number(e.target.value))}
                 className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
-                style={{ backgroundColor: '#e5e5e5' }}
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <div className="flex justify-between text-tiny text-neutral-light mt-tiny">
                 <span>0%</span>
                 <span>Blue Mountains peak average: 76-85%</span>
                 <span>100%</span>
               </div>
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-tiny text-neutral-light mt-tiny">
                 <a 
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="underline"
-                  style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  className="underline text-tt-timber"
                 >
                   Source: AirDNA Blue Mountains Market Data
                 </a>
@@ -428,8 +423,8 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Off-Peak Occupancy */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Off-Peak Occupancy: {offPeakOccupancy}%
               </label>
               <input
@@ -439,20 +434,18 @@ const TallTinyROICalculator = () => {
                 value={offPeakOccupancy}
                 onChange={(e) => setOffPeakOccupancy(Number(e.target.value))}
                 className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
-                style={{ backgroundColor: '#e5e5e5' }}
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <div className="flex justify-between text-tiny text-neutral-light mt-tiny">
                 <span>0%</span>
                 <span>Blue Mountains off-peak average: 35-45%</span>
                 <span>100%</span>
               </div>
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-tiny text-neutral-light mt-tiny">
                 <a 
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="underline"
-                  style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  className="underline text-tt-timber"
                 >
                   Source: AirDNA Seasonal Trends
                 </a>
@@ -460,55 +453,52 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Peak Season Days */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Peak Season Days (Summer, holidays, events)
               </label>
               <input
                 type="number"
                 value={peakSeasonDays}
                 onChange={(e) => setPeakSeasonDays(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                 min="0"
                 max="365"
               />
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>Blue Mountains peak: Dec-Feb, Easter, long weekends</p>
+              <p className="text-tiny text-neutral-light mt-tiny">Blue Mountains peak: Dec-Feb, Easter, long weekends</p>
             </div>
             
             {/* Cleaning Fee */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Cleaning Fee per Stay
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
                 <input
                   type="number"
                   value={cleaningFee}
                   onChange={(e) => setCleaningFee(Number(e.target.value))}
-                  className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  className="w-full pl-8 pr-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   min="0"
                   step="5"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1" style={{ fontFamily: 'Arial, sans-serif' }}>
+              <p className="text-tiny text-neutral-light mt-tiny">
                 Charged per booking, not per night. Blue Mountains average: $60-85
               </p>
             </div>
             
             {/* Personal Use */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mb-small">
+              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Your Personal Use (days per year)
               </label>
               <input
                 type="number"
                 value={personalUse}
                 onChange={(e) => setPersonalUse(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                 min="0"
                 max="365"
               />
@@ -516,43 +506,42 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Results Panel */}
-          <div className="bg-white rounded-lg p-6 shadow-sm" style={{ borderLeft: '4px solid #c67a3e' }}>
-            <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <div className="bg-white rounded-standard p-medium shadow-small border-l-4 border-tt-timber">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your ROI Projection
             </h3>
             
             {/* Key Metrics */}
-            <div className="space-y-4 mb-6">
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>Annual Revenue</p>
-                <p className="text-2xl font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+            <div className="space-y-small mb-medium">
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+                <p className="text-small text-neutral mb-tiny">Annual Revenue</p>
+                <p className="text-h4 font-light text-tt-timber">
                   {formatCurrency(results.annualRevenue)}
                 </p>
               </div>
               
               <div 
-                className="bg-white rounded-lg p-4 shadow-sm border cursor-pointer"
-                style={{ borderColor: '#c67a3e' }}
+                className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border cursor-pointer"
                 onClick={toggleExpenses}
               >
                 <div className="flex justify-between items-center">
-                  <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>
-                    Annual Expenses <span className="text-xs text-gray-500">(click to view details)</span>
+                  <p className="text-small text-neutral mb-tiny">
+                    Annual Expenses <span className="text-tiny text-neutral-light">(click to view details)</span>
                   </p>
                   <span>{showExpenses ? '▲' : '▼'}</span>
                 </div>
-                <p className="text-2xl font-bold" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                <p className="text-h4 font-light text-neutral-darkest">
                   {formatCurrency(results.annualExpenses)}
                 </p>
                 
                 {/* Expense Breakdown */}
                 {showExpenses && (
-                  <div className="mt-3 pt-3 border-t border-gray-200">
-                    <div className="space-y-1">
+                  <div className="mt-xxsmall pt-xxsmall border-t border-light-card-border">
+                    <div className="space-y-tiny">
                       {Object.entries(results.breakdownDetails.annualExpenses || {}).map(([key, value]) => {
                         if (key !== 'total' && key !== 'cleaning' && value > 0) {
                           return (
-                            <div key={key} className="flex justify-between text-sm">
+                            <div key={key} className="flex justify-between text-small">
                               <span className="capitalize">{key}</span>
                               <span>{formatCurrency(value)}</span>
                             </div>
@@ -565,41 +554,41 @@ const TallTinyROICalculator = () => {
                 )}
               </div>
               
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>Net Annual Income</p>
-                <p className="text-2xl font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+                <p className="text-small text-neutral mb-tiny">Net Annual Income</p>
+                <p className="text-h4 font-light text-tt-timber">
                   {formatCurrency(results.netIncome)}
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>Payback Period</p>
-                <p className="text-2xl font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+                <p className="text-small text-neutral mb-tiny">Payback Period</p>
+                <p className="text-h4 font-light text-tt-timber">
                   {results.paybackYears.toFixed(1)} years
                 </p>
               </div>
             </div>
             
             {/* Future Returns */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>5-Year Profit</p>
-                <p className="text-lg font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+            <div className="grid grid-cols-2 gap-4 mb-medium">
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+                <p className="text-small text-neutral mb-tiny">5-Year Profit</p>
+                <p className="text-large font-semibold text-tt-timber">
                   {formatCurrency(results.fiveYearProfit)}
                 </p>
               </div>
-              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
-                <p className="text-sm text-gray-600 mb-1" style={{ fontFamily: 'Arial, sans-serif' }}>10-Year Profit</p>
-                <p className="text-lg font-bold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+                <p className="text-small text-neutral mb-tiny">10-Year Profit</p>
+                <p className="text-large font-semibold text-tt-timber">
                   {formatCurrency(results.tenYearProfit)}
                 </p>
               </div>
             </div>
             
             {/* Revenue Breakdown */}
-            <div className="bg-white rounded-lg p-4 shadow-sm mb-6 border" style={{ borderColor: '#c67a3e' }}>
-              <h4 className="font-semibold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Annual Breakdown</h4>
-              <div className="space-y-2 text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
+            <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall mb-medium border border-light-card-border">
+              <h4 className="text-medium font-semibold mb-xxsmall text-neutral-darkest">Annual Breakdown</h4>
+              <div className="space-y-tiny text-small">
                 <div className="flex justify-between">
                   <span>Peak Season Nights ({results.breakdownDetails.peakNights || 0})</span>
                   <span>{formatCurrency(results.breakdownDetails.peakRoomRevenue || 0)}</span>
@@ -612,15 +601,15 @@ const TallTinyROICalculator = () => {
                   <span>Cleaning Fees ({results.breakdownDetails.totalBookings || 0} stays)</span>
                   <span>{formatCurrency(results.breakdownDetails.cleaningRevenue || 0)}</span>
                 </div>
-                <div className="border-t pt-2 flex justify-between font-semibold">
+                <div className="border-t pt-tiny flex justify-between font-semibold">
                   <span>Total Revenue</span>
                   <span>{formatCurrency(results.annualRevenue)}</span>
                 </div>
-                <div className="flex justify-between" style={{ color: '#c67a3e' }}>
+                <div className="flex justify-between text-tt-timber">
                   <span>Annual Expenses</span>
                   <span>-{formatCurrency(results.annualExpenses)}</span>
                 </div>
-                <div className="border-t pt-2 flex justify-between font-bold" style={{ color: '#c67a3e' }}>
+                <div className="border-t pt-tiny flex justify-between font-bold text-tt-timber">
                   <span>Net Income</span>
                   <span>{formatCurrency(results.netIncome)}</span>
                 </div>
@@ -628,19 +617,17 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* CTA Buttons */}
-            <div className="space-y-3">
+            <div className="space-y-xxsmall">
               <button
                 onClick={() => setShowContact(true)}
-                className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90"
-                style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+                className="w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 bg-tt-green text-white"
               >
                 Get Your Free Site Assessment
               </button>
               
               <button
                 onClick={() => setShowDownloadForm(true)}
-                className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 border"
-                style={{ borderColor: '#797c67', color: '#797c67', fontFamily: 'Arial, sans-serif', backgroundColor: 'white' }}
+                className="w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 border border-tt-green text-tt-green bg-white"
               >
                 Download Our Tech Specs
               </button>
@@ -649,16 +636,15 @@ const TallTinyROICalculator = () => {
                 href="https://calendly.com/hello-talltiny/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 text-center"
-                style={{ backgroundColor: '#c67a3e', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+                className="block w-full font-bold py-xxsmall px-small rounded-button transition hover:opacity-90 text-center bg-tt-timber text-white"
               >
                 Let's Chat!
               </a>
             </div>
             
             {/* Western Sydney Airport Note */}
-            <div className="mt-4 rounded-lg p-3" style={{ backgroundColor: '#fdf8f3', border: '1px solid #c67a3e' }}>
-              <p className="text-sm" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="mt-small rounded-standard p-xxsmall bg-neutral-lightest border border-tt-timber">
+              <p className="text-small text-neutral-darkest">
                 <strong>Future Opportunity:</strong> Western Sydney Airport opens in 2026. 
                 Blue Mountains accommodation demand projected to increase 15-20%.
               </p>
@@ -667,28 +653,28 @@ const TallTinyROICalculator = () => {
         </div>
         
         {/* Updated Blue Mountains Context */}
-        <div className="mt-8 bg-white rounded-lg p-6 shadow-sm" style={{ borderTop: '4px solid #c67a3e' }}>
-          <h3 className="text-xl font-semibold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+        <div className="mt-large bg-white rounded-standard p-medium shadow-small border-t-4 border-tt-timber">
+          <h3 className="text-h5 font-light text-neutral-darkest mb-xxsmall">
             Why Invest In A Tiny Home in The Blue Mountains
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-small">
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>3.2M Annual Visitors</p>
-              <p style={{ color: '#424732' }}>Generating $1.1B in tourism revenue</p>
+              <p className="font-semibold text-tt-timber">3.2M Annual Visitors</p>
+              <p className="text-neutral-darkest">Generating $1.1B in tourism revenue</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>UNESCO World Heritage</p>
-              <p style={{ color: '#424732' }}>Premium eco-tourism destination</p>
+              <p className="font-semibold text-tt-timber">UNESCO World Heritage</p>
+              <p className="text-neutral-darkest">Premium eco-tourism destination</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>Accommodation Shortage</p>
-              <p style={{ color: '#424732' }}>Growing demand, limited supply</p>
+              <p className="font-semibold text-tt-timber">Accommodation Shortage</p>
+              <p className="text-neutral-darkest">Growing demand, limited supply</p>
             </div>
           </div>
         </div>
         
         {/* Added Website Link Section */}
-        <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg">
+        <div className="mt-large relative rounded-standard overflow-hidden shadow-large">
           <img 
             src="/assets/talltiny-weekender-lawson.avif" 
             alt="Tall Tiny Weekender in Lawson" 
@@ -699,8 +685,7 @@ const TallTinyROICalculator = () => {
               href="https://talltiny.com.au" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="px-8 py-4 bg-white bg-opacity-90 rounded-lg text-2xl font-bold transition-transform transform hover:scale-105"
-              style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}
+              className="px-medium py-xxsmall bg-white bg-opacity-90 rounded-standard text-h4 font-light transition-transform transform hover:scale-105 text-neutral-darkest"
             >
               Explore Our Website & Guides
             </a>
@@ -710,8 +695,8 @@ const TallTinyROICalculator = () => {
         {/* Contact Modal */}
         {showContact && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="bg-white rounded-standard p-medium max-w-md w-full mx-4">
+              <h3 className="text-h5 font-light text-neutral-darkest mb-small">
                 Get Your Free Site Assessment
               </h3>
               <form 
@@ -721,48 +706,45 @@ const TallTinyROICalculator = () => {
                 onSubmit={handleContactSubmit}
               >
                 <input type="hidden" name="form-name" value="site-assessment" />
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Name</label>
                   <input
                     type="text"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Email</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Phone</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Phone</label>
                   <input
                     type="tel"
                     name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
-                <div className="mb-4">
-                  <p className="text-sm text-gray-600" style={{ fontFamily: 'Arial, sans-serif' }}>
+                <div className="mb-small">
+                  <p className="text-small text-neutral">
                     Selected Model: <strong className="capitalize">{model}</strong> 
                     {' '}({formatCurrency(modelData[model].price)})
                   </p>
-                  <p className="text-sm text-gray-600" style={{ fontFamily: 'Arial, sans-serif' }}>
+                  <p className="text-small text-neutral">
                     Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
                   </p>
                 </div>
@@ -773,15 +755,13 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowContact(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
-                    style={{ fontFamily: 'Arial, sans-serif' }}
+                    className="flex-1 px-small py-tiny border border-neutral-light rounded-button hover:bg-neutral-lighter"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
-                    style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+                    className="flex-1 px-small py-tiny rounded-button hover:opacity-90 bg-tt-green text-white"
                   >
                     Get Assessment
                   </button>
@@ -794,8 +774,8 @@ const TallTinyROICalculator = () => {
         {/* Download Tech Specs Modal */}
         {showDownloadForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <div className="bg-white rounded-standard p-medium max-w-md w-full mx-4">
+              <h3 className="text-h5 font-light text-neutral-darkest mb-small">
                 Download Technical Specifications
               </h3>
               <form 
@@ -805,40 +785,37 @@ const TallTinyROICalculator = () => {
                 onSubmit={handleDownloadSubmit}
               >
                 <input type="hidden" name="form-name" value="tech-specs-download" />
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Name</label>
                   <input
                     type="text"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Email</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Phone</label>
+                <div className="mb-small">
+                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Phone</label>
                   <input
                     type="tel"
                     name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
                   />
                 </div>
                 <input type="hidden" name="requestType" value="Tech Specs Download" />
@@ -846,15 +823,13 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowDownloadForm(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
-                    style={{ fontFamily: 'Arial, sans-serif' }}
+                    className="flex-1 px-small py-tiny border border-neutral-light rounded-button hover:bg-neutral-lighter"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
-                    style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+                    className="flex-1 px-small py-tiny rounded-button hover:opacity-90 bg-tt-green text-white"
                   >
                     Download Now
                   </button>
@@ -865,8 +840,8 @@ const TallTinyROICalculator = () => {
         )}
         
         {/* Updated Footer with Phone Number */}
-        <footer className="mt-12 pt-6 border-t border-gray-300 text-center">
-          <div className="mb-4">
+        <footer className="mt-xlarge pt-medium border-t border-neutral-light text-center">
+          <div className="mb-small">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
               <img 
                 src="/assets/talltiny-logo.png" 
@@ -875,58 +850,33 @@ const TallTinyROICalculator = () => {
               />
             </a>
           </div>
-          <div className="mb-4 text-sm" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <div className="mb-small text-small text-neutral-darkest">
             <p>39 Park St, Lawson, NSW 2783</p>
             <p>
-              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-c67a3e">hello@talltiny.com.au</a>
+              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-tt-timber">hello@talltiny.com.au</a>
             </p>
             <p>
-              <a href="tel:0400755135" className="underline hover:text-c67a3e">0400 755 135</a>
+              <a href="tel:0400755135" className="underline hover:text-tt-timber">0400 755 135</a>
             </p>
           </div>
-          <div className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
+          <div className="text-tiny text-neutral-light">
             <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
             <p>
-              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Privacy Policy</a>
+              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-tt-timber">Privacy Policy</a>
               {' | '}
-              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Terms of Service</a>
+              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-tt-timber">Terms of Service</a>
             </p>
           </div>
         </footer>
         
         {/* Disclaimer */}
-        <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
+        <div className="mt-large text-center">
+          <p className="text-tiny text-neutral-light">
             * ROI calculations are estimates based on current Blue Mountains market conditions. 
             Actual results may vary based on location, property setup, marketing effectiveness, and market changes.
             Past performance does not guarantee future results.
           </p>
         </div>
-        
-        {/* Inline CSS for slider styling */}
-        <style jsx>{`
-          .slider::-webkit-slider-thumb {
-            appearance: none;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: #c67a3e;
-            cursor: pointer;
-          }
-          
-          .slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #c67a3e;
-            cursor: pointer;
-            border: none;
-          }
-          
-          input:focus {
-            ring-color: #c67a3e;
-          }
-        `}</style>
       </div>
     </div>
   );

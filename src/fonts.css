@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Roslindalevariable Opsz Slnt Wdth Wght';
+  src: url('/assets/fonts/RoslindaleVariableopszslntwdthwght.woff2') format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Intervariable';
+  src: url('/assets/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
