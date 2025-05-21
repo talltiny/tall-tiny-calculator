@@ -237,9 +237,6 @@ const TallTinyROICalculator = () => {
             <p className="mb-3">
               This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
             </p>
-            <p className="mb-3">
-              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
-            </p>
             <p>
               Simply adjust the parameters below to see what your potential return could be with a Tall Tiny home placed on your property.
             </p>
