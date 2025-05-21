@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-const [showDownload, setShowDownload] = useState(false);
-
 const TallTinyROICalculator = () => {
   // Model pricing and details
   const modelData = {
@@ -149,39 +147,11 @@ const TallTinyROICalculator = () => {
   };
   
   const handleContactSubmit = (e) => {
-  e.preventDefault();
-  
-  // Create form data to send
-  const formData = {
-    name: name,
-    email: email,
-    phone: phone,
-    model: model,
-    modelPrice: modelData[model].price,
-    projectedIncome: results.netIncome
+    e.preventDefault();
+    // Here you would typically send the data to your backend
+    alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
+    setShowContact(false);
   };
-  
-  // Send email notification
-  fetch("https://formsubmit.co/ajax/hello@talltiny.com.au", {
-    method: "POST",
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
-      setShowContact(false);
-    })
-    .catch(error => {
-      console.log(error);
-      alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
-      setShowContact(false);
-    });
-};
   
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-AU', {
@@ -221,6 +191,9 @@ const TallTinyROICalculator = () => {
   <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
     <p className="mb-3">
       This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
+    </p>
+    <p>
+      With no council approval required and delivery in just 12 weeks, you can transform your backyard into a revenue-generating guest accommodation that pays for itself.
     </p>
   </div>
   
@@ -550,36 +523,14 @@ const TallTinyROICalculator = () => {
               </div>
             </div>
             
-            {/* CTA Buttons */}
-<div className="space-y-3">
-  <button
-    onClick={() => setShowContact(true)}
-    className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90"
-    style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
-  >
-    Get Your Free Site Assessment
-  </button>
-  
-  <div className="grid grid-cols-2 gap-3">
-    <button
-      onClick={() => setShowDownload(true)}
-      className="font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 border"
-      style={{ borderColor: '#c67a3e', color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}
-    >
-      Download Tech Specs
-    </button>
-    
-    <a 
-      href="https://calendly.com/hello-talltiny/30min" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 text-center border"
-      style={{ borderColor: '#c67a3e', color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}
-    >
-      Let's Chat!
-    </a>
-  </div>
-</div>
+            {/* CTA Button */}
+            <button
+              onClick={() => setShowContact(true)}
+              className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90"
+              style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+            >
+              Get Your Free Site Assessment
+            </button>
             
             {/* Western Sydney Airport Note */}
             <div className="mt-4 rounded-lg p-3" style={{ backgroundColor: '#fdf8f3', border: '1px solid #c67a3e' }}>
@@ -682,65 +633,6 @@ const TallTinyROICalculator = () => {
           </div>
         )}
         
-        {/* Download Modal */}
-{showDownload && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-      <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-        Download Tech Specifications
-      </h3>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        // Send email to hello@talltiny.com.au
-        alert(`Thank you ${name}! We're sending the tech specs to your email.`);
-        setShowDownload(false);
-        // Redirect to download
-        window.open('/assets/Tall Tiny - Technical Specifications - 2025.pdf', '_blank');
-      }}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-            style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-            style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
-          />
-        </div>
-        <div className="flex gap-3">
-          <button
-            type="button"
-            onClick={() => setShowDownload(false)}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
-            style={{ fontFamily: 'Arial, sans-serif' }}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
-            style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
-          >
-            Download Now
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
-        
         {/* Disclaimer */}
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -774,28 +666,6 @@ const TallTinyROICalculator = () => {
             ring-color: #c67a3e;
           }
         `}</style>
-        {/* Footer */}
-<footer className="mt-12 pt-6 border-t" style={{ borderColor: '#e5e5e5' }}>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm" style={{ fontFamily: 'Arial, sans-serif' }}>
-    <div>
-      <h4 className="font-semibold mb-2" style={{ color: '#424732' }}>Tall Tiny</h4>
-      <p style={{ color: '#797c67' }}>Premium tiny homes crafted in the Blue Mountains</p>
-      <p className="mt-2" style={{ color: '#797c67' }}>Unit 2 / 39 Park St<br />Lawson NSW 2783</p>
-    </div>
-    <div>
-      <h4 className="font-semibold mb-2" style={{ color: '#424732' }}>Contact</h4>
-      <p><a href="mailto:hello@talltiny.com.au" style={{ color: '#c67a3e' }}>hello@talltiny.com.au</a></p>
-      <p className="mt-2"><a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer" style={{ color: '#c67a3e' }}>talltiny.com.au</a></p>
-    </div>
-    <div>
-      <h4 className="font-semibold mb-2" style={{ color: '#424732' }}>About</h4>
-      <p style={{ color: '#797c67' }}>Tall Tiny creates luxury tiny homes that combine sustainability, quality craftsmanship, and innovative design.</p>
-    </div>
-  </div>
-  <div className="mt-6 pt-4 border-t text-center text-xs" style={{ borderColor: '#e5e5e5', color: '#797c67', fontFamily: 'Arial, sans-serif' }}>
-    © {new Date().getFullYear()} Tall Tiny Pty Ltd. All rights reserved.
-  </div>
-</footer>
       </div>
     </div>
   );
