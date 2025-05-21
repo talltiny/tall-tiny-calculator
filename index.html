@@ -9,6 +9,24 @@
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Hidden Netlify Forms for pre-rendering -->
+    <form name="site-assessment" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="model" />
+      <input type="text" name="price" />
+      <input type="text" name="projection" />
+    </form>
+    
+    <form name="tech-specs-download" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="requestType" />
+    </form>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -50,6 +50,7 @@ const TallTinyROICalculator = () => {
   
   // Contact form state
   const [showContact, setShowContact] = useState(false);
+  const [showDownloadForm, setShowDownloadForm] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -148,9 +149,67 @@ const TallTinyROICalculator = () => {
   
   const handleContactSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
-    setShowContact(false);
+    
+    // Send email to hello@talltiny.com.au
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('model', model);
+    formData.append('price', modelData[model].price);
+    formData.append('projection', results.netIncome);
+    
+    // Using Netlify's form handling
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+      alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
+      setShowContact(false);
+      
+      // Reset form
+      setName('');
+      setEmail('');
+      setPhone('');
+    })
+    .catch((error) => {
+      alert('There was an error submitting your form. Please try again.');
+      console.error(error);
+    });
+  };
+  
+  const handleDownloadSubmit = (e) => {
+    e.preventDefault();
+    
+    // Send email to hello@talltiny.com.au for download request
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('requestType', 'Tech Specs Download');
+    
+    // Using Netlify's form handling
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+    .then(() => {
+      // Redirect to PDF
+      window.open('/assets/Tall Tiny - Technical Specifications - 2025.pdf', '_blank');
+      setShowDownloadForm(false);
+      
+      // Reset form
+      setName('');
+      setEmail('');
+      setPhone('');
+    })
+    .catch((error) => {
+      alert('There was an error processing your download. Please try again.');
+      console.error(error);
+    });
   };
   
   const formatCurrency = (amount) => {
@@ -172,20 +231,36 @@ const TallTinyROICalculator = () => {
         {/* Header with Logo */}
         <div className="text-center mb-8">
           <div className="mb-6">
-            <img 
-              src="/assets/talltiny-logo.png" 
-              alt="Tall Tiny Logo" 
-              className="mx-auto h-16 md:h-20"
-            />
+            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="/assets/talltiny-logo.png" 
+                alt="Tall Tiny Logo" 
+                className="mx-auto h-16 md:h-20"
+              />
+            </a>
           </div>
           <h1 className="text-4xl font-bold mb-3" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
             Your Backyard, Your Guest House
           </h1>
-          <p className="text-xl mb-6" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+          <p className="text-xl mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
             Sustainable accommodation that pays for itself
           </p>
+          
+          {/* New intro text */}
+          <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <p className="mb-3">
+              This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
+            </p>
+            <p className="mb-3">
+              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
+            </p>
+            <p>
+              Simply adjust the parameters below to see what your potential return could be with a Tall Tiny home placed on your property.
+            </p>
+          </div>
+          
           <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#c67a3e' }}>
-            <p className="font-semibold" style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
+            <p style={{ color: '#c67a3e', fontFamily: 'Arial, sans-serif' }}>
               ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
             </p>
           </div>
@@ -491,7 +566,7 @@ const TallTinyROICalculator = () => {
                   <span>Off-Peak Nights ({results.breakdownDetails.offPeakNights || 0})</span>
                   <span>{formatCurrency(results.breakdownDetails.offPeakRoomRevenue || 0)}</span>
                 </div>
-                <div className="flex justify-between">
+<div className="flex justify-between">
                   <span>Cleaning Fees ({results.breakdownDetails.totalBookings || 0} stays)</span>
                   <span>{formatCurrency(results.breakdownDetails.cleaningRevenue || 0)}</span>
                 </div>
@@ -510,14 +585,34 @@ const TallTinyROICalculator = () => {
               </div>
             </div>
             
-            {/* CTA Button */}
-            <button
-              onClick={() => setShowContact(true)}
-              className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90"
-              style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
-            >
-              Get Your Free Site Assessment
-            </button>
+            {/* CTA Buttons */}
+            <div className="space-y-3">
+              <button
+                onClick={() => setShowContact(true)}
+                className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90"
+                style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+              >
+                Get Your Free Site Assessment
+              </button>
+              
+              <button
+                onClick={() => setShowDownloadForm(true)}
+                className="w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 border"
+                style={{ borderColor: '#797c67', color: '#797c67', fontFamily: 'Arial, sans-serif', backgroundColor: 'white' }}
+              >
+                Download Our Tech Specs
+              </button>
+              
+              <a
+                href="https://calendly.com/hello-talltiny/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full font-bold py-3 px-4 rounded-lg transition duration-200 hover:opacity-90 text-center"
+                style={{ backgroundColor: '#c67a3e', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+              >
+                Let's Chat!
+              </a>
+            </div>
             
             {/* Western Sydney Airport Note */}
             <div className="mt-4 rounded-lg p-3" style={{ backgroundColor: '#fdf8f3', border: '1px solid #c67a3e' }}>
@@ -548,6 +643,33 @@ const TallTinyROICalculator = () => {
           </div>
         </div>
         
+        {/* Footer */}
+        <footer className="mt-12 pt-6 border-t border-gray-300 text-center">
+          <div className="mb-4">
+            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="/assets/talltiny-logo.png" 
+                alt="Tall Tiny Logo" 
+                className="mx-auto h-12"
+              />
+            </a>
+          </div>
+          <div className="mb-4 text-sm" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <p>39 Park St, Lawson, NSW 2783</p>
+            <p>
+              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-c67a3e">hello@talltiny.com.au</a>
+            </p>
+          </div>
+          <div className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
+            <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
+            <p>
+              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Privacy Policy</a>
+              {' | '}
+              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Terms of Service</a>
+            </p>
+          </div>
+        </footer>
+        
         {/* Contact Modal */}
         {showContact && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -555,11 +677,13 @@ const TallTinyROICalculator = () => {
               <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
                 Get Your Free Site Assessment
               </h3>
-              <form onSubmit={handleContactSubmit}>
+              <form onSubmit={handleContactSubmit} data-netlify="true" name="site-assessment">
+                <input type="hidden" name="form-name" value="site-assessment" />
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
                   <input
                     type="text"
+                    name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -571,6 +695,7 @@ const TallTinyROICalculator = () => {
                   <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Email</label>
                   <input
                     type="email"
+                    name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -582,6 +707,7 @@ const TallTinyROICalculator = () => {
                   <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Phone</label>
                   <input
                     type="tel"
+                    name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
@@ -598,6 +724,9 @@ const TallTinyROICalculator = () => {
                     Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
                   </p>
                 </div>
+                <input type="hidden" name="model" value={model} />
+                <input type="hidden" name="price" value={modelData[model].price} />
+                <input type="hidden" name="projection" value={results.netIncome} />
                 <div className="flex gap-3">
                   <button
                     type="button"
@@ -613,6 +742,74 @@ const TallTinyROICalculator = () => {
                     style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
                   >
                     Get Assessment
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        
+        {/* Download Tech Specs Modal */}
+        {showDownloadForm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+                Download Technical Specifications
+              </h3>
+              <form onSubmit={handleDownloadSubmit} data-netlify="true" name="tech-specs-download">
+                <input type="hidden" name="form-name" value="tech-specs-download" />
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
+                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
+                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
+                    style={{ '--tw-ring-color': '#c67a3e', fontFamily: 'Arial, sans-serif' }}
+                  />
+                </div>
+                <input type="hidden" name="requestType" value="Tech Specs Download" />
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowDownloadForm(false)}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                    style={{ fontFamily: 'Arial, sans-serif' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
+                    style={{ backgroundColor: '#797c67', color: '#ecebe4', fontFamily: 'Arial, sans-serif' }}
+                  >
+                    Download Now
                   </button>
                 </div>
               </form>
