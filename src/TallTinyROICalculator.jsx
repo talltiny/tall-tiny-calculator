@@ -1,49 +1,54 @@
 import React, { useState, useEffect } from 'react';
 
 const TallTinyROICalculator = () => {
-  // State for all inputs with Blue Mountains specific defaults
-  const [model, setModel] = useState('backyard');
-  const [nightlyRate, setNightlyRate] = useState(250);
-  const [peakOccupancy, setPeakOccupancy] = useState(80);
-  const [offPeakOccupancy, setOffPeakOccupancy] = useState(40);
-  const [peakSeasonDays, setPeakSeasonDays] = useState(120);
-  const [offSeasonDays, setOffSeasonDays] = useState(245);
-  const [cleaningFee, setCleaningFee] = useState(65);
-  const [personalUse, setPersonalUse] = useState(30);
-  
-  // Contact form state
-  const [showContact, setShowContact] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  
   // Model pricing and details
   const modelData = {
     studio: {
       price: 90000,
       size: '4.8m × 2.5m × 4.0m',
       features: 'Perfect studio/office space',
-      description: 'Ideal for creative professionals or as a compact guest retreat'
+      description: 'Ideal for creative professionals or as a compact guest retreat',
+      suggestedRate: 200
     },
     backyard: {
       price: 105000,
       size: '6.0m × 2.5m × 4.0m',
       features: 'Queen bed + workspace',
-      description: 'The perfect balance of space and functionality for guests'
+      description: 'The perfect balance of space and functionality for guests',
+      suggestedRate: 225
     },
     weekender: {
       price: 130000,
       size: '7.2m × 2.5m × 4.0m',
       features: 'Premium guest experience',
-      description: 'Luxury tiny home designed for weekend escapes'
+      description: 'Luxury tiny home designed for weekend escapes',
+      suggestedRate: 250
     },
     residence: {
       price: 155000,
       size: '8.4m × 2.5m × 4.0m',
       features: 'Full-sized living experience',
-      description: 'Complete tiny home with all amenities for extended stays'
+      description: 'Complete tiny home with all amenities for extended stays',
+      suggestedRate: 275
     }
   };
+  
+  // State for all inputs with Blue Mountains specific defaults
+  const [model, setModel] = useState('backyard');
+  const [nightlyRate, setNightlyRate] = useState(modelData.backyard.suggestedRate);
+  const [peakOccupancy, setPeakOccupancy] = useState(80);
+  const [offPeakOccupancy, setOffPeakOccupancy] = useState(40);
+  const [peakSeasonDays, setPeakSeasonDays] = useState(120);
+  const [offSeasonDays, setOffSeasonDays] = useState(245);
+  const [cleaningFee, setCleaningFee] = useState(65);
+  const [personalUse, setPersonalUse] = useState(30);
+  const [averageStayLength, setAverageStayLength] = useState(2);
+  
+  // Contact form state
+  const [showContact, setShowContact] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   
   // Calculated values
   const [results, setResults] = useState({
@@ -59,7 +64,7 @@ const TallTinyROICalculator = () => {
   // Calculate ROI whenever inputs change
   useEffect(() => {
     calculateROI();
-  }, [model, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse]);
+  }, [model, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse, averageStayLength]);
   
   const calculateROI = () => {
     const modelPrice = modelData[model].price;
@@ -69,15 +74,20 @@ const TallTinyROICalculator = () => {
     const availablePeakDays = Math.min(peakSeasonDays, totalAvailableDays);
     const availableOffPeakDays = Math.min(offSeasonDays, totalAvailableDays - availablePeakDays);
     
-    // Calculate bookings
-    const peakBookings = Math.floor(availablePeakDays * (peakOccupancy / 100));
-    const offPeakBookings = Math.floor(availableOffPeakDays * (offPeakOccupancy / 100));
+    // Calculate bookings based on average stay length
+    const peakNights = Math.floor(availablePeakDays * (peakOccupancy / 100));
+    const offPeakNights = Math.floor(availableOffPeakDays * (offPeakOccupancy / 100));
+    const totalNights = peakNights + offPeakNights;
+    
+    // Calculate number of stays (bookings) based on average stay length
+    const peakBookings = Math.floor(peakNights / averageStayLength);
+    const offPeakBookings = Math.floor(offPeakNights / averageStayLength);
     const totalBookings = peakBookings + offPeakBookings;
     
     // Calculate revenue
     const peakNightlyRate = nightlyRate * 1.2; // 20% premium in peak season
-    const peakRoomRevenue = peakBookings * peakNightlyRate;
-    const offPeakRoomRevenue = offPeakBookings * nightlyRate;
+    const peakRoomRevenue = peakNights * peakNightlyRate;
+    const offPeakRoomRevenue = offPeakNights * nightlyRate;
     const cleaningRevenue = totalBookings * cleaningFee;
     const totalRevenue = peakRoomRevenue + offPeakRoomRevenue + cleaningRevenue;
     
@@ -101,6 +111,9 @@ const TallTinyROICalculator = () => {
     
     // Store detailed breakdown
     const breakdownDetails = {
+      peakNights,
+      offPeakNights,
+      totalNights,
       peakBookings,
       offPeakBookings,
       totalBookings,
@@ -125,6 +138,8 @@ const TallTinyROICalculator = () => {
   
   const handleModelChange = (selectedModel) => {
     setModel(selectedModel);
+    // Update nightly rate based on selected model
+    setNightlyRate(modelData[selectedModel].suggestedRate);
   };
   
   const handleContactSubmit = (e) => {
@@ -154,7 +169,7 @@ const TallTinyROICalculator = () => {
         <div className="text-center mb-8">
           <div className="mb-6">
             <img 
-              src="/assets/talltiny-logo.png"
+              src="/assets/talltiny-logo.png" 
               alt="Tall Tiny Logo" 
               className="mx-auto h-16 md:h-20"
             />
@@ -165,8 +180,8 @@ const TallTinyROICalculator = () => {
           <p className="text-xl mb-6" style={{ color: '#424732' }}>
             Sustainable accommodation that pays for itself
           </p>
-          <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#c67a3e' }}>
-            <p className="font-semibold" style={{ color: '#c67a3e' }}>
+          <div className="bg-white border rounded-lg p-4 inline-block" style={{ borderColor: '#797c67' }}>
+            <p className="font-semibold" style={{ color: '#797c67' }}>
               ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
             </p>
           </div>
@@ -187,15 +202,18 @@ const TallTinyROICalculator = () => {
                     ? 'border-2' 
                     : 'border-gray-200 hover:border-gray-400'
                 }`}
-                style={model === key ? { borderColor: '#c67a3e', backgroundColor: '#fdf8f3' } : {}}
+                style={model === key ? { borderColor: '#797c67', backgroundColor: '#f7f7f4' } : {}}
               >
                 <h3 className="font-semibold capitalize text-lg mb-2" style={{ color: '#424732' }}>
                   {key}
                 </h3>
                 <p className="text-sm text-gray-600 mb-1">{data.size}</p>
                 <p className="text-sm text-gray-600 mb-2">{data.features}</p>
-                <p className="font-bold" style={{ color: '#c67a3e' }}>
+                <p className="font-bold" style={{ color: '#797c67' }}>
                   {formatCurrency(data.price)}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Suggested nightly rate: {formatCurrency(data.suggestedRate)}
                 </p>
               </div>
             ))}
@@ -211,13 +229,13 @@ const TallTinyROICalculator = () => {
             </h3>
             
             {/* Selected Model Info */}
-            <div className="bg-white rounded-lg p-4 mb-6 border" style={{ borderColor: '#c67a3e' }}>
+            <div className="bg-white rounded-lg p-4 mb-6 border" style={{ borderColor: '#797c67' }}>
               <h4 className="font-semibold text-lg capitalize mb-2" style={{ color: '#424732' }}>
                 {model} Model
               </h4>
               <p className="text-gray-600 text-sm mb-1">{modelData[model].description}</p>
               <p className="text-gray-600 text-sm mb-2">Size: {modelData[model].size}</p>
-              <p className="font-bold text-lg" style={{ color: '#c67a3e' }}>
+              <p className="font-bold text-lg" style={{ color: '#797c67' }}>
                 {formatCurrency(modelData[model].price)}
               </p>
             </div>
@@ -234,12 +252,42 @@ const TallTinyROICalculator = () => {
                   value={nightlyRate}
                   onChange={(e) => setNightlyRate(Number(e.target.value))}
                   className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': '#c67a3e' }}
+                  style={{ '--tw-ring-color': '#797c67' }}
                   min="0"
                   step="10"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1">Blue Mountains average: $220-$280</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Blue Mountains average: $220-$280 
+                <a 
+                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="ml-1 underline"
+                  style={{ color: '#797c67' }}
+                >
+                  (Source: AirDNA)
+                </a>
+              </p>
+            </div>
+            
+            {/* Average Stay Length */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2" style={{ color: '#424732' }}>
+                Average Length of Stay (nights)
+              </label>
+              <input
+                type="number"
+                value={averageStayLength}
+                onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
+                style={{ '--tw-ring-color': '#797c67' }}
+                min="1"
+                step="0.5"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Blue Mountains average: 2-3 nights
+              </p>
             </div>
             
             {/* Peak Season Occupancy */}
@@ -258,8 +306,20 @@ const TallTinyROICalculator = () => {
               />
               <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span>0%</span>
+                <span>Blue Mountains peak average: 76-85%</span>
                 <span>100%</span>
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                <a 
+                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline"
+                  style={{ color: '#797c67' }}
+                >
+                  Source: AirDNA Blue Mountains Market Data
+                </a>
+              </p>
             </div>
             
             {/* Off-Peak Occupancy */}
@@ -278,8 +338,20 @@ const TallTinyROICalculator = () => {
               />
               <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span>0%</span>
+                <span>Blue Mountains off-peak average: 35-45%</span>
                 <span>100%</span>
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                <a 
+                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="underline"
+                  style={{ color: '#797c67' }}
+                >
+                  Source: AirDNA Seasonal Trends
+                </a>
+              </p>
             </div>
             
             {/* Peak Season Days */}
@@ -292,7 +364,7 @@ const TallTinyROICalculator = () => {
                 value={peakSeasonDays}
                 onChange={(e) => setPeakSeasonDays(Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#c67a3e' }}
+                style={{ '--tw-ring-color': '#797c67' }}
                 min="0"
                 max="365"
               />
@@ -311,11 +383,14 @@ const TallTinyROICalculator = () => {
                   value={cleaningFee}
                   onChange={(e) => setCleaningFee(Number(e.target.value))}
                   className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                  style={{ '--tw-ring-color': '#c67a3e' }}
+                  style={{ '--tw-ring-color': '#797c67' }}
                   min="0"
                   step="5"
                 />
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Charged per booking, not per night. Blue Mountains average: $60-85
+              </p>
             </div>
             
             {/* Personal Use */}
@@ -328,7 +403,7 @@ const TallTinyROICalculator = () => {
                 value={personalUse}
                 onChange={(e) => setPersonalUse(Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': '#c67a3e' }}
+                style={{ '--tw-ring-color': '#797c67' }}
                 min="0"
                 max="365"
               />
@@ -336,28 +411,28 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Results Panel */}
-          <div className="bg-white rounded-lg p-6 shadow-sm" style={{ borderLeft: '4px solid #c67a3e' }}>
+          <div className="bg-white rounded-lg p-6 shadow-sm" style={{ borderLeft: '4px solid #797c67' }}>
             <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732' }}>
               Your ROI Projection
             </h3>
             
             {/* Key Metrics */}
             <div className="space-y-4 mb-6">
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
+              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#797c67' }}>
                 <p className="text-sm text-gray-600 mb-1">Annual Revenue</p>
-                <p className="text-2xl font-bold" style={{ color: '#c67a3e' }}>
+                <p className="text-2xl font-bold" style={{ color: '#797c67' }}>
                   {formatCurrency(results.annualRevenue)}
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
+              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#797c67' }}>
                 <p className="text-sm text-gray-600 mb-1">Net Annual Income</p>
                 <p className="text-2xl font-bold" style={{ color: '#424732' }}>
                   {formatCurrency(results.netIncome)}
                 </p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
+              <div className="bg-white rounded-lg p-4 shadow-sm border" style={{ borderColor: '#797c67' }}>
                 <p className="text-sm text-gray-600 mb-1">Payback Period</p>
                 <p className="text-2xl font-bold" style={{ color: '#797c67' }}>
                   {results.paybackYears.toFixed(1)} years
@@ -367,35 +442,35 @@ const TallTinyROICalculator = () => {
             
             {/* Future Returns */}
             <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
+              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#797c67' }}>
                 <p className="text-sm text-gray-600 mb-1">5-Year Profit</p>
-                <p className="text-lg font-bold" style={{ color: '#c67a3e' }}>
+                <p className="text-lg font-bold" style={{ color: '#797c67' }}>
                   {formatCurrency(results.fiveYearProfit)}
                 </p>
               </div>
-              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#c67a3e' }}>
+              <div className="bg-white rounded-lg p-3 shadow-sm border" style={{ borderColor: '#797c67' }}>
                 <p className="text-sm text-gray-600 mb-1">10-Year Profit</p>
-                <p className="text-lg font-bold" style={{ color: '#c67a3e' }}>
+                <p className="text-lg font-bold" style={{ color: '#797c67' }}>
                   {formatCurrency(results.tenYearProfit)}
                 </p>
               </div>
             </div>
             
             {/* Revenue Breakdown */}
-            <div className="bg-white rounded-lg p-4 shadow-sm mb-6 border" style={{ borderColor: '#c67a3e' }}>
+            <div className="bg-white rounded-lg p-4 shadow-sm mb-6 border" style={{ borderColor: '#797c67' }}>
               <h4 className="font-semibold mb-3" style={{ color: '#424732' }}>Annual Breakdown</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Peak Season Nights ({results.breakdownDetails.peakBookings})</span>
-                  <span>{formatCurrency(results.breakdownDetails.peakRoomRevenue)}</span>
+                  <span>Peak Season Nights ({results.breakdownDetails.peakNights || 0})</span>
+                  <span>{formatCurrency(results.breakdownDetails.peakRoomRevenue || 0)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Off-Peak Nights ({results.breakdownDetails.offPeakBookings})</span>
-                  <span>{formatCurrency(results.breakdownDetails.offPeakRoomRevenue)}</span>
+                  <span>Off-Peak Nights ({results.breakdownDetails.offPeakNights || 0})</span>
+                  <span>{formatCurrency(results.breakdownDetails.offPeakRoomRevenue || 0)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Cleaning Fees ({results.breakdownDetails.totalBookings} stays)</span>
-                  <span>{formatCurrency(results.breakdownDetails.cleaningRevenue)}</span>
+                  <span>Cleaning Fees ({results.breakdownDetails.totalBookings || 0} stays)</span>
+                  <span>{formatCurrency(results.breakdownDetails.cleaningRevenue || 0)}</span>
                 </div>
                 <div className="border-t pt-2 flex justify-between font-semibold">
                   <span>Total Revenue</span>
@@ -405,7 +480,7 @@ const TallTinyROICalculator = () => {
                   <span>Annual Expenses</span>
                   <span>-{formatCurrency(results.annualExpenses)}</span>
                 </div>
-                <div className="border-t pt-2 flex justify-between font-bold" style={{ color: '#c67a3e' }}>
+                <div className="border-t pt-2 flex justify-between font-bold" style={{ color: '#797c67' }}>
                   <span>Net Income</span>
                   <span>{formatCurrency(results.netIncome)}</span>
                 </div>
@@ -422,7 +497,7 @@ const TallTinyROICalculator = () => {
             </button>
             
             {/* Western Sydney Airport Note */}
-            <div className="mt-4 rounded-lg p-3" style={{ backgroundColor: '#fdf8f3', border: '1px solid #c67a3e' }}>
+            <div className="mt-4 rounded-lg p-3" style={{ backgroundColor: '#f7f7f4', border: '1px solid #797c67' }}>
               <p className="text-sm" style={{ color: '#424732' }}>
                 <strong>Future Opportunity:</strong> Western Sydney Airport opens in 2026. 
                 Blue Mountains accommodation demand projected to increase 15-20%.
@@ -432,19 +507,19 @@ const TallTinyROICalculator = () => {
         </div>
         
         {/* Blue Mountains Context */}
-        <div className="mt-8 bg-white rounded-lg p-6 shadow-sm" style={{ borderTop: '4px solid #c67a3e' }}>
+        <div className="mt-8 bg-white rounded-lg p-6 shadow-sm" style={{ borderTop: '4px solid #797c67' }}>
           <h3 className="text-xl font-semibold mb-3" style={{ color: '#424732' }}>Why Blue Mountains?</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>3.2M Annual Visitors</p>
+              <p className="font-semibold" style={{ color: '#797c67' }}>3.2M Annual Visitors</p>
               <p style={{ color: '#424732' }}>Generating $1.1B in tourism revenue</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>UNESCO World Heritage</p>
+              <p className="font-semibold" style={{ color: '#797c67' }}>UNESCO World Heritage</p>
               <p style={{ color: '#424732' }}>Premium eco-tourism destination</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: '#c67a3e' }}>Accommodation Shortage</p>
+              <p className="font-semibold" style={{ color: '#797c67' }}>Accommodation Shortage</p>
               <p style={{ color: '#424732' }}>Growing demand, limited supply</p>
             </div>
           </div>
@@ -466,7 +541,7 @@ const TallTinyROICalculator = () => {
                     onChange={(e) => setName(e.target.value)}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e' }}
+                    style={{ '--tw-ring-color': '#797c67' }}
                   />
                 </div>
                 <div className="mb-4">
@@ -477,7 +552,7 @@ const TallTinyROICalculator = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e' }}
+                    style={{ '--tw-ring-color': '#797c67' }}
                   />
                 </div>
                 <div className="mb-4">
@@ -488,7 +563,7 @@ const TallTinyROICalculator = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2"
-                    style={{ '--tw-ring-color': '#c67a3e' }}
+                    style={{ '--tw-ring-color': '#797c67' }}
                   />
                 </div>
                 <div className="mb-4">
@@ -537,7 +612,7 @@ const TallTinyROICalculator = () => {
             height: 20px;
             width: 20px;
             border-radius: 50%;
-            background: #c67a3e;
+            background: #797c67;
             cursor: pointer;
           }
           
@@ -545,13 +620,13 @@ const TallTinyROICalculator = () => {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #c67a3e;
+            background: #797c67;
             cursor: pointer;
             border: none;
           }
           
           input:focus {
-            ring-color: #c67a3e;
+            ring-color: #797c67;
           }
         `}</style>
       </div>
