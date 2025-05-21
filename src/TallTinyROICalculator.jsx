@@ -202,12 +202,7 @@ const TallTinyROICalculator = () => {
   };
   
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
+    return `${formatNumber(amount)}`;
   };
   
   const formatNumber = (num) => {
@@ -220,7 +215,7 @@ const TallTinyROICalculator = () => {
   
   return (
     <div className="min-h-screen bg-neutral-lighter font-body">
-      <div className="max-w-lg mx-auto py-large px-medium">
+      <div className="max-w-lg py-large">
         {/* Header with Logo */}
         <header className="text-center mb-medium">
           <div className="mb-xsmall">
@@ -234,7 +229,8 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Added Investment Calculator Title */}
-          <h1 className="text-h2 font-light text-neutral-darkest mb-medium">
+          <h1 className="text-h2 font-light text-neutral-darkest mb-medium" 
+              style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 48'}}>
             Investment Calculator
           </h1>
           
@@ -275,39 +271,37 @@ const TallTinyROICalculator = () => {
         </header>
         
         {/* Model Selection */}
-        <section className="mb-large">
-          <h2 className="text-h4 font-light text-neutral-darkest mb-small text-center">
-            Choose Your Tiny Home Model
-          </h2>
+        <section className="mb-medium">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(modelData).map(([key, data]) => (
               <div
                 key={key}
                 onClick={() => handleModelChange(key)}
-                className={`border-2 rounded-standard p-xxsmall cursor-pointer transition-all bg-white ${
+                className={`border border-neutral-light rounded-standard p-medium cursor-pointer bg-white ${
                   model === key 
                     ? 'border-tt-timber bg-neutral-lightest' 
-                    : 'border-neutral-light hover:border-neutral'
+                    : 'hover:border-neutral'
                 }`}
+                style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
               >
-                {/* Model Image */}
-                <div className="mb-xxsmall h-32 flex items-center justify-center overflow-hidden">
+                <div className="mb-xxsmall flex justify-center h-24">
                   <img 
                     src={data.image} 
                     alt={`${key} model`} 
-                    className="object-contain h-full w-full"
+                    className="object-contain h-full"
                   />
                 </div>
-                <h3 className="font-semibold capitalize text-large mb-tiny text-neutral-darkest">
+                <h3 className="font-light capitalize text-h5 mb-tiny text-neutral-darkest"
+                    style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
                   {key}
                 </h3>
                 <p className="text-small text-neutral mb-tiny">{data.size}</p>
-                <p className="text-small text-neutral mb-tiny">{data.features}</p>
-                <p className="font-bold text-tt-timber">
-                  {formatCurrency(data.price)}
+                <p className="text-small text-neutral mb-medium">{data.features}</p>
+                <p className="font-bold text-tt-timber text-h5">
+                  ${formatNumber(data.price)}
                 </p>
                 <p className="text-tiny text-neutral-light mt-tiny">
-                  Suggested nightly rate: {formatCurrency(data.suggestedRate)}
+                  Suggested nightly rate: ${data.suggestedRate}
                 </p>
               </div>
             ))}
@@ -318,21 +312,23 @@ const TallTinyROICalculator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Panel */}
           <div className="bg-white rounded-standard p-medium shadow-small">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-medium"
+                style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
               Your Investment Details
             </h3>
             
             {/* Selected Model Info */}
-            <div className="bg-light-card-bg rounded-standard p-xxsmall mb-medium border border-light-card-border">
+            <div className="bg-light-card-bg rounded-standard p-small mb-medium border border-light-card-border">
               <div className="flex items-center">
                 <div className="flex-1">
-                  <h4 className="font-semibold text-large capitalize mb-tiny text-neutral-darkest">
+                  <h4 className="font-light text-h6 capitalize mb-tiny text-neutral-darkest"
+                      style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'}}>
                     {model} Model
                   </h4>
                   <p className="text-neutral text-small mb-tiny">{modelData[model].description}</p>
-                  <p className="text-neutral text-small mb-tiny">Size: {modelData[model].size}</p>
+                  <p className="text-neutral text-small mb-medium">Size: {modelData[model].size}</p>
                   <p className="font-bold text-large text-tt-timber">
-                    {formatCurrency(modelData[model].price)}
+                    ${formatNumber(modelData[model].price)}
                   </p>
                 </div>
                 <div className="w-24 h-24 ml-2">
@@ -346,7 +342,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Nightly Rate */}
-            <div className="mb-small">
+            <div className="mb-medium">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Base Nightly Rate (Peak +20% automatically applied)
               </label>
@@ -367,7 +363,7 @@ const TallTinyROICalculator = () => {
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="ml-1 underline text-tt-timber"
+                  className="ml-1 text-tt-timber"
                 >
                   (Source: AirDNA)
                 </a>
@@ -375,7 +371,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Average Stay Length */}
-            <div className="mb-small">
+            <div className="mb-medium">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Average Length of Stay (nights)
               </label>
@@ -393,7 +389,7 @@ const TallTinyROICalculator = () => {
             </div>
             
             {/* Peak Season Occupancy */}
-            <div className="mb-small">
+            <div className="mb-medium">
               <label className="block text-small font-medium mb-tiny text-neutral-darkest">
                 Peak Season Occupancy: {peakOccupancy}%
               </label>
@@ -415,7 +411,7 @@ const TallTinyROICalculator = () => {
                   href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="underline text-tt-timber"
+                  className="text-tt-timber"
                 >
                   Source: AirDNA Blue Mountains Market Data
                 </a>
@@ -507,21 +503,23 @@ const TallTinyROICalculator = () => {
           
           {/* Results Panel */}
           <div className="bg-white rounded-standard p-medium shadow-small border-l-4 border-tt-timber">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-medium"
+                style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
               Your ROI Projection
             </h3>
             
             {/* Key Metrics */}
-            <div className="space-y-small mb-medium">
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+            <div className="space-y-medium mb-medium">
+              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Annual Revenue</p>
-                <p className="text-h4 font-light text-tt-timber">
-                  {formatCurrency(results.annualRevenue)}
+                <p className="text-h4 font-light text-tt-timber" 
+                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+                  ${formatNumber(results.annualRevenue)}
                 </p>
               </div>
               
               <div 
-                className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border cursor-pointer"
+                className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border cursor-pointer"
                 onClick={toggleExpenses}
               >
                 <div className="flex justify-between items-center">
@@ -530,8 +528,9 @@ const TallTinyROICalculator = () => {
                   </p>
                   <span>{showExpenses ? '▲' : '▼'}</span>
                 </div>
-                <p className="text-h4 font-light text-neutral-darkest">
-                  {formatCurrency(results.annualExpenses)}
+                <p className="text-h4 font-light text-neutral-darkest"
+                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+                  ${formatNumber(results.annualExpenses)}
                 </p>
                 
                 {/* Expense Breakdown */}
@@ -543,7 +542,7 @@ const TallTinyROICalculator = () => {
                           return (
                             <div key={key} className="flex justify-between text-small">
                               <span className="capitalize">{key}</span>
-                              <span>{formatCurrency(value)}</span>
+                              <span>${formatNumber(value)}</span>
                             </div>
                           );
                         }
@@ -554,18 +553,23 @@ const TallTinyROICalculator = () => {
                 )}
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Net Annual Income</p>
-                <p className="text-h4 font-light text-tt-timber">
-                  {formatCurrency(results.netIncome)}
+                <p className="text-h4 font-light text-tt-timber"
+                   style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+                  ${formatNumber(results.netIncome)}
                 </p>
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
+              <div className="bg-light-card-bg rounded-standard p-small shadow-xxsmall border border-light-card-border">
                 <p className="text-small text-neutral mb-tiny">Payback Period</p>
-                <p className="text-h4 font-light text-tt-timber">
-                  {results.paybackYears.toFixed(1)} years
-                </p>
+                <div>
+                  <p className="text-h4 font-light text-tt-timber"
+                     style={{fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif", fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'}}>
+                    {results.paybackYears.toFixed(1)}
+                  </p>
+                  <p className="text-large text-tt-timber">years</p>
+                </div>
               </div>
             </div>
             

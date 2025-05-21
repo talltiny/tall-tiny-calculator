@@ -393,15 +393,58 @@ img {
 .shadow-xlarge { box-shadow: var(--shadow-xlarge); }
 .shadow-xxlarge { box-shadow: var(--shadow-xxlarge); }
 
-/* Border Radius */
-.rounded-standard { border-radius: var(--radius-standard); }
-.rounded-button { border-radius: var(--radius-button); }
+/* Add container classes with proper padding */
+.max-w-lg {
+  max-width: 80rem; /* 1280px */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 
-/* Layout */
-.min-h-screen { min-height: 100vh; }
-.max-w-sm { max-width: 52rem; } /* 832px */
-.max-w-md { max-width: 64rem; } /* 1024px */
-.max-w-lg { max-width: 80rem; } /* 1280px */
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.py-large {
+  padding-top: 2rem; /* Reduced from 3rem */
+  padding-bottom: 2rem; /* Reduced from 3rem */
+}
+
+.px-medium {
+  padding-left: 1rem; /* Reduced from 2rem */
+  padding-right: 1rem; /* Reduced from 2rem */
+}
+
+/* Card and border styles */
+.rounded-standard {
+  border-radius: 16px;
+}
+
+.rounded-button {
+  border-radius: 24px 4px; /* asymmetrical radius */
+}
+
+.shadow-small {
+  box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-light-card-bg {
+  background-color: #faf9f0;
+}
+
+.border-tt-timber {
+  border-color: #d27530;
+}
+
+.text-tt-timber {
+  color: #d27530;
+}
 
 /* Typography */
 .text-center { text-align: center; }
