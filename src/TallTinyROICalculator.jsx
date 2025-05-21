@@ -220,7 +220,7 @@ const TallTinyROICalculator = () => {
   
   return (
     <div className="min-h-screen bg-neutral-lighter font-body">
-      <div className="max-w-lg mx-auto py-large px-medium md:px-medium lg:px-large">
+      <div className="max-w-xl mx-auto py-large px-medium md:px-medium lg:px-large">
         {/* Header with Logo */}
         <header className="text-center mb-medium">
           <div className="mb-xsmall">
@@ -255,7 +255,7 @@ const TallTinyROICalculator = () => {
           </p>
           
           {/* New intro text */}
-          <div className="max-w-md mx-auto mb-medium text-regular text-neutral-darkest">
+          <div className="max-w-lg mx-auto mb-medium text-regular text-neutral-darkest">
             <p className="mb-xxsmall">
               This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
             </p>
@@ -279,12 +279,12 @@ const TallTinyROICalculator = () => {
           <h2 className="text-h4 font-light text-neutral-darkest mb-small text-center">
             Choose Your Tiny Home Model
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {Object.entries(modelData).map(([key, data]) => (
               <div
                 key={key}
                 onClick={() => handleModelChange(key)}
-                className={`model-card border-2 rounded-standard p-xxsmall cursor-pointer transition-all bg-white ${
+                className={`model-card border-2 rounded-standard p-small cursor-pointer transition-all bg-white ${
                   model === key ? 'active' : ''
                 }`}
               >
@@ -313,9 +313,9 @@ const TallTinyROICalculator = () => {
         </section>
         
         {/* Calculator Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Input Panel */}
-          <div className="bg-white rounded-standard p-medium shadow-small calculator-card">
+          <div className="bg-white rounded-standard p-large shadow-small calculator-card">
             <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your Investment Details
             </h3>
@@ -504,7 +504,7 @@ const TallTinyROICalculator = () => {
           </div>
           
           {/* Results Panel */}
-          <div className="bg-white rounded-standard p-medium shadow-small border-l-4 border-tt-timber calculator-card">
+          <div className="bg-white rounded-standard p-large shadow-small border-l-4 border-tt-timber calculator-card">
             <h3 className="text-h5 font-light text-neutral-darkest mb-small">
               Your ROI Projection
             </h3>
@@ -651,21 +651,21 @@ const TallTinyROICalculator = () => {
         </div>
         
         {/* Updated Blue Mountains Context */}
-        <div className="mt-large bg-white rounded-standard p-medium shadow-small border-t-4 border-tt-timber calculator-card">
+        <div className="mt-large bg-white rounded-standard p-large shadow-small border-t-4 border-tt-timber calculator-card">
           <h3 className="text-h5 font-light text-neutral-darkest mb-medium mobile-text-center">
             Why Invest In A Tiny Home in The Blue Mountains
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-small">
-            <div className="p-small rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber mb-tiny">3.2M Annual Visitors</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-small">
+            <div className="p-medium rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber text-large mb-tiny">3.2M Annual Visitors</p>
               <p className="text-neutral-darkest">Generating $1.1B in tourism revenue</p>
             </div>
-            <div className="p-small rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber mb-tiny">UNESCO World Heritage</p>
+            <div className="p-medium rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber text-large mb-tiny">UNESCO World Heritage</p>
               <p className="text-neutral-darkest">Premium eco-tourism destination</p>
             </div>
-            <div className="p-small rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber mb-tiny">Accommodation Shortage</p>
+            <div className="p-medium rounded-standard bg-light-card-bg">
+              <p className="font-semibold text-tt-timber text-large mb-tiny">Accommodation Shortage</p>
               <p className="text-neutral-darkest">Growing demand, limited supply</p>
             </div>
           </div>

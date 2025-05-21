@@ -1,4 +1,20 @@
-/* Form elements */
+/* Wide screen specific styles */
+@media (min-width: 1441px) {
+  .container-wide {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .xl\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .xl\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .xl\:grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+  
+  .xl\:px-xxlarge { padding-left: var(--space-xxlarge); padding-right: var(--space-xxlarge); }
+  .xl\:py-xlarge { padding-top: var(--space-xlarge); padding-bottom: var(--space-xlarge); }
+  
+  .heading-xl-large { font-size: var(--font-h1); }
+}/* Form elements */
 input {
   height: 2.75rem;
   padding: 0.5rem 0.75rem;
@@ -418,9 +434,10 @@ img {
 
 /* Layout */
 .min-h-screen { min-height: 100vh; }
-.max-w-sm { max-width: 52rem; } /* 832px */
-.max-w-md { max-width: 64rem; } /* 1024px */
-.max-w-lg { max-width: 80rem; } /* 1280px */
+.max-w-sm { max-width: 56rem; } /* 896px */
+.max-w-md { max-width: 70rem; } /* 1120px */
+.max-w-lg { max-width: 90rem; } /* 1440px */
+.max-w-xl { max-width: 100rem; } /* 1600px */
 
 /* Typography */
 .text-center { text-align: center; }
