@@ -685,7 +685,12 @@ const TallTinyROICalculator = () => {
               href="https://talltiny.com.au" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="px-medium py-xxsmall bg-white bg-opacity-90 rounded-standard text-h4 font-light transition-transform transform hover:scale-105 text-neutral-darkest"
+              className="px-medium py-xxsmall bg-white bg-opacity-90 rounded-standard text-h4 font-light transition hover:scale-105 text-neutral-darkest"
+              style={{
+                fontFamily: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif",
+                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30',
+                fontWeight: 300
+              }}
             >
               Explore Our Website & Guides
             </a>

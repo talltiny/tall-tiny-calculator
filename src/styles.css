@@ -516,23 +516,27 @@ button {
 /* Media Queries for Responsive Design */
 @media (max-width: 479px) {
   /* Mobile portrait */
-  .text-h1 { font-size: calc(var(--font-h1) * 0.5); }
-  .text-h2 { font-size: calc(var(--font-h2) * 0.6); }
-  .text-h3 { font-size: calc(var(--font-h3) * 0.7); }
-  .text-h4 { font-size: calc(var(--font-h4) * 0.8); }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  .text-h1 { font-size: 2.5rem; }
+  .text-h2 { font-size: 2rem; }
+  .text-h3 { font-size: 1.75rem; }
+  .text-h4 { font-size: 1.5rem; }
 }
 
 @media (min-width: 480px) and (max-width: 767px) {
   /* Mobile landscape */
-  .text-h1 { font-size: calc(var(--font-h1) * 0.6); }
-  .text-h2 { font-size: calc(var(--font-h2) * 0.7); }
-  .text-h3 { font-size: calc(var(--font-h3) * 0.8); }
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 2rem; }
+  .text-h1 { font-size: 3rem; }
+  .text-h2 { font-size: 2.5rem; }
+  .text-h3 { font-size: 2rem; }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   /* Tablet */
-  .text-h1 { font-size: calc(var(--font-h1) * 0.8); }
-  .text-h2 { font-size: calc(var(--font-h2) * 0.85); }
   .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
   .md\:h-20 { height: 5rem; }
 }
