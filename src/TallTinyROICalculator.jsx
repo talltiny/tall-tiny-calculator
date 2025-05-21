@@ -150,20 +150,12 @@ const TallTinyROICalculator = () => {
   const handleContactSubmit = (e) => {
     e.preventDefault();
     
-    // Send email to hello@talltiny.com.au
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('model', model);
-    formData.append('price', modelData[model].price);
-    formData.append('projection', results.netIncome);
-    
     // Using Netlify's form handling
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
+    const form = e.target;
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString()
     })
     .then(() => {
       alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
@@ -183,18 +175,12 @@ const TallTinyROICalculator = () => {
   const handleDownloadSubmit = (e) => {
     e.preventDefault();
     
-    // Send email to hello@talltiny.com.au for download request
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('requestType', 'Tech Specs Download');
-    
     // Using Netlify's form handling
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
+    const form = e.target;
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString()
     })
     .then(() => {
       // Redirect to PDF
@@ -566,7 +552,7 @@ const TallTinyROICalculator = () => {
                   <span>Off-Peak Nights ({results.breakdownDetails.offPeakNights || 0})</span>
                   <span>{formatCurrency(results.breakdownDetails.offPeakRoomRevenue || 0)}</span>
                 </div>
-<div className="flex justify-between">
+                <div className="flex justify-between">
                   <span>Cleaning Fees ({results.breakdownDetails.totalBookings || 0} stays)</span>
                   <span>{formatCurrency(results.breakdownDetails.cleaningRevenue || 0)}</span>
                 </div>
@@ -643,33 +629,6 @@ const TallTinyROICalculator = () => {
           </div>
         </div>
         
-        {/* Footer */}
-        <footer className="mt-12 pt-6 border-t border-gray-300 text-center">
-          <div className="mb-4">
-            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/assets/talltiny-logo.png" 
-                alt="Tall Tiny Logo" 
-                className="mx-auto h-12"
-              />
-            </a>
-          </div>
-          <div className="mb-4 text-sm" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
-            <p>39 Park St, Lawson, NSW 2783</p>
-            <p>
-              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-c67a3e">hello@talltiny.com.au</a>
-            </p>
-          </div>
-          <div className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
-            <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
-            <p>
-              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Privacy Policy</a>
-              {' | '}
-              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Terms of Service</a>
-            </p>
-          </div>
-        </footer>
-        
         {/* Contact Modal */}
         {showContact && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -677,7 +636,12 @@ const TallTinyROICalculator = () => {
               <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
                 Get Your Free Site Assessment
               </h3>
-              <form onSubmit={handleContactSubmit} data-netlify="true" name="site-assessment">
+              <form 
+                name="site-assessment" 
+                method="POST" 
+                data-netlify="true"
+                onSubmit={handleContactSubmit}
+              >
                 <input type="hidden" name="form-name" value="site-assessment" />
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
@@ -756,7 +720,12 @@ const TallTinyROICalculator = () => {
               <h3 className="text-xl font-semibold mb-4" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
                 Download Technical Specifications
               </h3>
-              <form onSubmit={handleDownloadSubmit} data-netlify="true" name="tech-specs-download">
+              <form 
+                name="tech-specs-download" 
+                method="POST" 
+                data-netlify="true"
+                onSubmit={handleDownloadSubmit}
+              >
                 <input type="hidden" name="form-name" value="tech-specs-download" />
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-2" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>Name</label>
@@ -816,6 +785,33 @@ const TallTinyROICalculator = () => {
             </div>
           </div>
         )}
+        
+        {/* Footer */}
+        <footer className="mt-12 pt-6 border-t border-gray-300 text-center">
+          <div className="mb-4">
+            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="/assets/talltiny-logo.png" 
+                alt="Tall Tiny Logo" 
+                className="mx-auto h-12"
+              />
+            </a>
+          </div>
+          <div className="mb-4 text-sm" style={{ color: '#424732', fontFamily: 'Arial, sans-serif' }}>
+            <p>39 Park St, Lawson, NSW 2783</p>
+            <p>
+              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-c67a3e">hello@talltiny.com.au</a>
+            </p>
+          </div>
+          <div className="text-xs text-gray-500" style={{ fontFamily: 'Arial, sans-serif' }}>
+            <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
+            <p>
+              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Privacy Policy</a>
+              {' | '}
+              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-c67a3e">Terms of Service</a>
+            </p>
+          </div>
+        </footer>
         
         {/* Disclaimer */}
         <div className="mt-8 text-center">
