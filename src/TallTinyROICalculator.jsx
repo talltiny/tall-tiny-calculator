@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const [showDownload, setShowDownload] = useState(false);
+
 const TallTinyROICalculator = () => {
   // Model pricing and details
   const modelData = {
@@ -197,8 +199,6 @@ const TallTinyROICalculator = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#ecebe4', fontFamily: 'Arial, sans-serif' }}>
       <div className="max-w-6xl mx-auto p-6">
-        
-  const [showDownload, setShowDownload] = useState(false);       
 {/* Header with Logo */}
 <div className="text-center mb-8">
   <div className="mb-6">
