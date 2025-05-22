@@ -286,10 +286,10 @@ const TallTinyROICalculator = () => {
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 360, "wdth" 90'
+              fontVariationSettings: '"wght" 360, "wdth" 90, "opsz" 48'
             }}
           >
-            Investment Calculator
+            Tiny Home Investment Calculator
           </h1>
           
           {/* Hero Image */}
