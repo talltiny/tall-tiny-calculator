@@ -1,15 +1,37 @@
+/* Add this to your fonts.css or main CSS file */
+
 @font-face {
   font-family: 'Roslindalevariable Opsz Slnt Wdth Wght';
-  src: url('/assets/fonts/RoslindaleVariableopszslntwdthwght.woff2') format('woff2');
+  src: url('/assets/fonts/RoslindaleVariableopszslntwdthwght.woff2') format('woff2-variations'),
+       url('/assets/fonts/RoslindaleVariableopszslntwdthwght.woff2') format('woff2');
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;
+  font-variation-settings: "wght" 400, "wdth" 100, "opsz" 14, "slnt" 0;
 }
 
 @font-face {
   font-family: 'Intervariable';
-  src: url('/assets/fonts/InterVariable.woff2') format('woff2');
+  src: url('/assets/fonts/InterVariable.woff2') format('woff2-variations'),
+       url('/assets/fonts/InterVariable.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+  font-variation-settings: "wght" 400;
+}
+
+/* Test if the font is loading - add this temporarily */
+.font-test {
+  font-family: 'Roslindalevariable Opsz Slnt Wdth Wght', serif;
+  font-variation-settings: "wght" 800, "wdth" 75, "opsz" 72;
+  font-size: 48px;
+  color: red;
+}
+
+/* Fallback for browsers that don't support variable fonts */
+@supports not (font-variation-settings: "wght" 400) {
+  .heading-font {
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+  }
 }
