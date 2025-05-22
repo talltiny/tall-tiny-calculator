@@ -261,13 +261,25 @@ const TallTinyROICalculator = () => {
   };
   
   const fonts = {
-    heading: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif",
-    body: "'Intervariable', Arial, sans-serif"
+    heading: "'Roslindale Variable', 'Roslindalevariable Opsz Slnt Wdth Wght', Times, serif",
+    body: "'Inter Variable', 'Intervariable', Arial, sans-serif"
   };
   
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.green100, fontFamily: fonts.body }}>
       <div className="max-w-6xl mx-auto p-6">
+        {/* Font Test - Remove this after testing */}
+        <div style={{
+          fontFamily: fonts.heading,
+          fontVariationSettings: '"wght" 800, "wdth" 75, "opsz" 72',
+          fontSize: '48px',
+          color: 'red',
+          textAlign: 'center',
+          margin: '20px 0'
+        }}>
+          Font Variation Test - This should look bold and condensed
+        </div>
+        
         {/* Header with Logo */}
         <div className="text-center mb-4">
           <div className="mb-3">
@@ -927,7 +939,7 @@ const TallTinyROICalculator = () => {
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+              fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
             }}
           >
             Why Invest In A Tiny Home in The Blue Mountains
@@ -988,7 +1000,7 @@ const TallTinyROICalculator = () => {
                 style={{ 
                   color: colors.neutralDarkest, 
                   fontFamily: fonts.heading,
-                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                  fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
                 }}
               >
                 Get Your Free Site Assessment
@@ -1121,7 +1133,7 @@ const TallTinyROICalculator = () => {
                 style={{ 
                   color: colors.neutralDarkest, 
                   fontFamily: fonts.heading,
-                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                  fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
                 }}
               >
                 Download Technical Specifications
