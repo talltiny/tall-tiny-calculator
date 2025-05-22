@@ -286,10 +286,10 @@ const TallTinyROICalculator = () => {
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 360, "wdth" 90, "opsz" 48'
+              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 72'
             }}
           >
-            Tiny Home Investment Calculator
+            Investment Calculator
           </h1>
           
           {/* Hero Image */}
@@ -307,7 +307,7 @@ const TallTinyROICalculator = () => {
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 48'
             }}
           >
             Your Backyard, Your Guest House
@@ -353,7 +353,7 @@ const TallTinyROICalculator = () => {
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+              fontVariationSettings: '"wght" 360, "wdth" 90, "opsz" 36'
             }}
           >
             Choose Your Tiny Home Model
@@ -388,7 +388,7 @@ const TallTinyROICalculator = () => {
                   style={{ 
                     color: colors.neutralDarkest, 
                     fontFamily: fonts.heading,
-                    fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                    fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 24'
                   }}
                 >
                   {key}
@@ -423,7 +423,7 @@ const TallTinyROICalculator = () => {
               style={{ 
                 color: colors.neutralDarkest, 
                 fontFamily: fonts.heading,
-                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
               }}
             >
               Your Investment Details
@@ -445,7 +445,7 @@ const TallTinyROICalculator = () => {
                     style={{ 
                       color: colors.neutralDarkest, 
                       fontFamily: fonts.heading,
-                      fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                      fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 24'
                     }}
                   >
                     {model} Model
@@ -680,7 +680,7 @@ const TallTinyROICalculator = () => {
               style={{ 
                 color: colors.neutralDarkest, 
                 fontFamily: fonts.heading,
-                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
               }}
             >
               Your ROI Projection
@@ -814,7 +814,7 @@ const TallTinyROICalculator = () => {
                 style={{ 
                   color: colors.neutralDarkest, 
                   fontFamily: fonts.heading,
-                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                  fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 20'
                 }}
               >
                 Annual Breakdown
