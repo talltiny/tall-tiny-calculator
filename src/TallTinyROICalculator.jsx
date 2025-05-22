@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './styles.css'; // Import styles
 
 const TallTinyROICalculator = () => {
   // Model pricing and details
@@ -218,676 +217,60 @@ const TallTinyROICalculator = () => {
     setShowExpenses(!showExpenses);
   };
   
-  return (
-    <div className="bg-neutral-lighter font-body min-h-screen">
-      <div className="container-calculator py-medium">
-        {/* Header Section */}
-        <div className="header-container mb-large">
-          <div className="mb-medium">
-            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/assets/talltiny-logo.png" 
-                alt="Tall Tiny Logo" 
-                className="mx-auto h-16"
-              />
-            </a>
-          </div>
-          
-          <h1 className="text-h3 font-light text-neutral-darkest mb-large font-heading">
-            Investment Calculator
-          </h1>
-          
-          {/* Hero Image */}
-          <div className="rounded-standard overflow-hidden mb-large shadow-medium">
-            <img 
-              src="/assets/talltiny-residence-ribbongum.png" 
-              alt="Tall Tiny Residence in Ribbon Gum" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-          <h2 className="text-h4 font-light text-neutral-darkest mb-xxsmall font-heading">
-            Your Backyard, Your Guest House
-          </h2>
-          <p className="text-large mb-medium text-neutral-darkest">
-            Sustainable accommodation that pays for itself
-          </p>
-          
-          <div className="mb-medium text-regular text-neutral-darkest">
-            <p className="mb-xsmall">
-              This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
-            </p>
-            <p>
-              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
-            </p>
-          </div>
-        </div>
-        
-        {/* Model Selection */}
-        <div className="mb-large">
-          <h2 className="text-h5 font-light text-neutral-darkest mb-medium text-center font-heading">
-            Choose Your Tiny Home Model
-          </h2>
-          
-          <div className="model-grid mb-large">
-            {Object.entries(modelData).map(([key, data]) => (
-              <div
-                key={key}
-                onClick={() => handleModelChange(key)}
-                className={`card-display p-medium cursor-pointer ${model === key ? 'border-l-4 border-tt-timber bg-neutral-lightest' : ''}`}
-              >
-                <h3 className="capitalize text-large font-semibold mb-xxsmall text-neutral-darkest">
-                  {key}
-                </h3>
-                
-                <div className="mb-small text-small">
-                  <p>{data.size}</p>
-                  <p className="mb-small">{data.features}</p>
-                </div>
-                
-                <p className="text-h5 font-bold text-tt-timber mb-tiny">
-                  {formatCurrency(data.price)}
-                </p>
-                
-                <p className="text-small text-neutral">
-                  Suggested nightly rate: {formatCurrency(data.suggestedRate)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Calculator Grid */}
-        <div className="calculator-grid">
-          {/* Investment Details */}
-          <div className="card-display p-large">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-large font-heading">
-              Your Investment Details
-            </h3>
-            
-            {/* Selected Model Info */}
-            <div className="bg-light-card-bg rounded-standard p-medium mb-large border border-light-card-border">
-              <h4 className="font-semibold capitalize text-large mb-small text-neutral-darkest">
-                {model} Model
-              </h4>
-              <p className="text-neutral mb-small">{modelData[model].description}</p>
-              <p className="text-neutral mb-medium">Size: {modelData[model].size}</p>
-              <p className="font-bold text-h5 text-tt-timber">
-                {formatCurrency(modelData[model].price)}
-              </p>
-            </div>
-            
-            {/* Nightly Rate */}
-            <div className="mb-medium">
-              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
-                Base Nightly Rate (Peak +20% automatically applied)
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
-                <input
-                  type="number"
-                  value={nightlyRate}
-                  onChange={(e) => setNightlyRate(Number(e.target.value))}
-                  className="input-field pl-8"
-                  min="0"
-                  step="10"
-                />
-              </div>
-              <p className="text-small text-neutral mt-xsmall">
-                Blue Mountains average: $220-$280 
-                <a 
-                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="ml-1 underline text-tt-timber"
-                >
-                  (Source: AirDNA)
-                </a>
-              </p>
-            </div>
-            
-            {/* Average Stay Length */}
-            <div className="mb-medium">
-              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
-                Average Length of Stay (nights)
-              </label>
-              <input
-                type="number"
-                value={averageStayLength}
-                onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
-                className="input-field"
-                min="1"
-                step="0.5"
-              />
-              <p className="text-small text-neutral mt-xsmall">
-                Blue Mountains average: 2-3 nights
-              </p>
-            </div>
-            
-            {/* Peak Season Occupancy */}
-            <div className="mb-medium">
-              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
-                Peak Season Occupancy: {peakOccupancy}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={peakOccupancy}
-                onChange={(e) => setPeakOccupancy(Number(e.target.value))}
-                className="w-full slider"
-              />
-              <p className="text-small text-neutral mt-xsmall">
-                Blue Mountains peak average: 76-85%
-              </p>
-            </div>
-            
-            {/* Off-Peak Occupancy */}
-            <div className="mb-medium">
-              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
-                Off-Peak Occupancy: {offPeakOccupancy}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={offPeakOccupancy}
-                onChange={(e) => setOffPeakOccupancy(Number(e.target.value))}
-                className="w-full slider"
-              />
-              <p className="text-small text-neutral mt-xsmall">
-                Blue Mountains off-peak average: 35-45%
-              </p>
-            </div>
-          </div>
-          
-          {/* ROI Projection */}
-          <div className="card-display p-large border-l-4 border-tt-timber">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-large font-heading">
-              Your ROI Projection
-            </h3>
-            
-            {/* Key Metrics */}
-            <div className="mb-large">
-              <div className="result-card">
-                <p className="text-medium text-neutral mb-xsmall">Annual Revenue</p>
-                <p className="result-value">
-                  {formatCurrency(results.annualRevenue)}
-                </p>
-              </div>
-              
-              <div className="result-card cursor-pointer" onClick={toggleExpenses}>
-                <div className="flex justify-between items-center">
-                  <p className="text-medium text-neutral mb-xsmall">
-                    Annual Expenses <span className="text-small text-neutral-light">(click to view details)</span>
-                  </p>
-                  <span>{showExpenses ? '▲' : '▼'}</span>
-                </div>
-                <p className="result-value text-neutral-darkest">
-                  {formatCurrency(results.annualExpenses)}
-                </p>
-                
-                {/* Expense Breakdown */}
-                {showExpenses && (
-                  <div className="mt-small pt-small border-t border-light-card-border">
-                    <div className="space-y-tiny">
-                      {Object.entries(results.breakdownDetails.annualExpenses || {}).map(([key, value]) => {
-                        if (key !== 'total' && key !== 'cleaning' && value > 0) {
-                          return (
-                            <div key={key} className="flex justify-between text-small">
-                              <span className="capitalize">{key}</span>
-                              <span>{formatCurrency(value)}</span>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="result-card">
-                <p className="text-medium text-neutral mb-xsmall">Net Annual Income</p>
-                <p className="result-value">
-                  {formatCurrency(results.netIncome)}
-                </p>
-              </div>
-              
-              <div className="result-card">
-                <p className="text-medium text-neutral mb-xsmall">Payback Period</p>
-                <p className="result-value">
-                  {results.paybackYears.toFixed(1)} <span className="text-large">years</span>
-                </p>
-              </div>
-            </div>
-            
-            {/* Future Returns */}
-            <div className="grid grid-cols-2 gap-4 mb-large">
-              <div className="result-card">
-                <p className="text-medium text-neutral mb-xsmall">5-Year Profit</p>
-                <p className="text-h5 font-semibold text-tt-timber">
-                  {formatCurrency(results.fiveYearProfit)}
-                </p>
-              </div>
-              <div className="result-card">
-                <p className="text-medium text-neutral mb-xsmall">10-Year Profit</p>
-                <p className="text-h5 font-semibold text-tt-timber">
-                  {formatCurrency(results.tenYearProfit)}
-                </p>
-              </div>
-            </div>
-            
-            {/* CTA Buttons */}
-            <div className="space-y-small">
-              <button
-                onClick={() => setShowContact(true)}
-                className="btn btn-primary w-full"
-              >
-                Get Your Free Site Assessment
-              </button>
-              
-              <button
-                onClick={() => setShowDownloadForm(true)}
-                className="btn btn-secondary w-full"
-              >
-                Download Our Tech Specs
-              </button>
-              
-              <a
-                href="https://calendly.com/hello-talltiny/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-accent w-full block"
-              >
-                Let's Chat!
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        {/* Website Link Section with Hero Image Background */}
-        <div className="mt-large relative rounded-standard overflow-hidden shadow-large">
-          <div className="w-full h-full relative">
-            <img 
-              src="/assets/talltiny-weekender-lawson.avif" 
-              alt="Tall Tiny Weekender in Lawson" 
-              className="w-full h-full object-cover"
-              style={{ minHeight: '350px' }}
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-              <div className="text-center px-medium py-medium">
-                <h3 className="text-h4 font-light text-white mb-medium font-heading">
-                  Building a Greener Future
-                </h3>
-                <p className="text-medium text-white mb-small max-w-md mx-auto">
-                  With each home, we don't just create spaces; we offset our carbon footprint by helping
-                  restore forests, and set new standards for sustainable living. Choose Tall Tiny and be part
-                  of a movement rethinking how we build and live.
-                </p>
-                <a 
-                  href="https://talltiny.com.au" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="website-cta inline-block px-medium py-xxsmall bg-white bg-opacity-90 rounded-xl text-h5 font-light transition-transform text-neutral-darkest"
-                >
-                  Explore Our Website & Guides
-                  <span className="ml-xxsmall">→</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Contact Modal */}
-        {showContact && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-standard p-large max-w-md w-full mx-4">
-              <h3 className="text-h5 font-light text-neutral-darkest mb-medium font-heading">
-                Get Your Free Site Assessment
-              </h3>
-              <form 
-                name="site-assessment" 
-                method="POST" 
-                data-netlify="true"
-                onSubmit={handleContactSubmit}
-              >
-                <input type="hidden" name="form-name" value="site-assessment" />
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Phone</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-                <div className="mb-medium">
-                  <p className="text-medium text-neutral">
-                    Selected Model: <strong className="capitalize">{model}</strong> 
-                    {' '}({formatCurrency(modelData[model].price)})
-                  </p>
-                  <p className="text-medium text-neutral">
-                    Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
-                  </p>
-                </div>
-                <input type="hidden" name="model" value={model} />
-                <input type="hidden" name="price" value={modelData[model].price} />
-                <input type="hidden" name="projection" value={results.netIncome} />
-                <div className="flex gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setShowContact(false)}
-                    className="btn btn-secondary flex-1"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="btn btn-primary flex-1"
-                  >
-                    Get Assessment
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-        
-        {/* Download Tech Specs Modal */}
-        {showDownloadForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-standard p-large max-w-md w-full mx-4">
-              <h3 className="text-h5 font-light text-neutral-darkest mb-medium font-heading">
-                Download Technical Specifications
-              </h3>
-              <form 
-                name="tech-specs-download" 
-                method="POST" 
-                data-netlify="true"
-                onSubmit={handleDownloadSubmit}
-              >
-                <input type="hidden" name="form-name" value="tech-specs-download" />
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="input-field"
-                  />
-                </div>
-                <div className="mb-medium">
-                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Phone</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                    className="import React, { useState, useEffect } from 'react';
-import './styles.css'; // Import styles
-
-const TallTinyROICalculator = () => {
-  // Model pricing and details
-  const modelData = {
-    studio: {
-      price: 90000,
-      size: '4.8m × 2.5m × 4.0m',
-      features: 'Perfect studio/office space',
-      description: 'Ideal for creative professionals or as a compact guest retreat',
-      suggestedRate: 200,
-      image: '/assets/studio_iso_1.avif'
-    },
-    backyard: {
-      price: 105000,
-      size: '6.0m × 2.5m × 4.0m',
-      features: 'Queen bed + workspace',
-      description: 'The perfect balance of space and functionality for guests',
-      suggestedRate: 225,
-      image: '/assets/backyard_iso_1.avif'
-    },
-    weekender: {
-      price: 130000,
-      size: '7.2m × 2.5m × 4.0m',
-      features: 'Premium guest experience',
-      description: 'Luxury tiny home designed for weekend escapes',
-      suggestedRate: 250,
-      image: '/assets/weekender_iso.avif'
-    },
-    residence: {
-      price: 155000,
-      size: '8.4m × 2.5m × 4.0m',
-      features: 'Full-sized living experience',
-      description: 'Complete tiny home with all amenities for extended stays',
-      suggestedRate: 275,
-      image: '/assets/residence_iso_1.avif'
-    }
+  // Style variables from the style guide
+  const colors = {
+    // Green palette
+    green10: '#282a22',
+    green20: '#3f4336',
+    green30: '#575b49',
+    green40: '#6f735d',
+    green50: '#888b70',
+    green60: '#9d9e88',
+    green70: '#b1b1a1',
+    green80: '#c5c4b9',
+    green90: '#d8d8d1',
+    green100: '#ecebe4',
+    
+    // Orange palette
+    orange10: '#3f2c0e',
+    orange20: '#634215',
+    orange30: '#87541d',
+    orange40: '#ab6425',
+    orange50: '#ce712d',
+    orange60: '#d58352',
+    orange70: '#da9878',
+    orange80: '#e1b09d',
+    orange90: '#e9c9c0',
+    orange100: '#f4e5e1',
+    
+    // Neutrals
+    neutralTtGreen: '#797c64',
+    neutralTtTimber: '#d27530',
+    neutralLightest: '#fff8f3',
+    neutralLighter: '#ecebe4',
+    neutralLight: '#adada8',
+    neutral: '#666',
+    neutralDark: '#444',
+    neutralDarkest: '#41472f',
+    white: '#ffffff',
+    black: '#313638',
+    
+    // Cards
+    lightCardBg: '#faf9f0',
+    lightCardBorder: '#dbdad4'
   };
   
-  // State for all inputs with Blue Mountains specific defaults
-  const [model, setModel] = useState('backyard');
-  const [nightlyRate, setNightlyRate] = useState(modelData.backyard.suggestedRate);
-  const [peakOccupancy, setPeakOccupancy] = useState(80);
-  const [offPeakOccupancy, setOffPeakOccupancy] = useState(40);
-  const [peakSeasonDays, setPeakSeasonDays] = useState(120);
-  const [offSeasonDays, setOffSeasonDays] = useState(245);
-  const [cleaningFee, setCleaningFee] = useState(65);
-  const [personalUse, setPersonalUse] = useState(30);
-  const [averageStayLength, setAverageStayLength] = useState(2);
-  
-  // State for expense breakdown visibility
-  const [showExpenses, setShowExpenses] = useState(false);
-  
-  // Contact form state
-  const [showContact, setShowContact] = useState(false);
-  const [showDownloadForm, setShowDownloadForm] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  
-  // Calculated values
-  const [results, setResults] = useState({
-    annualRevenue: 0,
-    annualExpenses: 0,
-    netIncome: 0,
-    paybackYears: 0,
-    fiveYearProfit: 0,
-    tenYearProfit: 0,
-    breakdownDetails: {}
-  });
-  
-  // Calculate ROI whenever inputs change
-  useEffect(() => {
-    calculateROI();
-  }, [model, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse, averageStayLength]);
-  
-  const calculateROI = () => {
-    const modelPrice = modelData[model].price;
-    
-    // Calculate available rental days
-    const totalAvailableDays = 365 - personalUse;
-    const availablePeakDays = Math.min(peakSeasonDays, totalAvailableDays);
-    const availableOffPeakDays = Math.min(offSeasonDays, totalAvailableDays - availablePeakDays);
-    
-    // Calculate bookings based on average stay length
-    const peakNights = Math.floor(availablePeakDays * (peakOccupancy / 100));
-    const offPeakNights = Math.floor(availableOffPeakDays * (offPeakOccupancy / 100));
-    const totalNights = peakNights + offPeakNights;
-    
-    // Calculate number of stays (bookings) based on average stay length
-    const peakBookings = Math.floor(peakNights / averageStayLength);
-    const offPeakBookings = Math.floor(offPeakNights / averageStayLength);
-    const totalBookings = peakBookings + offPeakBookings;
-    
-    // Calculate revenue
-    const peakNightlyRate = nightlyRate * 1.2; // 20% premium in peak season
-    const peakRoomRevenue = peakNights * peakNightlyRate;
-    const offPeakRoomRevenue = offPeakNights * nightlyRate;
-    const cleaningRevenue = totalBookings * cleaningFee;
-    const totalRevenue = peakRoomRevenue + offPeakRoomRevenue + cleaningRevenue;
-    
-    // Calculate expenses (Blue Mountains specific) - Removed marketing costs
-    const annualExpenses = {
-      insurance: 1200,
-      maintenance: 1500,
-      cleaning: 0, // Included in cleaning fee
-      utilities: 800,
-      councilRates: 0, // No additional rates for caravan classification
-      total: 0
-    };
-    annualExpenses.total = Object.values(annualExpenses).reduce((sum, val) => sum + val, 0) - annualExpenses.total;
-    
-    // Calculate net income and ROI
-    const netIncome = totalRevenue - annualExpenses.total;
-    const paybackYears = modelPrice / netIncome;
-    const fiveYearProfit = (netIncome * 5) - modelPrice;
-    const tenYearProfit = (netIncome * 10) - modelPrice;
-    
-    // Store detailed breakdown
-    const breakdownDetails = {
-      peakNights,
-      offPeakNights,
-      totalNights,
-      peakBookings,
-      offPeakBookings,
-      totalBookings,
-      peakRoomRevenue,
-      offPeakRoomRevenue,
-      cleaningRevenue,
-      totalRevenue,
-      modelPrice,
-      annualExpenses
-    };
-    
-    setResults({
-      annualRevenue: totalRevenue,
-      annualExpenses: annualExpenses.total,
-      netIncome,
-      paybackYears,
-      fiveYearProfit,
-      tenYearProfit,
-      breakdownDetails
-    });
-  };
-  
-  const handleModelChange = (selectedModel) => {
-    setModel(selectedModel);
-    // Update nightly rate based on selected model
-    setNightlyRate(modelData[selectedModel].suggestedRate);
-  };
-  
-  const handleContactSubmit = (e) => {
-    e.preventDefault();
-    
-    // Using Netlify's form handling
-    const form = e.target;
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(new FormData(form)).toString()
-    })
-    .then(() => {
-      alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
-      setShowContact(false);
-      
-      // Reset form
-      setName('');
-      setEmail('');
-      setPhone('');
-    })
-    .catch((error) => {
-      alert('There was an error submitting your form. Please try again.');
-      console.error(error);
-    });
-  };
-  
-  const handleDownloadSubmit = (e) => {
-    e.preventDefault();
-    
-    // Using Netlify's form handling
-    const form = e.target;
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(new FormData(form)).toString()
-    })
-    .then(() => {
-      // Redirect to PDF
-      window.open('/assets/Tall Tiny - Technical Specifications - 2025.pdf', '_blank');
-      setShowDownloadForm(false);
-      
-      // Reset form
-      setName('');
-      setEmail('');
-      setPhone('');
-    })
-    .catch((error) => {
-      alert('There was an error processing your download. Please try again.');
-      console.error(error);
-    });
-  };
-  
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-AU', {
-      style: 'currency',
-      currency: 'AUD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
-  
-  const formatNumber = (num) => {
-    return Math.round(num).toLocaleString();
-  };
-  
-  const toggleExpenses = () => {
-    setShowExpenses(!showExpenses);
+  const fonts = {
+    heading: "'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif",
+    body: "'Intervariable', Arial, sans-serif"
   };
   
   return (
-    <div className="min-h-screen bg-neutral-lighter font-body">
-      <div className="max-w-xl mx-auto py-large px-medium md:px-medium lg:px-large">
+    <div className="min-h-screen" style={{ backgroundColor: colors.green100, fontFamily: fonts.body }}>
+      <div className="max-w-6xl mx-auto p-6">
         {/* Header with Logo */}
-        <header className="text-center mb-medium">
-          <div className="mb-xsmall">
+        <div className="text-center mb-4">
+          <div className="mb-3">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
               <img 
                 src="/assets/talltiny-logo.png" 
@@ -897,33 +280,51 @@ const TallTinyROICalculator = () => {
             </a>
           </div>
           
-          {/* Added Investment Calculator Title */}
-          <h1 className="text-h3 md:text-h2 font-light text-neutral-darkest mb-medium">
+          {/* Investment Calculator Title */}
+          <h1 
+            className="text-4xl font-bold mb-6" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 360, "wdth" 90'
+            }}
+          >
             Investment Calculator
           </h1>
           
           {/* Hero Image */}
-          <div className="rounded-standard overflow-hidden mb-medium shadow-medium">
+          <div className="rounded-lg overflow-hidden mb-6 shadow-lg">
             <img 
               src="/assets/talltiny-residence-ribbongum.png" 
               alt="Tall Tiny Residence in Ribbon Gum" 
-              className="w-full h-full object-cover"
+              className="w-full"
+              style={{ borderRadius: '16px' }}
             />
           </div>
           
-          <h2 className="text-h4 md:text-h3 font-light text-neutral-darkest mb-xxsmall">
+          <h2 
+            className="text-3xl font-bold mb-3" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+            }}
+          >
             Your Backyard, Your Guest House
           </h2>
-          <p className="text-medium md:text-large mb-small text-neutral-darkest">
+          <p 
+            className="text-xl mb-4" 
+            style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+          >
             Sustainable accommodation that pays for itself
           </p>
           
           {/* New intro text */}
-          <div className="max-w-lg mx-auto mb-medium text-regular text-neutral-darkest">
-            <p className="mb-xxsmall">
+          <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+            <p className="mb-3">
               This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
             </p>
-            <p className="mb-xxsmall">
+            <p className="mb-3">
               Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
             </p>
             <p>
@@ -931,69 +332,127 @@ const TallTinyROICalculator = () => {
             </p>
           </div>
           
-          <div className="bg-white border rounded-standard p-xxsmall inline-block border-tt-timber">
-            <p className="text-tt-timber">
+          <div 
+            className="bg-white border rounded-lg p-4 inline-block" 
+            style={{ 
+              borderColor: colors.orange50,
+              backgroundColor: colors.lightCardBg,
+              borderRadius: '16px'
+            }}
+          >
+            <p style={{ color: colors.orange50, fontFamily: fonts.body }}>
               ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
             </p>
           </div>
-        </header>
+        </div>
         
         {/* Model Selection */}
-        <section className="mb-large">
-          <h2 className="text-h4 font-light text-neutral-darkest mb-small text-center">
+        <div className="mb-8">
+          <h2 
+            className="text-2xl font-semibold mb-4 text-center" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+            }}
+          >
             Choose Your Tiny Home Model
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(modelData).map(([key, data]) => (
               <div
                 key={key}
                 onClick={() => handleModelChange(key)}
-                className={`model-card border-2 rounded-standard p-small cursor-pointer transition-all bg-white ${
-                  model === key ? 'active' : ''
+                className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                  model === key 
+                    ? 'border-2' 
+                    : 'hover:border-gray-400'
                 }`}
+                style={{
+                  backgroundColor: model === key ? colors.lightCardBg : colors.white,
+                  borderColor: model === key ? colors.orange50 : colors.lightCardBorder,
+                  borderRadius: '16px',
+                  boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+                }}
               >
                 {/* Model Image */}
-                <div className="mb-xxsmall h-32 flex items-center justify-center overflow-hidden">
+                <div className="mb-3 h-32 flex items-center justify-center overflow-hidden">
                   <img 
                     src={data.image} 
                     alt={`${key} model`} 
                     className="object-contain h-full w-full"
                   />
                 </div>
-                <h3 className="font-semibold capitalize text-large mb-tiny text-neutral-darkest">
+                <h3 
+                  className="font-semibold capitalize text-lg mb-2" 
+                  style={{ 
+                    color: colors.neutralDarkest, 
+                    fontFamily: fonts.heading,
+                    fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                  }}
+                >
                   {key}
                 </h3>
-                <p className="text-small text-neutral mb-tiny">{data.size}</p>
-                <p className="text-small text-neutral mb-tiny">{data.features}</p>
-                <p className="font-bold text-tt-timber">
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>{data.size}</p>
+                <p className="text-sm mb-2" style={{ color: colors.neutral, fontFamily: fonts.body }}>{data.features}</p>
+                <p className="font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {formatCurrency(data.price)}
                 </p>
-                <p className="text-tiny text-neutral-light mt-tiny">
+                <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
                   Suggested nightly rate: {formatCurrency(data.suggestedRate)}
                 </p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
         
         {/* Calculator Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Panel */}
-          <div className="bg-white rounded-standard p-large shadow-small calculator-card">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+          <div 
+            className="rounded-lg p-6 shadow-sm"
+            style={{
+              backgroundColor: colors.lightCardBg,
+              border: `1px solid ${colors.lightCardBorder}`,
+              borderRadius: '16px',
+              boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+            }}
+          >
+            <h3 
+              className="text-xl font-semibold mb-4" 
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+              }}
+            >
               Your Investment Details
             </h3>
             
             {/* Selected Model Info */}
-            <div className="bg-light-card-bg rounded-standard p-xxsmall mb-medium border border-light-card-border">
+            <div 
+              className="rounded-lg p-4 mb-6 border" 
+              style={{ 
+                borderColor: colors.orange50,
+                backgroundColor: colors.white,
+                borderRadius: '16px'
+              }}
+            >
               <div className="flex items-center">
                 <div className="flex-1">
-                  <h4 className="font-semibold text-large capitalize mb-tiny text-neutral-darkest">
+                  <h4 
+                    className="font-semibold text-lg capitalize mb-2" 
+                    style={{ 
+                      color: colors.neutralDarkest, 
+                      fontFamily: fonts.heading,
+                      fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                    }}
+                  >
                     {model} Model
                   </h4>
-                  <p className="text-neutral text-small mb-tiny">{modelData[model].description}</p>
-                  <p className="text-neutral text-small mb-tiny">Size: {modelData[model].size}</p>
-                  <p className="font-bold text-large text-tt-timber">
+                  <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>{modelData[model].description}</p>
+                  <p className="text-sm mb-2" style={{ color: colors.neutral, fontFamily: fonts.body }}>Size: {modelData[model].size}</p>
+                  <p className="font-bold text-lg" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                     {formatCurrency(modelData[model].price)}
                   </p>
                 </div>
@@ -1007,205 +466,271 @@ const TallTinyROICalculator = () => {
               </div>
             </div>
             
-            {/* Nightly Rate */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Base Nightly Rate (Peak +20% automatically applied)
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
+            {/* Input Fields - styled according to style guide */}
+            <div className="space-y-4">
+              {/* Nightly Rate */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                >
+                  Base Nightly Rate (Peak +20% automatically applied)
+                </label>
+                <div className="relative">
+                  <span 
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2" 
+                    style={{ color: colors.neutralLight, fontFamily: fonts.body }}
+                  >$</span>
+                  <input
+                    type="number"
+                    value={nightlyRate}
+                    onChange={(e) => setNightlyRate(Number(e.target.value))}
+                    className="w-full pl-8 pr-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
+                    min="0"
+                    step="10"
+                  />
+                </div>
+                <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  Blue Mountains average: $220-$280 
+                  <a 
+                    href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="ml-1 underline"
+                    style={{ color: colors.orange50, fontFamily: fonts.body }}
+                  >
+                    (Source: AirDNA)
+                  </a>
+                </p>
+              </div>
+              
+              {/* Average Stay Length */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                >
+                  Average Length of Stay (nights)
+                </label>
                 <input
                   type="number"
-                  value={nightlyRate}
-                  onChange={(e) => setNightlyRate(Number(e.target.value))}
-                  className="w-full pl-8 pr-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
-                  min="0"
-                  step="10"
+                  value={averageStayLength}
+                  onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                  style={{ 
+                    borderColor: colors.black,
+                    height: '2.75rem',
+                    fontFamily: fonts.body
+                  }}
+                  min="1"
+                  step="0.5"
                 />
+                <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  Blue Mountains average: 2-3 nights
+                </p>
               </div>
-              <p className="text-tiny text-neutral-light mt-tiny">
-                Blue Mountains average: $220-$280 
-                <a 
-                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="ml-1 underline text-tt-timber"
+              
+              {/* Peak Season Occupancy */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
                 >
-                  (Source: AirDNA)
-                </a>
-              </p>
-            </div>
-            
-            {/* Average Stay Length */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Average Length of Stay (nights)
-              </label>
-              <input
-                type="number"
-                value={averageStayLength}
-                onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
-                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
-                min="1"
-                step="0.5"
-              />
-              <p className="text-tiny text-neutral-light mt-tiny">
-                Blue Mountains average: 2-3 nights
-              </p>
-            </div>
-            
-            {/* Peak Season Occupancy */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Peak Season Occupancy: {peakOccupancy}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={peakOccupancy}
-                onChange={(e) => setPeakOccupancy(Number(e.target.value))}
-                className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
-              />
-              <div className="flex justify-between text-tiny text-neutral-light mt-tiny">
-                <span>0%</span>
-                <span>Blue Mountains peak average: 76-85%</span>
-                <span>100%</span>
+                  Peak Season Occupancy: {peakOccupancy}%
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={peakOccupancy}
+                  onChange={(e) => setPeakOccupancy(Number(e.target.value))}
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
+                  style={{ backgroundColor: colors.neutralLight }}
+                />
+                <div className="flex justify-between text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  <span>0%</span>
+                  <span>Blue Mountains peak average: 76-85%</span>
+                  <span>100%</span>
+                </div>
               </div>
-              <p className="text-tiny text-neutral-light mt-tiny">
-                <a 
-                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="underline text-tt-timber"
+              
+              {/* Off-Peak Occupancy */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
                 >
-                  Source: AirDNA Blue Mountains Market Data
-                </a>
-              </p>
-            </div>
-            
-            {/* Off-Peak Occupancy */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Off-Peak Occupancy: {offPeakOccupancy}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={offPeakOccupancy}
-                onChange={(e) => setOffPeakOccupancy(Number(e.target.value))}
-                className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
-              />
-              <div className="flex justify-between text-tiny text-neutral-light mt-tiny">
-                <span>0%</span>
-                <span>Blue Mountains off-peak average: 35-45%</span>
-                <span>100%</span>
+                  Off-Peak Occupancy: {offPeakOccupancy}%
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={offPeakOccupancy}
+                  onChange={(e) => setOffPeakOccupancy(Number(e.target.value))}
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
+                  style={{ backgroundColor: colors.neutralLight }}
+                />
+                <div className="flex justify-between text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  <span>0%</span>
+                  <span>Blue Mountains off-peak average: 35-45%</span>
+                  <span>100%</span>
+                </div>
               </div>
-              <p className="text-tiny text-neutral-light mt-tiny">
-                <a 
-                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="underline text-tt-timber"
+              
+              {/* Peak Season Days */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
                 >
-                  Source: AirDNA Seasonal Trends
-                </a>
-              </p>
-            </div>
-            
-            {/* Peak Season Days */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Peak Season Days (Summer, holidays, events)
-              </label>
-              <input
-                type="number"
-                value={peakSeasonDays}
-                onChange={(e) => setPeakSeasonDays(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
-                min="0"
-                max="365"
-              />
-              <p className="text-tiny text-neutral-light mt-tiny">Blue Mountains peak: Dec-Feb, Easter, long weekends</p>
-            </div>
-            
-            {/* Cleaning Fee */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Cleaning Fee per Stay
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
+                  Peak Season Days (Summer, holidays, events)
+                </label>
                 <input
                   type="number"
-                  value={cleaningFee}
-                  onChange={(e) => setCleaningFee(Number(e.target.value))}
-                  className="w-full pl-8 pr-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                  value={peakSeasonDays}
+                  onChange={(e) => setPeakSeasonDays(Number(e.target.value))}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                  style={{ 
+                    borderColor: colors.black,
+                    height: '2.75rem',
+                    fontFamily: fonts.body
+                  }}
                   min="0"
-                  step="5"
+                  max="365"
+                />
+                <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>Blue Mountains peak: Dec-Feb, Easter, long weekends</p>
+              </div>
+              
+              {/* Cleaning Fee */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                >
+                  Cleaning Fee per Stay
+                </label>
+                <div className="relative">
+                  <span 
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2" 
+                    style={{ color: colors.neutralLight, fontFamily: fonts.body }}
+                  >$</span>
+                  <input
+                    type="number"
+                    value={cleaningFee}
+                    onChange={(e) => setCleaningFee(Number(e.target.value))}
+                    className="w-full pl-8 pr-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
+                    min="0"
+                    step="5"
+                  />
+                </div>
+                <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  Charged per booking, not per night. Blue Mountains average: $60-85
+                </p>
+              </div>
+              
+              {/* Personal Use */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                >
+                  Your Personal Use (days per year)
+                </label>
+                <input
+                  type="number"
+                  value={personalUse}
+                  onChange={(e) => setPersonalUse(Number(e.target.value))}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                  style={{ 
+                    borderColor: colors.black,
+                    height: '2.75rem',
+                    fontFamily: fonts.body
+                  }}
+                  min="0"
+                  max="365"
                 />
               </div>
-              <p className="text-tiny text-neutral-light mt-tiny">
-                Charged per booking, not per night. Blue Mountains average: $60-85
-              </p>
-            </div>
-            
-            {/* Personal Use */}
-            <div className="mb-small">
-              <label className="block text-small font-medium mb-tiny text-neutral-darkest">
-                Your Personal Use (days per year)
-              </label>
-              <input
-                type="number"
-                value={personalUse}
-                onChange={(e) => setPersonalUse(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-neutral rounded-button focus:outline-none focus:border-tt-green"
-                min="0"
-                max="365"
-              />
             </div>
           </div>
           
           {/* Results Panel */}
-          <div className="bg-white rounded-standard p-large shadow-small border-l-4 border-tt-timber calculator-card">
-            <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+          <div 
+            className="rounded-lg p-6 shadow-sm" 
+            style={{ 
+              backgroundColor: colors.lightCardBg,
+              border: `1px solid ${colors.lightCardBorder}`,
+              borderLeft: `4px solid ${colors.orange50}`,
+              borderRadius: '16px',
+              boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+            }}
+          >
+            <h3 
+              className="text-xl font-semibold mb-4" 
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+              }}
+            >
               Your ROI Projection
             </h3>
             
             {/* Key Metrics */}
-            <div className="space-y-small mb-medium">
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
-                <p className="text-small text-neutral mb-tiny">Annual Revenue</p>
-                <p className="text-h4 font-light text-tt-timber">
+            <div className="space-y-4 mb-6">
+              <div 
+                className="rounded-lg p-4 shadow-sm border" 
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
+              >
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>Annual Revenue</p>
+                <p className="text-2xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {formatCurrency(results.annualRevenue)}
                 </p>
               </div>
               
               <div 
-                className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border cursor-pointer"
+                className="rounded-lg p-4 shadow-sm border cursor-pointer"
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
                 onClick={toggleExpenses}
               >
                 <div className="flex justify-between items-center">
-                  <p className="text-small text-neutral mb-tiny">
-                    Annual Expenses <span className="text-tiny text-neutral-light">(click to view details)</span>
+                  <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>
+                    Annual Expenses <span className="text-xs" style={{ color: colors.neutralLight }}>(click to view details)</span>
                   </p>
-                  <span>{showExpenses ? '▲' : '▼'}</span>
+                  <span style={{ color: colors.neutralDarkest }}>{showExpenses ? '▲' : '▼'}</span>
                 </div>
-                <p className="text-h4 font-light text-neutral-darkest">
+                <p className="text-2xl font-bold" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
                   {formatCurrency(results.annualExpenses)}
                 </p>
                 
                 {/* Expense Breakdown */}
                 {showExpenses && (
-                  <div className="mt-xxsmall pt-xxsmall border-t border-light-card-border">
-                    <div className="space-y-tiny">
+                  <div className="mt-3 pt-3" style={{ borderTop: `1px solid ${colors.lightCardBorder}` }}>
+                    <div className="space-y-1">
                       {Object.entries(results.breakdownDetails.annualExpenses || {}).map(([key, value]) => {
                         if (key !== 'total' && key !== 'cleaning' && value > 0) {
                           return (
-                            <div key={key} className="flex justify-between text-small">
-                              <span className="capitalize">{key}</span>
-                              <span>{formatCurrency(value)}</span>
+                            <div key={key} className="flex justify-between text-sm">
+                              <span className="capitalize" style={{ fontFamily: fonts.body }}>{key}</span>
+                              <span style={{ fontFamily: fonts.body }}>{formatCurrency(value)}</span>
                             </div>
                           );
                         }
@@ -1216,41 +741,85 @@ const TallTinyROICalculator = () => {
                 )}
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
-                <p className="text-small text-neutral mb-tiny">Net Annual Income</p>
-                <p className="text-h4 font-light text-tt-timber">
+              <div 
+                className="rounded-lg p-4 shadow-sm border" 
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
+              >
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>Net Annual Income</p>
+                <p className="text-2xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {formatCurrency(results.netIncome)}
                 </p>
               </div>
               
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
-                <p className="text-small text-neutral mb-tiny">Payback Period</p>
-                <p className="text-h4 font-light text-tt-timber">
+              <div 
+                className="rounded-lg p-4 shadow-sm border" 
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
+              >
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>Payback Period</p>
+                <p className="text-2xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {results.paybackYears.toFixed(1)} years
                 </p>
               </div>
             </div>
             
             {/* Future Returns */}
-            <div className="grid grid-cols-2 gap-4 mb-medium">
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
-                <p className="text-small text-neutral mb-tiny">5-Year Profit</p>
-                <p className="text-large font-semibold text-tt-timber">
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div 
+                className="rounded-lg p-3 shadow-sm border" 
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
+              >
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>5-Year Profit</p>
+                <p className="text-lg font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {formatCurrency(results.fiveYearProfit)}
                 </p>
               </div>
-              <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall border border-light-card-border">
-                <p className="text-small text-neutral mb-tiny">10-Year Profit</p>
-                <p className="text-large font-semibold text-tt-timber">
+              <div 
+                className="rounded-lg p-3 shadow-sm border" 
+                style={{ 
+                  borderColor: colors.orange50,
+                  backgroundColor: colors.white,
+                  borderRadius: '16px'
+                }}
+              >
+                <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>10-Year Profit</p>
+                <p className="text-lg font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
                   {formatCurrency(results.tenYearProfit)}
                 </p>
               </div>
             </div>
             
             {/* Revenue Breakdown */}
-            <div className="bg-light-card-bg rounded-standard p-xxsmall shadow-xxsmall mb-medium border border-light-card-border">
-              <h4 className="text-medium font-semibold mb-xxsmall text-neutral-darkest">Annual Breakdown</h4>
-              <div className="space-y-tiny text-small">
+            <div 
+              className="rounded-lg p-4 shadow-sm mb-6 border" 
+              style={{ 
+                borderColor: colors.orange50,
+                backgroundColor: colors.white,
+                borderRadius: '16px'
+              }}
+            >
+              <h4 
+                className="font-semibold mb-3" 
+                style={{ 
+                  color: colors.neutralDarkest, 
+                  fontFamily: fonts.heading,
+                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 25'
+                }}
+              >
+                Annual Breakdown
+              </h4>
+              <div className="space-y-2 text-sm" style={{ fontFamily: fonts.body }}>
                 <div className="flex justify-between">
                   <span>Peak Season Nights ({results.breakdownDetails.peakNights || 0})</span>
                   <span>{formatCurrency(results.breakdownDetails.peakRoomRevenue || 0)}</span>
@@ -1263,33 +832,48 @@ const TallTinyROICalculator = () => {
                   <span>Cleaning Fees ({results.breakdownDetails.totalBookings || 0} stays)</span>
                   <span>{formatCurrency(results.breakdownDetails.cleaningRevenue || 0)}</span>
                 </div>
-                <div className="border-t pt-tiny flex justify-between font-semibold">
+                <div className="border-t pt-2 flex justify-between font-semibold" style={{ borderTop: `1px solid ${colors.lightCardBorder}` }}>
                   <span>Total Revenue</span>
                   <span>{formatCurrency(results.annualRevenue)}</span>
                 </div>
-                <div className="flex justify-between text-tt-timber">
+                <div className="flex justify-between" style={{ color: colors.orange50 }}>
                   <span>Annual Expenses</span>
                   <span>-{formatCurrency(results.annualExpenses)}</span>
                 </div>
-                <div className="border-t pt-tiny flex justify-between font-bold text-tt-timber">
+                <div className="border-t pt-2 flex justify-between font-bold" style={{ color: colors.orange50, borderTop: `1px solid ${colors.lightCardBorder}` }}>
                   <span>Net Income</span>
                   <span>{formatCurrency(results.netIncome)}</span>
                 </div>
               </div>
             </div>
             
-            {/* CTA Buttons */}
-            <div className="space-y-xxsmall">
+            {/* CTA Buttons - styled according to style guide */}
+            <div className="space-y-3">
               <button
                 onClick={() => setShowContact(true)}
-                className="btn btn-primary w-full"
+                className="w-full font-bold py-3 px-4 transition duration-200 hover:opacity-90"
+                style={{ 
+                  backgroundColor: colors.green50,
+                  color: colors.white,
+                  fontFamily: fonts.body,
+                  borderRadius: '24px 4px',
+                  padding: '0.5rem 1.5rem'
+                }}
               >
                 Get Your Free Site Assessment
               </button>
               
               <button
                 onClick={() => setShowDownloadForm(true)}
-                className="btn btn-secondary w-full"
+                className="w-full font-bold py-3 px-4 transition duration-200 hover:opacity-90 border"
+                style={{ 
+                  borderColor: colors.green50,
+                  color: colors.green50,
+                  fontFamily: fonts.body,
+                  backgroundColor: 'transparent',
+                  borderRadius: '24px 4px',
+                  padding: '0.5rem 1.5rem'
+                }}
               >
                 Download Our Tech Specs
               </button>
@@ -1298,15 +882,29 @@ const TallTinyROICalculator = () => {
                 href="https://calendly.com/hello-talltiny/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-accent w-full block"
+                className="block w-full font-bold py-3 px-4 transition duration-200 hover:opacity-90 text-center"
+                style={{ 
+                  backgroundColor: colors.orange50,
+                  color: colors.white,
+                  fontFamily: fonts.body,
+                  borderRadius: '24px 4px',
+                  padding: '0.5rem 1.5rem'
+                }}
               >
                 Let's Chat!
               </a>
             </div>
             
             {/* Western Sydney Airport Note */}
-            <div className="mt-small rounded-standard p-xxsmall bg-neutral-lightest border border-tt-timber">
-              <p className="text-small text-neutral-darkest">
+            <div 
+              className="mt-4 rounded-lg p-3" 
+              style={{ 
+                backgroundColor: colors.orange100,
+                border: `1px solid ${colors.orange50}`,
+                borderRadius: '16px'
+              }}
+            >
+              <p className="text-sm" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
                 <strong>Future Opportunity:</strong> Western Sydney Airport opens in 2026. 
                 Blue Mountains accommodation demand projected to increase 15-20%.
               </p>
@@ -1315,64 +913,84 @@ const TallTinyROICalculator = () => {
         </div>
         
         {/* Updated Blue Mountains Context */}
-        <div className="mt-large bg-white rounded-standard p-large shadow-small border-t-4 border-tt-timber calculator-card">
-          <h3 className="text-h5 font-light text-neutral-darkest mb-medium mobile-text-center">
+        <div 
+          className="mt-8 rounded-lg p-6 shadow-sm" 
+          style={{ 
+            backgroundColor: colors.lightCardBg,
+            borderTop: `4px solid ${colors.orange50}`,
+            borderRadius: '16px',
+            boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+          }}
+        >
+          <h3 
+            className="text-xl font-semibold mb-3" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+            }}
+          >
             Why Invest In A Tiny Home in The Blue Mountains
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-small">
-            <div className="p-medium rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber text-large mb-tiny">3.2M Annual Visitors</p>
-              <p className="text-neutral-darkest">Generating $1.1B in tourism revenue</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm" style={{ fontFamily: fonts.body }}>
+            <div>
+              <p className="font-semibold" style={{ color: colors.orange50 }}>3.2M Annual Visitors</p>
+              <p style={{ color: colors.neutralDarkest }}>Generating $1.1B in tourism revenue</p>
             </div>
-            <div className="p-medium rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber text-large mb-tiny">UNESCO World Heritage</p>
-              <p className="text-neutral-darkest">Premium eco-tourism destination</p>
+            <div>
+              <p className="font-semibold" style={{ color: colors.orange50 }}>UNESCO World Heritage</p>
+              <p style={{ color: colors.neutralDarkest }}>Premium eco-tourism destination</p>
             </div>
-            <div className="p-medium rounded-standard bg-light-card-bg">
-              <p className="font-semibold text-tt-timber text-large mb-tiny">Accommodation Shortage</p>
-              <p className="text-neutral-darkest">Growing demand, limited supply</p>
+            <div>
+              <p className="font-semibold" style={{ color: colors.orange50 }}>Accommodation Shortage</p>
+              <p style={{ color: colors.neutralDarkest }}>Growing demand, limited supply</p>
             </div>
           </div>
         </div>
         
-        {/* Website Link Section with Hero Image Background */}
-        <div className="mt-large relative rounded-standard overflow-hidden shadow-large">
-          <div className="w-full h-full relative">
-            <img 
-              src="/assets/talltiny-weekender-lawson.avif" 
-              alt="Tall Tiny Weekender in Lawson" 
-              className="w-full h-full object-cover"
-              style={{ minHeight: '350px' }}
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-              <div className="text-center px-medium py-medium">
-                <h3 className="text-h4 font-light text-white mb-medium font-heading">
-                  Building a Greener Future
-                </h3>
-                <p className="text-medium text-white mb-small max-w-md mx-auto">
-                  With each home, we don't just create spaces; we offset our carbon footprint by helping
-                  restore forests, and set new standards for sustainable living. Choose Tall Tiny and be part
-                  of a movement rethinking how we build and live.
-                </p>
-                <a 
-                  href="https://talltiny.com.au" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="website-cta inline-block px-medium py-xxsmall bg-white bg-opacity-90 rounded-xl text-h5 font-light transition-transform text-neutral-darkest"
-                >
-                  Explore Our Website & Guides
-                  <span className="ml-xxsmall">→</span>
-                </a>
-              </div>
-            </div>
+        {/* Added Website Link Section */}
+        <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg" style={{ borderRadius: '16px' }}>
+          <img 
+            src="/assets/talltiny-weekender-lawson.avif" 
+            alt="Tall Tiny Weekender in Lawson" 
+            className="w-full"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+            <a 
+              href="https://talltiny.com.au" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-8 py-4 bg-white bg-opacity-90 rounded-lg text-2xl font-bold transition-transform transform hover:scale-105"
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30',
+                borderRadius: '16px'
+              }}
+            >
+              Explore Our Website & Guides
+            </a>
           </div>
         </div>
         
         {/* Contact Modal */}
         {showContact && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-standard p-medium max-w-md w-full mx-4">
-              <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+            <div 
+              className="bg-white rounded-lg p-6 max-w-md w-full mx-4"
+              style={{ 
+                backgroundColor: colors.white,
+                borderRadius: '16px'
+              }}
+            >
+              <h3 
+                className="text-xl font-semibold mb-4" 
+                style={{ 
+                  color: colors.neutralDarkest, 
+                  fontFamily: fonts.heading,
+                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                }}
+              >
                 Get Your Free Site Assessment
               </h3>
               <form 
@@ -1382,45 +1000,75 @@ const TallTinyROICalculator = () => {
                 onSubmit={handleContactSubmit}
               >
                 <input type="hidden" name="form-name" value="site-assessment" />
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Name</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="input-field"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Email</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="input-field"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Phone</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="input-field"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
-                <div className="mb-small">
-                  <p className="text-small text-neutral">
+                <div className="mb-4">
+                  <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
                     Selected Model: <strong className="capitalize">{model}</strong> 
                     {' '}({formatCurrency(modelData[model].price)})
                   </p>
-                  <p className="text-small text-neutral">
+                  <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
                     Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
                   </p>
                 </div>
@@ -1431,13 +1079,24 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowContact(false)}
-                    className="btn btn-secondary flex-1"
+                    className="flex-1 px-4 py-2 border rounded-md hover:bg-gray-50"
+                    style={{ 
+                      fontFamily: fonts.body,
+                      borderColor: colors.neutralLight,
+                      borderRadius: '24px 4px'
+                    }}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="btn btn-primary flex-1"
+                    className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
+                    style={{ 
+                      backgroundColor: colors.green50,
+                      color: colors.white,
+                      fontFamily: fonts.body,
+                      borderRadius: '24px 4px'
+                    }}
                   >
                     Get Assessment
                   </button>
@@ -1450,8 +1109,21 @@ const TallTinyROICalculator = () => {
         {/* Download Tech Specs Modal */}
         {showDownloadForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-standard p-medium max-w-md w-full mx-4">
-              <h3 className="text-h5 font-light text-neutral-darkest mb-small">
+            <div 
+              className="bg-white rounded-lg p-6 max-w-md w-full mx-4"
+              style={{ 
+                backgroundColor: colors.white,
+                borderRadius: '16px'
+              }}
+            >
+              <h3 
+                className="text-xl font-semibold mb-4" 
+                style={{ 
+                  color: colors.neutralDarkest, 
+                  fontFamily: fonts.heading,
+                  fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30'
+                }}
+              >
                 Download Technical Specifications
               </h3>
               <form 
@@ -1461,37 +1133,67 @@ const TallTinyROICalculator = () => {
                 onSubmit={handleDownloadSubmit}
               >
                 <input type="hidden" name="form-name" value="tech-specs-download" />
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Name</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="input-field"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Email</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Email
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
-                <div className="mb-small">
-                  <label className="block text-small font-medium mb-tiny text-neutral-darkest">Phone</label>
+                <div className="mb-4">
+                  <label 
+                    className="block text-sm font-medium mb-2" 
+                    style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                  >
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     name="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     required
-                    className="w-full px-xxsmall py-tiny border border-neutral rounded-button focus:outline-none focus:border-tt-green"
+                    className="w-full px-3 py-2 border rounded-md focus:outline-none"
+                    style={{ 
+                      borderColor: colors.black,
+                      height: '2.75rem',
+                      fontFamily: fonts.body
+                    }}
                   />
                 </div>
                 <input type="hidden" name="requestType" value="Tech Specs Download" />
@@ -1499,13 +1201,24 @@ const TallTinyROICalculator = () => {
                   <button
                     type="button"
                     onClick={() => setShowDownloadForm(false)}
-                    className="btn btn-secondary flex-1"
+                    className="flex-1 px-4 py-2 border rounded-md hover:bg-gray-50"
+                    style={{ 
+                      fontFamily: fonts.body,
+                      borderColor: colors.neutralLight,
+                      borderRadius: '24px 4px'
+                    }}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="btn btn-primary flex-1"
+                    className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
+                    style={{ 
+                      backgroundColor: colors.green50,
+                      color: colors.white,
+                      fontFamily: fonts.body,
+                      borderRadius: '24px 4px'
+                    }}
                   >
                     Download Now
                   </button>
@@ -1516,8 +1229,8 @@ const TallTinyROICalculator = () => {
         )}
         
         {/* Updated Footer with Phone Number */}
-        <footer className="mt-xlarge pt-medium border-t border-neutral-light text-center">
-          <div className="mb-small">
+        <footer className="mt-12 pt-6 text-center" style={{ borderTop: `1px solid ${colors.lightCardBorder}` }}>
+          <div className="mb-4">
             <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
               <img 
                 src="/assets/talltiny-logo.png" 
@@ -1526,33 +1239,82 @@ const TallTinyROICalculator = () => {
               />
             </a>
           </div>
-          <div className="mb-small text-small text-neutral-darkest md:flex md:justify-center md:gap-6 mobile-text-center">
-            <p className="mb-tiny md:mb-0">39 Park St, Lawson, NSW 2783</p>
-            <p className="mb-tiny md:mb-0">
-              <a href="mailto:hello@talltiny.com.au" className="underline hover:text-tt-timber">hello@talltiny.com.au</a>
+          <div className="mb-4 text-sm" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+            <p>39 Park St, Lawson, NSW 2783</p>
+            <p>
+              <a 
+                href="mailto:hello@talltiny.com.au" 
+                className="underline hover:opacity-80"
+                style={{ color: colors.orange50 }}
+              >
+                hello@talltiny.com.au
+              </a>
             </p>
             <p>
-              <a href="tel:0400755135" className="underline hover:text-tt-timber">0400 755 135</a>
+              <a 
+                href="tel:0400755135" 
+                className="underline hover:opacity-80"
+                style={{ color: colors.orange50 }}
+              >
+                0400 755 135
+              </a>
             </p>
           </div>
-          <div className="text-tiny text-neutral-light">
-            <p className="mb-tiny">&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
+          <div className="text-xs" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+            <p>&copy; {new Date().getFullYear()} Tall Tiny. All rights reserved.</p>
             <p>
-              <a href="https://talltiny.com.au/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-tt-timber">Privacy Policy</a>
+              <a 
+                href="https://talltiny.com.au/privacy-policy" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="underline hover:opacity-80"
+                style={{ color: colors.orange50 }}
+              >
+                Privacy Policy
+              </a>
               {' | '}
-              <a href="https://talltiny.com.au/terms-of-service" target="_blank" rel="noopener noreferrer" className="underline hover:text-tt-timber">Terms of Service</a>
+              <a 
+                href="https://talltiny.com.au/terms-of-service" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="underline hover:opacity-80"
+                style={{ color: colors.orange50 }}
+              >
+                Terms of Service
+              </a>
             </p>
           </div>
         </footer>
         
         {/* Disclaimer */}
-        <div className="mt-large text-center">
-          <p className="text-tiny text-neutral-light">
+        <div className="mt-8 text-center">
+          <p className="text-xs" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
             * ROI calculations are estimates based on current Blue Mountains market conditions. 
             Actual results may vary based on location, property setup, marketing effectiveness, and market changes.
             Past performance does not guarantee future results.
           </p>
         </div>
+        
+        {/* Inline CSS for slider styling */}
+        <style jsx>{`
+          .slider::-webkit-slider-thumb {
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: ${colors.orange50};
+            cursor: pointer;
+          }
+          
+          .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: ${colors.orange50};
+            cursor: pointer;
+            border: none;
+          }
+        `}</style>
       </div>
     </div>
   );
