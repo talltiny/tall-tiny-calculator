@@ -1,19 +1,77 @@
-/* Wide screen specific styles */
-@media (min-width: 1441px) {
-  .container-wide {
-    max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
+.container-calculator {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.card-display {
+  background-color: var(--white);
+  border-radius: var(--radius-standard);
+  box-shadow: var(--shadow-small);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.card-display:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.header-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.result-card {
+  background-color: var(--light-card-bg);
+  border-radius: var(--radius-standard);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-value {
+  font-size: 2.5rem;
+  color: var(--neutral-tt-timber);
+  font-weight: 300;
+  font-family: 'Roslindalevariable Opsz Slnt Wdth Wght', Times New Roman, sans-serif;
+}
+
+@media (max-width: 1200px) {
+  .model-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .xl\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .xl\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
-  .xl\:grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .calculator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .model-grid {
+    grid-template-columns: 1fr;
+  }
   
-  .xl\:px-xxlarge { padding-left: var(--space-xxlarge); padding-right: var(--space-xxlarge); }
-  .xl\:py-xlarge { padding-top: var(--space-xlarge); padding-bottom: var(--space-xlarge); }
+  .container-calculator {
+    padding: 0 0.5rem;
+  }
   
-  .heading-xl-large { font-size: var(--font-h1); }
+  .result-value {
+    font-size: 2rem;
+  }
 }/* Form elements */
 input {
   height: 2.75rem;

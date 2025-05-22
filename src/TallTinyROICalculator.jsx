@@ -219,6 +219,670 @@ const TallTinyROICalculator = () => {
   };
   
   return (
+    <div className="bg-neutral-lighter font-body min-h-screen">
+      <div className="container-calculator py-medium">
+        {/* Header Section */}
+        <div className="header-container mb-large">
+          <div className="mb-medium">
+            <a href="https://talltiny.com.au" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="/assets/talltiny-logo.png" 
+                alt="Tall Tiny Logo" 
+                className="mx-auto h-16"
+              />
+            </a>
+          </div>
+          
+          <h1 className="text-h3 font-light text-neutral-darkest mb-large font-heading">
+            Investment Calculator
+          </h1>
+          
+          {/* Hero Image */}
+          <div className="rounded-standard overflow-hidden mb-large shadow-medium">
+            <img 
+              src="/assets/talltiny-residence-ribbongum.png" 
+              alt="Tall Tiny Residence in Ribbon Gum" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+          <h2 className="text-h4 font-light text-neutral-darkest mb-xxsmall font-heading">
+            Your Backyard, Your Guest House
+          </h2>
+          <p className="text-large mb-medium text-neutral-darkest">
+            Sustainable accommodation that pays for itself
+          </p>
+          
+          <div className="mb-medium text-regular text-neutral-darkest">
+            <p className="mb-xsmall">
+              This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
+            </p>
+            <p>
+              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
+            </p>
+          </div>
+        </div>
+        
+        {/* Model Selection */}
+        <div className="mb-large">
+          <h2 className="text-h5 font-light text-neutral-darkest mb-medium text-center font-heading">
+            Choose Your Tiny Home Model
+          </h2>
+          
+          <div className="model-grid mb-large">
+            {Object.entries(modelData).map(([key, data]) => (
+              <div
+                key={key}
+                onClick={() => handleModelChange(key)}
+                className={`card-display p-medium cursor-pointer ${model === key ? 'border-l-4 border-tt-timber bg-neutral-lightest' : ''}`}
+              >
+                <h3 className="capitalize text-large font-semibold mb-xxsmall text-neutral-darkest">
+                  {key}
+                </h3>
+                
+                <div className="mb-small text-small">
+                  <p>{data.size}</p>
+                  <p className="mb-small">{data.features}</p>
+                </div>
+                
+                <p className="text-h5 font-bold text-tt-timber mb-tiny">
+                  {formatCurrency(data.price)}
+                </p>
+                
+                <p className="text-small text-neutral">
+                  Suggested nightly rate: {formatCurrency(data.suggestedRate)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Calculator Grid */}
+        <div className="calculator-grid">
+          {/* Investment Details */}
+          <div className="card-display p-large">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-large font-heading">
+              Your Investment Details
+            </h3>
+            
+            {/* Selected Model Info */}
+            <div className="bg-light-card-bg rounded-standard p-medium mb-large border border-light-card-border">
+              <h4 className="font-semibold capitalize text-large mb-small text-neutral-darkest">
+                {model} Model
+              </h4>
+              <p className="text-neutral mb-small">{modelData[model].description}</p>
+              <p className="text-neutral mb-medium">Size: {modelData[model].size}</p>
+              <p className="font-bold text-h5 text-tt-timber">
+                {formatCurrency(modelData[model].price)}
+              </p>
+            </div>
+            
+            {/* Nightly Rate */}
+            <div className="mb-medium">
+              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
+                Base Nightly Rate (Peak +20% automatically applied)
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral">$</span>
+                <input
+                  type="number"
+                  value={nightlyRate}
+                  onChange={(e) => setNightlyRate(Number(e.target.value))}
+                  className="input-field pl-8"
+                  min="0"
+                  step="10"
+                />
+              </div>
+              <p className="text-small text-neutral mt-xsmall">
+                Blue Mountains average: $220-$280 
+                <a 
+                  href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="ml-1 underline text-tt-timber"
+                >
+                  (Source: AirDNA)
+                </a>
+              </p>
+            </div>
+            
+            {/* Average Stay Length */}
+            <div className="mb-medium">
+              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
+                Average Length of Stay (nights)
+              </label>
+              <input
+                type="number"
+                value={averageStayLength}
+                onChange={(e) => setAverageStayLength(Number(e.target.value) || 1)}
+                className="input-field"
+                min="1"
+                step="0.5"
+              />
+              <p className="text-small text-neutral mt-xsmall">
+                Blue Mountains average: 2-3 nights
+              </p>
+            </div>
+            
+            {/* Peak Season Occupancy */}
+            <div className="mb-medium">
+              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
+                Peak Season Occupancy: {peakOccupancy}%
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={peakOccupancy}
+                onChange={(e) => setPeakOccupancy(Number(e.target.value))}
+                className="w-full slider"
+              />
+              <p className="text-small text-neutral mt-xsmall">
+                Blue Mountains peak average: 76-85%
+              </p>
+            </div>
+            
+            {/* Off-Peak Occupancy */}
+            <div className="mb-medium">
+              <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">
+                Off-Peak Occupancy: {offPeakOccupancy}%
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={offPeakOccupancy}
+                onChange={(e) => setOffPeakOccupancy(Number(e.target.value))}
+                className="w-full slider"
+              />
+              <p className="text-small text-neutral mt-xsmall">
+                Blue Mountains off-peak average: 35-45%
+              </p>
+            </div>
+          </div>
+          
+          {/* ROI Projection */}
+          <div className="card-display p-large border-l-4 border-tt-timber">
+            <h3 className="text-h5 font-light text-neutral-darkest mb-large font-heading">
+              Your ROI Projection
+            </h3>
+            
+            {/* Key Metrics */}
+            <div className="mb-large">
+              <div className="result-card">
+                <p className="text-medium text-neutral mb-xsmall">Annual Revenue</p>
+                <p className="result-value">
+                  {formatCurrency(results.annualRevenue)}
+                </p>
+              </div>
+              
+              <div className="result-card cursor-pointer" onClick={toggleExpenses}>
+                <div className="flex justify-between items-center">
+                  <p className="text-medium text-neutral mb-xsmall">
+                    Annual Expenses <span className="text-small text-neutral-light">(click to view details)</span>
+                  </p>
+                  <span>{showExpenses ? '▲' : '▼'}</span>
+                </div>
+                <p className="result-value text-neutral-darkest">
+                  {formatCurrency(results.annualExpenses)}
+                </p>
+                
+                {/* Expense Breakdown */}
+                {showExpenses && (
+                  <div className="mt-small pt-small border-t border-light-card-border">
+                    <div className="space-y-tiny">
+                      {Object.entries(results.breakdownDetails.annualExpenses || {}).map(([key, value]) => {
+                        if (key !== 'total' && key !== 'cleaning' && value > 0) {
+                          return (
+                            <div key={key} className="flex justify-between text-small">
+                              <span className="capitalize">{key}</span>
+                              <span>{formatCurrency(value)}</span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <div className="result-card">
+                <p className="text-medium text-neutral mb-xsmall">Net Annual Income</p>
+                <p className="result-value">
+                  {formatCurrency(results.netIncome)}
+                </p>
+              </div>
+              
+              <div className="result-card">
+                <p className="text-medium text-neutral mb-xsmall">Payback Period</p>
+                <p className="result-value">
+                  {results.paybackYears.toFixed(1)} <span className="text-large">years</span>
+                </p>
+              </div>
+            </div>
+            
+            {/* Future Returns */}
+            <div className="grid grid-cols-2 gap-4 mb-large">
+              <div className="result-card">
+                <p className="text-medium text-neutral mb-xsmall">5-Year Profit</p>
+                <p className="text-h5 font-semibold text-tt-timber">
+                  {formatCurrency(results.fiveYearProfit)}
+                </p>
+              </div>
+              <div className="result-card">
+                <p className="text-medium text-neutral mb-xsmall">10-Year Profit</p>
+                <p className="text-h5 font-semibold text-tt-timber">
+                  {formatCurrency(results.tenYearProfit)}
+                </p>
+              </div>
+            </div>
+            
+            {/* CTA Buttons */}
+            <div className="space-y-small">
+              <button
+                onClick={() => setShowContact(true)}
+                className="btn btn-primary w-full"
+              >
+                Get Your Free Site Assessment
+              </button>
+              
+              <button
+                onClick={() => setShowDownloadForm(true)}
+                className="btn btn-secondary w-full"
+              >
+                Download Our Tech Specs
+              </button>
+              
+              <a
+                href="https://calendly.com/hello-talltiny/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-accent w-full block"
+              >
+                Let's Chat!
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        {/* Website Link Section with Hero Image Background */}
+        <div className="mt-large relative rounded-standard overflow-hidden shadow-large">
+          <div className="w-full h-full relative">
+            <img 
+              src="/assets/talltiny-weekender-lawson.avif" 
+              alt="Tall Tiny Weekender in Lawson" 
+              className="w-full h-full object-cover"
+              style={{ minHeight: '350px' }}
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <div className="text-center px-medium py-medium">
+                <h3 className="text-h4 font-light text-white mb-medium font-heading">
+                  Building a Greener Future
+                </h3>
+                <p className="text-medium text-white mb-small max-w-md mx-auto">
+                  With each home, we don't just create spaces; we offset our carbon footprint by helping
+                  restore forests, and set new standards for sustainable living. Choose Tall Tiny and be part
+                  of a movement rethinking how we build and live.
+                </p>
+                <a 
+                  href="https://talltiny.com.au" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="website-cta inline-block px-medium py-xxsmall bg-white bg-opacity-90 rounded-xl text-h5 font-light transition-transform text-neutral-darkest"
+                >
+                  Explore Our Website & Guides
+                  <span className="ml-xxsmall">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Contact Modal */}
+        {showContact && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-standard p-large max-w-md w-full mx-4">
+              <h3 className="text-h5 font-light text-neutral-darkest mb-medium font-heading">
+                Get Your Free Site Assessment
+              </h3>
+              <form 
+                name="site-assessment" 
+                method="POST" 
+                data-netlify="true"
+                onSubmit={handleContactSubmit}
+              >
+                <input type="hidden" name="form-name" value="site-assessment" />
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+                <div className="mb-medium">
+                  <p className="text-medium text-neutral">
+                    Selected Model: <strong className="capitalize">{model}</strong> 
+                    {' '}({formatCurrency(modelData[model].price)})
+                  </p>
+                  <p className="text-medium text-neutral">
+                    Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
+                  </p>
+                </div>
+                <input type="hidden" name="model" value={model} />
+                <input type="hidden" name="price" value={modelData[model].price} />
+                <input type="hidden" name="projection" value={results.netIncome} />
+                <div className="flex gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowContact(false)}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary flex-1"
+                  >
+                    Get Assessment
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        
+        {/* Download Tech Specs Modal */}
+        {showDownloadForm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-standard p-large max-w-md w-full mx-4">
+              <h3 className="text-h5 font-light text-neutral-darkest mb-medium font-heading">
+                Download Technical Specifications
+              </h3>
+              <form 
+                name="tech-specs-download" 
+                method="POST" 
+                data-netlify="true"
+                onSubmit={handleDownloadSubmit}
+              >
+                <input type="hidden" name="form-name" value="tech-specs-download" />
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="input-field"
+                  />
+                </div>
+                <div className="mb-medium">
+                  <label className="block text-medium font-medium mb-xsmall text-neutral-darkest">Phone</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="import React, { useState, useEffect } from 'react';
+import './styles.css'; // Import styles
+
+const TallTinyROICalculator = () => {
+  // Model pricing and details
+  const modelData = {
+    studio: {
+      price: 90000,
+      size: '4.8m × 2.5m × 4.0m',
+      features: 'Perfect studio/office space',
+      description: 'Ideal for creative professionals or as a compact guest retreat',
+      suggestedRate: 200,
+      image: '/assets/studio_iso_1.avif'
+    },
+    backyard: {
+      price: 105000,
+      size: '6.0m × 2.5m × 4.0m',
+      features: 'Queen bed + workspace',
+      description: 'The perfect balance of space and functionality for guests',
+      suggestedRate: 225,
+      image: '/assets/backyard_iso_1.avif'
+    },
+    weekender: {
+      price: 130000,
+      size: '7.2m × 2.5m × 4.0m',
+      features: 'Premium guest experience',
+      description: 'Luxury tiny home designed for weekend escapes',
+      suggestedRate: 250,
+      image: '/assets/weekender_iso.avif'
+    },
+    residence: {
+      price: 155000,
+      size: '8.4m × 2.5m × 4.0m',
+      features: 'Full-sized living experience',
+      description: 'Complete tiny home with all amenities for extended stays',
+      suggestedRate: 275,
+      image: '/assets/residence_iso_1.avif'
+    }
+  };
+  
+  // State for all inputs with Blue Mountains specific defaults
+  const [model, setModel] = useState('backyard');
+  const [nightlyRate, setNightlyRate] = useState(modelData.backyard.suggestedRate);
+  const [peakOccupancy, setPeakOccupancy] = useState(80);
+  const [offPeakOccupancy, setOffPeakOccupancy] = useState(40);
+  const [peakSeasonDays, setPeakSeasonDays] = useState(120);
+  const [offSeasonDays, setOffSeasonDays] = useState(245);
+  const [cleaningFee, setCleaningFee] = useState(65);
+  const [personalUse, setPersonalUse] = useState(30);
+  const [averageStayLength, setAverageStayLength] = useState(2);
+  
+  // State for expense breakdown visibility
+  const [showExpenses, setShowExpenses] = useState(false);
+  
+  // Contact form state
+  const [showContact, setShowContact] = useState(false);
+  const [showDownloadForm, setShowDownloadForm] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  
+  // Calculated values
+  const [results, setResults] = useState({
+    annualRevenue: 0,
+    annualExpenses: 0,
+    netIncome: 0,
+    paybackYears: 0,
+    fiveYearProfit: 0,
+    tenYearProfit: 0,
+    breakdownDetails: {}
+  });
+  
+  // Calculate ROI whenever inputs change
+  useEffect(() => {
+    calculateROI();
+  }, [model, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse, averageStayLength]);
+  
+  const calculateROI = () => {
+    const modelPrice = modelData[model].price;
+    
+    // Calculate available rental days
+    const totalAvailableDays = 365 - personalUse;
+    const availablePeakDays = Math.min(peakSeasonDays, totalAvailableDays);
+    const availableOffPeakDays = Math.min(offSeasonDays, totalAvailableDays - availablePeakDays);
+    
+    // Calculate bookings based on average stay length
+    const peakNights = Math.floor(availablePeakDays * (peakOccupancy / 100));
+    const offPeakNights = Math.floor(availableOffPeakDays * (offPeakOccupancy / 100));
+    const totalNights = peakNights + offPeakNights;
+    
+    // Calculate number of stays (bookings) based on average stay length
+    const peakBookings = Math.floor(peakNights / averageStayLength);
+    const offPeakBookings = Math.floor(offPeakNights / averageStayLength);
+    const totalBookings = peakBookings + offPeakBookings;
+    
+    // Calculate revenue
+    const peakNightlyRate = nightlyRate * 1.2; // 20% premium in peak season
+    const peakRoomRevenue = peakNights * peakNightlyRate;
+    const offPeakRoomRevenue = offPeakNights * nightlyRate;
+    const cleaningRevenue = totalBookings * cleaningFee;
+    const totalRevenue = peakRoomRevenue + offPeakRoomRevenue + cleaningRevenue;
+    
+    // Calculate expenses (Blue Mountains specific) - Removed marketing costs
+    const annualExpenses = {
+      insurance: 1200,
+      maintenance: 1500,
+      cleaning: 0, // Included in cleaning fee
+      utilities: 800,
+      councilRates: 0, // No additional rates for caravan classification
+      total: 0
+    };
+    annualExpenses.total = Object.values(annualExpenses).reduce((sum, val) => sum + val, 0) - annualExpenses.total;
+    
+    // Calculate net income and ROI
+    const netIncome = totalRevenue - annualExpenses.total;
+    const paybackYears = modelPrice / netIncome;
+    const fiveYearProfit = (netIncome * 5) - modelPrice;
+    const tenYearProfit = (netIncome * 10) - modelPrice;
+    
+    // Store detailed breakdown
+    const breakdownDetails = {
+      peakNights,
+      offPeakNights,
+      totalNights,
+      peakBookings,
+      offPeakBookings,
+      totalBookings,
+      peakRoomRevenue,
+      offPeakRoomRevenue,
+      cleaningRevenue,
+      totalRevenue,
+      modelPrice,
+      annualExpenses
+    };
+    
+    setResults({
+      annualRevenue: totalRevenue,
+      annualExpenses: annualExpenses.total,
+      netIncome,
+      paybackYears,
+      fiveYearProfit,
+      tenYearProfit,
+      breakdownDetails
+    });
+  };
+  
+  const handleModelChange = (selectedModel) => {
+    setModel(selectedModel);
+    // Update nightly rate based on selected model
+    setNightlyRate(modelData[selectedModel].suggestedRate);
+  };
+  
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    
+    // Using Netlify's form handling
+    const form = e.target;
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      alert(`Thank you ${name}! We'll contact you within 24 hours about your ${model} tiny home investment.`);
+      setShowContact(false);
+      
+      // Reset form
+      setName('');
+      setEmail('');
+      setPhone('');
+    })
+    .catch((error) => {
+      alert('There was an error submitting your form. Please try again.');
+      console.error(error);
+    });
+  };
+  
+  const handleDownloadSubmit = (e) => {
+    e.preventDefault();
+    
+    // Using Netlify's form handling
+    const form = e.target;
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      // Redirect to PDF
+      window.open('/assets/Tall Tiny - Technical Specifications - 2025.pdf', '_blank');
+      setShowDownloadForm(false);
+      
+      // Reset form
+      setName('');
+      setEmail('');
+      setPhone('');
+    })
+    .catch((error) => {
+      alert('There was an error processing your download. Please try again.');
+      console.error(error);
+    });
+  };
+  
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-AU', {
+      style: 'currency',
+      currency: 'AUD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
+  
+  const formatNumber = (num) => {
+    return Math.round(num).toLocaleString();
+  };
+  
+  const toggleExpenses = () => {
+    setShowExpenses(!showExpenses);
+  };
+  
+  return (
     <div className="min-h-screen bg-neutral-lighter font-body">
       <div className="max-w-xl mx-auto py-large px-medium md:px-medium lg:px-large">
         {/* Header with Logo */}
