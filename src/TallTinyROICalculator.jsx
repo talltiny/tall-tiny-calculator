@@ -268,18 +268,6 @@ const TallTinyROICalculator = () => {
   return (
     <div className="min-h-screen" style={{ backgroundColor: colors.green100, fontFamily: fonts.body }}>
       <div className="max-w-6xl mx-auto p-6">
-        {/* Font Test - Remove this after testing */}
-        <div style={{
-          fontFamily: fonts.heading,
-          fontVariationSettings: '"wght" 800, "wdth" 75, "opsz" 72',
-          fontSize: '48px',
-          color: 'red',
-          textAlign: 'center',
-          margin: '20px 0'
-        }}>
-          Font Variation Test - This should look bold and condensed
-        </div>
-        
         {/* Header with Logo */}
         <div className="text-center mb-4">
           <div className="mb-3">
