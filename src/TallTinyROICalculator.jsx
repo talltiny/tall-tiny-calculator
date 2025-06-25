@@ -330,6 +330,17 @@ const TallTinyROICalculator = () => {
             <p>
               Simply adjust the parameters below to see what your potential return could be with a Tall Tiny home placed on your property.
             </p>
+            <p>
+              This is general advice only, any investment decisions need to take into account your individual situation. <a 
+                    href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="ml-1 underline"
+                    style={{ color: colors.orange50, fontFamily: fonts.body }}
+                  >
+                    (Data Source: AirDNA)
+                  </a>
+            </p>
           </div>
           
           <div 
@@ -1291,7 +1302,7 @@ const TallTinyROICalculator = () => {
           <p className="text-xs" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
             * ROI calculations are estimates based on current Blue Mountains market conditions. 
             Actual results may vary based on location, property setup, marketing effectiveness, and market changes.
-            Past performance does not guarantee future results.
+            Past performance does not guarantee future results. This ROI tool is for general advice only, any investment decisions need to take into account your individual situation.
           </p>
         </div>
         
