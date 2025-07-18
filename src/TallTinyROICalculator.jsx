@@ -280,20 +280,32 @@ const TallTinyROICalculator = () => {
             </a>
           </div>
           
-          {/* Investment Calculator Title */}
+          {/* Hero Section */}
           <h1 
-            className="text-4xl font-bold mb-6" 
+            className="text-4xl font-bold mb-4" 
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
               fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 72'
             }}
           >
-            Investment Calculator
+            Welcome to Tall Tiny Eco-Stays
           </h1>
+          <p 
+            className="text-xl mb-6 italic" 
+            style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+          >
+            Your backyard investment opportunity in the Blue Mountains
+          </p>
+          
+          <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+            <p className="mb-4">
+              Transform your property into a revenue-generating eco-stay that pays for itself while providing unique experiences for visitors to our UNESCO World Heritage region.
+            </p>
+          </div>
           
           {/* Hero Image */}
-          <div className="rounded-lg overflow-hidden mb-6 shadow-lg">
+          <div className="rounded-lg overflow-hidden mb-8 shadow-lg">
             <img 
               src="/assets/talltiny-residence-ribbongum.png" 
               alt="Tall Tiny Residence in Ribbon Gum" 
@@ -302,45 +314,41 @@ const TallTinyROICalculator = () => {
             />
           </div>
           
-          <h2 
-            className="text-3xl font-bold mb-3" 
+          {/* Social Proof Section */}
+          <div 
+            className="max-w-4xl mx-auto mb-8 p-6 rounded-lg"
             style={{ 
-              color: colors.neutralDarkest, 
-              fontFamily: fonts.heading,
-              fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 48'
+              backgroundColor: colors.lightCardBg,
+              border: `1px solid ${colors.lightCardBorder}`,
+              borderRadius: '16px'
             }}
           >
-            Your Backyard, Your Guest House
-          </h2>
-          <p 
-            className="text-xl mb-4" 
-            style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
-          >
-            Sustainable accommodation that pays for itself
-          </p>
-          
-          {/* New intro text */}
-          <div className="max-w-3xl mx-auto mb-6 text-base" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
-            <p className="mb-3">
-              This Return on Investment calculator helps Blue Mountains homeowners estimate the potential income from a Tall Tiny guest house on their property.
-            </p>
-            <p className="mb-3">
-              Our luxury tiny homes require no council approval and can be delivered in just 12 weeks, allowing you to transform your backyard into a revenue-generating guest accommodation that pays for itself while providing a unique experience for visitors.
-            </p>
-            <p>
-              Simply adjust the parameters below to see what your potential return could be with a Tall Tiny home placed on your property.
-            </p>
-            <p>
-              This is general advice only, any investment decisions need to take into account your individual situation. <a 
-                    href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="ml-1 underline"
-                    style={{ color: colors.orange50, fontFamily: fonts.body }}
-                  >
-                    (Data Source: AirDNA)
-                  </a>
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-lg italic mb-2" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+                  "Highest quality craftsmanship I've ever seen"
+                </p>
+                <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
+                  — Declan's Father-in-law
+                </p>
+              </div>
+              <div>
+                <p className="text-lg italic mb-2" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+                  "Far exceeded our expectations... exceptional craftsmanship"
+                </p>
+                <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
+                  — Dan & Rosie, Airbnb hosts
+                </p>
+              </div>
+              <div>
+                <p className="text-lg italic mb-2" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+                  "Outstanding customer service... second to none workmanship"
+                </p>
+                <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
+                  — Anne S, Airbnb host
+                </p>
+              </div>
+            </div>
           </div>
           
           <div 
@@ -352,23 +360,95 @@ const TallTinyROICalculator = () => {
             }}
           >
             <p style={{ color: colors.orange50, fontFamily: fonts.body }}>
-              ✓ No Council Approval Required ✓ Ready Before Summer ✓ 12-Week Delivery
+              ✓ No Council Approval Required ✓ 75%+ Occupancy Achieved ✓ 12-Week Delivery
             </p>
+          </div>
+        </div>
+        
+        {/* The Blue Mountains Opportunity */}
+        <div 
+          className="mt-8 mb-8 rounded-lg p-6 shadow-sm" 
+          style={{ 
+            backgroundColor: colors.lightCardBg,
+            borderTop: `4px solid ${colors.orange50}`,
+            borderRadius: '16px',
+            boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+          }}
+        >
+          <h3 
+            className="text-xl font-semibold mb-4" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
+            }}
+          >
+            The Blue Mountains Opportunity
+          </h3>
+          <div className="space-y-3 text-sm" style={{ fontFamily: fonts.body }}>
+            <div className="flex items-start">
+              <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
+              <div>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>$1.2 billion</span>
+                <span style={{ color: colors.neutralDarkest }}> annual tourism revenue in the Blue Mountains</span>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
+              <div>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>Western Sydney Airport</span>
+                <span style={{ color: colors.neutralDarkest }}> opening 2026 - projected 15-20% visitor increase</span>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
+              <div>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>No council approval required</span>
+                <span style={{ color: colors.neutralDarkest }}> - delivered in 12 weeks</span>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
+              <div>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>75%+ occupancy rates</span>
+                <span style={{ color: colors.neutralDarkest }}> achieved by current Tall Tiny hosts</span>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
+              <div>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>Carbon neutral construction</span>
+                <span style={{ color: colors.neutralDarkest }}> supporting sustainable tourism</span>
+              </div>
+            </div>
           </div>
         </div>
         
         {/* Model Selection */}
         <div className="mb-8">
           <h2 
-            className="text-2xl font-semibold mb-4 text-center" 
+            className="text-2xl font-semibold mb-2 text-center" 
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
               fontVariationSettings: '"wght" 360, "wdth" 90, "opsz" 36'
             }}
           >
-            Choose Your Tiny Home Model
+            Calculate Your Potential Returns
           </h2>
+          <p className="text-center mb-4" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+            See how a custom-designed Tall Tiny eco-stay could perform on your property. Our luxury tiny homes are already generating strong returns for Blue Mountains property owners through Airbnb and unique accommodation experiences.
+          </p>
+          <h3 
+            className="text-xl font-semibold mb-4 text-center" 
+            style={{ 
+              color: colors.neutralDarkest, 
+              fontFamily: fonts.heading,
+              fontVariationSettings: '"wght" 360, "wdth" 90, "opsz" 28'
+            }}
+          >
+            Choose Your Tiny Home Model
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(modelData).map(([key, data]) => (
               <div
@@ -923,64 +1003,43 @@ const TallTinyROICalculator = () => {
           </div>
         </div>
         
-        {/* Updated Blue Mountains Context */}
+        {/* Why Tall Tiny Section */}
         <div 
           className="mt-8 rounded-lg p-6 shadow-sm" 
           style={{ 
             backgroundColor: colors.lightCardBg,
-            borderTop: `4px solid ${colors.orange50}`,
+            borderLeft: `4px solid ${colors.green50}`,
             borderRadius: '16px',
             boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
           }}
         >
           <h3 
-            className="text-xl font-semibold mb-3" 
+            className="text-xl font-semibold mb-4" 
             style={{ 
               color: colors.neutralDarkest, 
               fontFamily: fonts.heading,
               fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
             }}
           >
-            Why Invest In A Tiny Home in The Blue Mountains
+            Why Tall Tiny
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm" style={{ fontFamily: fonts.body }}>
+          <div className="space-y-4 text-sm" style={{ fontFamily: fonts.body }}>
             <div>
-              <p className="font-semibold" style={{ color: colors.orange50 }}>3.2M Annual Visitors</p>
-              <p style={{ color: colors.neutralDarkest }}>Generating $1.1B in tourism revenue</p>
+              <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Built to Last</p>
+              <p style={{ color: colors.neutralDarkest }}>Custom-designed for your needs using sustainable, low-toxicity materials</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: colors.orange50 }}>UNESCO World Heritage</p>
-              <p style={{ color: colors.neutralDarkest }}>Premium eco-tourism destination</p>
+              <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Proven Returns</p>
+              <p style={{ color: colors.neutralDarkest }}>Current hosts achieving 75%+ occupancy</p>
             </div>
             <div>
-              <p className="font-semibold" style={{ color: colors.orange50 }}>Accommodation Shortage</p>
-              <p style={{ color: colors.neutralDarkest }}>Growing demand, limited supply</p>
+              <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Sustainable</p>
+              <p style={{ color: colors.neutralDarkest }}>Carbon neutral construction aligning with eco-tourism demand</p>
             </div>
-          </div>
-        </div>
-        
-        {/* Added Website Link Section */}
-        <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg" style={{ borderRadius: '16px' }}>
-          <img 
-            src="/assets/talltiny-weekender-lawson.avif" 
-            alt="Tall Tiny Weekender in Lawson" 
-            className="w-full"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-            <a 
-              href="https://talltiny.com.au" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="px-8 py-4 bg-white bg-opacity-90 rounded-lg text-2xl font-bold transition-transform transform hover:scale-105"
-              style={{ 
-                color: colors.neutralDarkest, 
-                fontFamily: fonts.heading,
-                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30',
-                borderRadius: '16px'
-              }}
-            >
-              Explore Our Website & Guides
-            </a>
+            <div>
+              <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Authentic</p>
+              <p style={{ color: colors.neutralDarkest }}>Family-owned business based in Lawson, supporting local community</p>
+            </div>
           </div>
         </div>
         
@@ -1004,12 +1063,7 @@ const TallTinyROICalculator = () => {
               >
                 Get Your Free Site Assessment
               </h3>
-              <form 
-                name="site-assessment" 
-                method="POST" 
-                data-netlify="true"
-                onSubmit={handleContactSubmit}
-              >
+              <div>
                 <input type="hidden" name="form-name" value="site-assessment" />
                 <div className="mb-4">
                   <label 
@@ -1083,9 +1137,6 @@ const TallTinyROICalculator = () => {
                     Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
                   </p>
                 </div>
-                <input type="hidden" name="model" value={model} />
-                <input type="hidden" name="price" value={modelData[model].price} />
-                <input type="hidden" name="projection" value={results.netIncome} />
                 <div className="flex gap-3">
                   <button
                     type="button"
@@ -1101,6 +1152,7 @@ const TallTinyROICalculator = () => {
                   </button>
                   <button
                     type="submit"
+                    onClick={handleContactSubmit}
                     className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
                     style={{ 
                       backgroundColor: colors.green50,
@@ -1112,7 +1164,7 @@ const TallTinyROICalculator = () => {
                     Get Assessment
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
@@ -1137,12 +1189,7 @@ const TallTinyROICalculator = () => {
               >
                 Download Technical Specifications
               </h3>
-              <form 
-                name="tech-specs-download" 
-                method="POST" 
-                data-netlify="true"
-                onSubmit={handleDownloadSubmit}
-              >
+              <div>
                 <input type="hidden" name="form-name" value="tech-specs-download" />
                 <div className="mb-4">
                   <label 
@@ -1223,6 +1270,7 @@ const TallTinyROICalculator = () => {
                   </button>
                   <button
                     type="submit"
+                    onClick={handleDownloadSubmit}
                     className="flex-1 px-4 py-2 rounded-md hover:opacity-90"
                     style={{ 
                       backgroundColor: colors.green50,
@@ -1234,10 +1282,35 @@ const TallTinyROICalculator = () => {
                     Download Now
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
+        
+        {/* Added Website Link Section */}
+        <div className="mt-8 relative rounded-lg overflow-hidden shadow-lg" style={{ borderRadius: '16px' }}>
+          <img 
+            src="/assets/talltiny-weekender-lawson.avif" 
+            alt="Tall Tiny Weekender in Lawson" 
+            className="w-full"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+            <a 
+              href="https://talltiny.com.au" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-8 py-4 bg-white bg-opacity-90 rounded-lg text-2xl font-bold transition-transform transform hover:scale-105"
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 300, "wdth" 90, "opsz" 30',
+                borderRadius: '16px'
+              }}
+            >
+              Explore Our Website & Guides
+            </a>
+          </div>
+        </div>
         
         {/* Updated Footer with Phone Number */}
         <footer className="mt-12 pt-6 text-center" style={{ borderTop: `1px solid ${colors.lightCardBorder}` }}>
@@ -1303,6 +1376,15 @@ const TallTinyROICalculator = () => {
             * ROI calculations are estimates based on current Blue Mountains market conditions. 
             Actual results may vary based on location, property setup, marketing effectiveness, and market changes.
             Past performance does not guarantee future results. This ROI tool is for general advice only, any investment decisions need to take into account your individual situation.
+            <a 
+              href="https://www.airdna.co/vacation-rental-data/app/au/new-south-wales/blue-mountains/overview" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="ml-1 underline"
+              style={{ color: colors.orange50 }}
+            >
+              (Market Data Source: AirDNA)
+            </a>
           </p>
         </div>
         
