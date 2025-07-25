@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const TallTinyROICalculator = () => {
-  // Model pricing and details
+  // Model pricing and details - Updated with Dan's actual costs
   const modelData = {
     studio: {
       price: 90000,
@@ -20,7 +20,7 @@ const TallTinyROICalculator = () => {
       image: '/assets/backyard_iso_1.avif'
     },
     weekender: {
-      price: 130000,
+      price: 135000, // Updated to Lewis' actual cost
       size: '7.2m × 2.5m × 4.0m',
       features: 'Premium guest experience',
       description: 'Luxury tiny home designed for weekend escapes',
@@ -37,16 +37,17 @@ const TallTinyROICalculator = () => {
     }
   };
   
-  // State for all inputs with Blue Mountains specific defaults
-  const [model, setModel] = useState('backyard');
-  const [nightlyRate, setNightlyRate] = useState(modelData.backyard.suggestedRate);
-  const [peakOccupancy, setPeakOccupancy] = useState(80);
+  // State for all inputs with Lewis' proven results as defaults
+  const [model, setModel] = useState('weekender'); // Lewis' model
+  const [modelPrice, setModelPrice] = useState(modelData.weekender.price); // New state for overriding price
+  const [nightlyRate, setNightlyRate] = useState(modelData.weekender.suggestedRate);
+  const [peakOccupancy, setPeakOccupancy] = useState(80); // Close to Lewis' 80.6%
   const [offPeakOccupancy, setOffPeakOccupancy] = useState(40);
   const [peakSeasonDays, setPeakSeasonDays] = useState(120);
   const [offSeasonDays, setOffSeasonDays] = useState(245);
-  const [cleaningFee, setCleaningFee] = useState(65);
+  const [cleaningFee, setCleaningFee] = useState(65); // Lewis' actual cleaning fee
   const [personalUse, setPersonalUse] = useState(30);
-  const [averageStayLength, setAverageStayLength] = useState(2);
+  const [averageStayLength, setAverageStayLength] = useState(2.2); // Lewis' actual average
   
   // State for expense breakdown visibility
   const [showExpenses, setShowExpenses] = useState(false);
@@ -72,11 +73,9 @@ const TallTinyROICalculator = () => {
   // Calculate ROI whenever inputs change
   useEffect(() => {
     calculateROI();
-  }, [model, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse, averageStayLength]);
+  }, [model, modelPrice, nightlyRate, peakOccupancy, offPeakOccupancy, peakSeasonDays, offSeasonDays, cleaningFee, personalUse, averageStayLength]);
   
   const calculateROI = () => {
-    const modelPrice = modelData[model].price;
-    
     // Calculate available rental days
     const totalAvailableDays = 365 - personalUse;
     const availablePeakDays = Math.min(peakSeasonDays, totalAvailableDays);
@@ -99,7 +98,7 @@ const TallTinyROICalculator = () => {
     const cleaningRevenue = totalBookings * cleaningFee;
     const totalRevenue = peakRoomRevenue + offPeakRoomRevenue + cleaningRevenue;
     
-    // Calculate expenses (Blue Mountains specific) - Removed marketing costs
+    // Calculate expenses (Blue Mountains specific)
     const annualExpenses = {
       insurance: 1200,
       maintenance: 1500,
@@ -145,8 +144,9 @@ const TallTinyROICalculator = () => {
   
   const handleModelChange = (selectedModel) => {
     setModel(selectedModel);
-    // Update nightly rate based on selected model
+    // Update nightly rate and price based on selected model
     setNightlyRate(modelData[selectedModel].suggestedRate);
+    setModelPrice(modelData[selectedModel].price);
   };
   
   const handleContactSubmit = (e) => {
@@ -337,7 +337,7 @@ const TallTinyROICalculator = () => {
                   "Far exceeded our expectations... exceptional craftsmanship"
                 </p>
                 <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
-                  — Dan & Rosie, Airbnb hosts
+                  — Lewis & Grace, Airbnb hosts
                 </p>
               </div>
               <div>
@@ -362,6 +362,251 @@ const TallTinyROICalculator = () => {
             <p style={{ color: colors.orange50, fontFamily: fonts.body }}>
               ✓ No Council Approval Required ✓ 75%+ Occupancy Achieved ✓ 12-Week Delivery
             </p>
+          </div>
+        </div>
+
+        {/* Lewis' Case Study Section */}
+        <div 
+          className="mt-8 mb-8 rounded-lg p-6 shadow-sm" 
+          style={{ 
+            backgroundColor: colors.white,
+            borderLeft: `4px solid ${colors.orange50}`,
+            borderRadius: '16px',
+            boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+          }}
+        >
+          <div className="text-center mb-6">
+            <h3 
+              className="text-2xl font-semibold mb-2" 
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
+              }}
+            >
+              Real Results from a Blue Mountains Host
+            </h3>
+            <p className="text-lg" style={{ color: colors.orange50, fontFamily: fonts.body }}>
+              "The calculator matched our actual earnings perfectly"
+            </p>
+            <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
+              — Lewis, Lawson Host & Airbnb Superhost
+            </p>
+          </div>
+
+          {/* Monthly Income Highlight */}
+          <div 
+            className="text-center mb-6 p-6 rounded-lg" 
+            style={{ 
+              backgroundColor: colors.green100,
+              border: `2px solid ${colors.green50}`,
+              borderRadius: '16px'
+            }}
+          >
+            <h4 
+              className="text-lg font-semibold mb-2" 
+              style={{ 
+                color: colors.neutralDarkest, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 24'
+              }}
+            >
+              Lewis is earning
+            </h4>
+            <p 
+              className="text-5xl font-bold mb-2" 
+              style={{ 
+                color: colors.green50, 
+                fontFamily: fonts.heading,
+                fontVariationSettings: '"wght" 600, "wdth" 90, "opsz" 72'
+              }}
+            >
+              {formatCurrency(4140)}
+            </p>
+            <p className="text-xl font-semibold" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
+              per month from his backyard
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Photo Gallery */}
+            <div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg overflow-hidden" style={{ borderRadius: '12px' }}>
+                  <img 
+                    src="/assets/dan-rosie.jpg" 
+                    alt="Lewis and Grace with their Tall Tiny" 
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden" style={{ borderRadius: '12px' }}>
+                  <img 
+                    src="/assets/dan-install.jpg" 
+                    alt="Installation process" 
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden" style={{ borderRadius: '12px' }}>
+                  <img 
+                    src="/assets/dan-finished.jpg" 
+                    alt="Finished Tall Tiny exterior" 
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+                <div className="rounded-lg overflow-hidden" style={{ borderRadius: '12px' }}>
+                  <img 
+                    src="/assets/bedsmall.jpg" 
+                    alt="Interior bedroom" 
+                    className="w-full h-32 object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Results & Setup Costs */}
+            <div className="space-y-4">
+              {/* Performance Metrics */}
+              <div 
+                className="rounded-lg p-4" 
+                style={{ 
+                  backgroundColor: colors.lightCardBg,
+                  border: `1px solid ${colors.lightCardBorder}`,
+                  borderRadius: '12px'
+                }}
+              >
+                <h4 
+                  className="font-semibold mb-3 text-center" 
+                  style={{ 
+                    color: colors.neutralDarkest, 
+                    fontFamily: fonts.heading,
+                    fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 20'
+                  }}
+                >
+                  Proven Performance
+                </h4>
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <p className="text-2xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>80.6%</p>
+                    <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>Occupancy Rate</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>2.1</p>
+                    <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>Avg Stay (nights)</p>
+                  </div>
+                </div>
+                <div className="mt-3 text-center">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full" style={{ backgroundColor: colors.orange100 }}>
+                    <span className="text-sm font-semibold" style={{ color: colors.orange50, fontFamily: fonts.body }}>
+                      ⭐ Airbnb Superhost
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Setup Costs */}
+              <div 
+                className="rounded-lg p-4" 
+                style={{ 
+                  backgroundColor: colors.lightCardBg,
+                  border: `1px solid ${colors.lightCardBorder}`,
+                  borderRadius: '12px'
+                }}
+              >
+                <h4 
+                  className="font-semibold mb-3" 
+                  style={{ 
+                    color: colors.neutralDarkest, 
+                    fontFamily: fonts.heading,
+                    fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 20'
+                  }}
+                >
+                  Total Setup Investment
+                </h4>
+                <div className="space-y-2 text-sm" style={{ fontFamily: fonts.body }}>
+                  <div className="flex justify-between">
+                    <span style={{ color: colors.neutral }}>Weekender Tiny Home</span>
+                    <span style={{ color: colors.neutralDarkest }}>{formatCurrency(135000)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span style={{ color: colors.neutral }}>Deck</span>
+                    <span style={{ color: colors.neutralDarkest }}>{formatCurrency(6000)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span style={{ color: colors.neutral }}>Site works & Installation</span>
+                    <span style={{ color: colors.neutralDarkest }}>{formatCurrency(3200)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span style={{ color: colors.neutral }}>Fence</span>
+                    <span style={{ color: colors.neutralDarkest }}>{formatCurrency(3500)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span style={{ color: colors.neutral }}>Grey water system</span>
+                    <span style={{ color: colors.neutralDarkest }}>{formatCurrency(1100)}</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-bold" style={{ borderTop: `1px solid ${colors.lightCardBorder}`, color: colors.orange50 }}>
+                    <span>Total Investment</span>
+                    <span>{formatCurrency(148800)}</span>
+                  </div>
+                </div>
+                
+                {/* Lewis' Actual ROI */}
+                <div className="mt-4 pt-3" style={{ borderTop: `1px solid ${colors.lightCardBorder}` }}>
+                  <h5 
+                    className="font-semibold mb-2 text-center" 
+                    style={{ 
+                      color: colors.neutralDarkest, 
+                      fontFamily: fonts.heading,
+                      fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 18'
+                    }}
+                  >
+                    Lewis' Actual ROI
+                  </h5>
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <p className="text-xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>33.4%</p>
+                      <p className="text-xs" style={{ color: colors.neutral, fontFamily: fonts.body }}>Annual Return</p>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold" style={{ color: colors.orange50, fontFamily: fonts.body }}>3.0</p>
+                      <p className="text-xs" style={{ color: colors.neutral, fontFamily: fonts.body }}>Years to Payback</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Key Success Quote */}
+              <div 
+                className="rounded-lg p-4 text-center" 
+                style={{ 
+                  backgroundColor: colors.green50,
+                  borderRadius: '12px'
+                }}
+              >
+                <p className="text-sm italic mb-2" style={{ color: colors.white, fontFamily: fonts.body }}>
+                  "The quality construction, nice finishings, custom cabinetry, and modern look really set us apart when people are deciding where to stay."
+                </p>
+                <p className="text-xs" style={{ color: colors.green100, fontFamily: fonts.body }}>
+                  — Lewis on what makes tiny home hosting successful
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setShowContact(true)}
+              className="font-bold py-4 px-8 transition duration-200 hover:opacity-90 text-lg"
+              style={{ 
+                backgroundColor: colors.orange50,
+                color: colors.white,
+                fontFamily: fonts.body,
+                borderRadius: '24px 4px',
+                boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
+              }}
+            >
+              Join Lewis in Making $4k+ from Your Backyard
+            </button>
           </div>
         </div>
         
@@ -410,8 +655,8 @@ const TallTinyROICalculator = () => {
             <div className="flex items-start">
               <span className="mr-3" style={{ color: colors.orange50 }}>✓</span>
               <div>
-                <span className="font-semibold" style={{ color: colors.orange50 }}>75%+ occupancy rates</span>
-                <span style={{ color: colors.neutralDarkest }}> achieved by current Tall Tiny hosts</span>
+                <span className="font-semibold" style={{ color: colors.orange50 }}>80%+ occupancy rates</span>
+                <span style={{ color: colors.neutralDarkest }}> achieved by current Tall Tiny hosts like Lewis</span>
               </div>
             </div>
             <div className="flex items-start">
@@ -437,7 +682,7 @@ const TallTinyROICalculator = () => {
             Calculate Your Potential Returns
           </h2>
           <p className="text-center mb-4" style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}>
-            See how a custom-designed Tall Tiny eco-stay could perform on your property. Our luxury tiny homes are already generating strong returns for Blue Mountains property owners through Airbnb and unique accommodation experiences.
+            See how a custom-designed Tall Tiny eco-stay could perform on your property. The calculator below uses Lewis' proven results as defaults - adjust the settings to match your specific situation.
           </p>
           <h3 
             className="text-xl font-semibold mb-4 text-center" 
@@ -466,6 +711,22 @@ const TallTinyROICalculator = () => {
                   boxShadow: '0 4px 8px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)'
                 }}
               >
+                {/* Lewis's Choice Badge */}
+                {key === 'weekender' && (
+                  <div className="mb-2">
+                    <span 
+                      className="inline-block px-2 py-1 text-xs font-semibold rounded-full"
+                      style={{ 
+                        backgroundColor: colors.orange100,
+                        color: colors.orange50,
+                        fontFamily: fonts.body
+                      }}
+                    >
+                      Lewis' Choice
+                    </span>
+                  </div>
+                )}
+                
                 {/* Model Image */}
                 <div className="mb-3 h-32 flex items-center justify-center overflow-hidden">
                   <img 
@@ -544,7 +805,7 @@ const TallTinyROICalculator = () => {
                   <p className="text-sm mb-1" style={{ color: colors.neutral, fontFamily: fonts.body }}>{modelData[model].description}</p>
                   <p className="text-sm mb-2" style={{ color: colors.neutral, fontFamily: fonts.body }}>Size: {modelData[model].size}</p>
                   <p className="font-bold text-lg" style={{ color: colors.orange50, fontFamily: fonts.body }}>
-                    {formatCurrency(modelData[model].price)}
+                    {formatCurrency(modelPrice)}
                   </p>
                 </div>
                 <div className="w-24 h-24 ml-2">
@@ -559,6 +820,30 @@ const TallTinyROICalculator = () => {
             
             {/* Input Fields - styled according to style guide */}
             <div className="space-y-4">
+              {/* Model Price Override */}
+              <div>
+                <label 
+                  className="block text-sm font-medium mb-2" 
+                  style={{ color: colors.neutralDarkest, fontFamily: fonts.body }}
+                >
+                  Total Investment Cost: {formatCurrency(modelPrice)}
+                </label>
+                <input
+                  type="range"
+                  min={Math.min(...Object.values(modelData).map(m => m.price)) - 20000}
+                  max={Math.max(...Object.values(modelData).map(m => m.price)) + 50000}
+                  value={modelPrice}
+                  onChange={(e) => setModelPrice(Number(e.target.value))}
+                  className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
+                  style={{ backgroundColor: colors.neutralLight }}
+                />
+                <div className="flex justify-between text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
+                  <span>{formatCurrency(Math.min(...Object.values(modelData).map(m => m.price)) - 20000)}</span>
+                  <span>Adjust for site works, finishes, etc.</span>
+                  <span>{formatCurrency(Math.max(...Object.values(modelData).map(m => m.price)) + 50000)}</span>
+                </div>
+              </div>
+
               {/* Nightly Rate */}
               <div>
                 <label 
@@ -619,10 +904,10 @@ const TallTinyROICalculator = () => {
                     fontFamily: fonts.body
                   }}
                   min="1"
-                  step="0.5"
+                  step="0.1"
                 />
                 <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
-                  Blue Mountains average: 2-3 nights
+                  Lewis' actual average: 2.1 nights | Blue Mountains typical: 2-3 nights
                 </p>
               </div>
               
@@ -645,7 +930,7 @@ const TallTinyROICalculator = () => {
                 />
                 <div className="flex justify-between text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
                   <span>0%</span>
-                  <span>Blue Mountains peak average: 76-85%</span>
+                  <span>Lewis achieved: 80.6% | Blue Mountains peak average: 76-85%</span>
                   <span>100%</span>
                 </div>
               </div>
@@ -726,7 +1011,7 @@ const TallTinyROICalculator = () => {
                   />
                 </div>
                 <p className="text-xs mt-1" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
-                  Charged per booking, not per night. Blue Mountains average: $60-85
+                  Lewis charges $65 per booking | Blue Mountains average: $60-85
                 </p>
               </div>
               
@@ -951,7 +1236,7 @@ const TallTinyROICalculator = () => {
                   padding: '0.5rem 1.5rem'
                 }}
               >
-                Get Your Free Site Assessment
+                Express Interest in a Site Inspection
               </button>
               
               <button
@@ -966,7 +1251,7 @@ const TallTinyROICalculator = () => {
                   padding: '0.5rem 1.5rem'
                 }}
               >
-                Download Our Tech Specs
+                Technical Specifications
               </button>
               
               <a
@@ -982,7 +1267,7 @@ const TallTinyROICalculator = () => {
                   padding: '0.5rem 1.5rem'
                 }}
               >
-                Let's Chat!
+                Book a Consultation
               </a>
             </div>
             
@@ -1030,7 +1315,7 @@ const TallTinyROICalculator = () => {
             </div>
             <div>
               <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Proven Returns</p>
-              <p style={{ color: colors.neutralDarkest }}>Current hosts achieving 75%+ occupancy</p>
+              <p style={{ color: colors.neutralDarkest }}>Current hosts like Lewis achieving 80%+ occupancy and Superhost status</p>
             </div>
             <div>
               <p className="font-semibold mb-1" style={{ color: colors.green50 }}>Sustainable</p>
@@ -1061,7 +1346,7 @@ const TallTinyROICalculator = () => {
                   fontVariationSettings: '"wght" 400, "wdth" 90, "opsz" 28'
                 }}
               >
-                Get Your Free Site Assessment
+                Express Interest in a Site Inspection
               </h3>
               <div>
                 <input type="hidden" name="form-name" value="site-assessment" />
@@ -1131,7 +1416,7 @@ const TallTinyROICalculator = () => {
                 <div className="mb-4">
                   <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
                     Selected Model: <strong className="capitalize">{model}</strong> 
-                    {' '}({formatCurrency(modelData[model].price)})
+                    {' '}({formatCurrency(modelPrice)})
                   </p>
                   <p className="text-sm" style={{ color: colors.neutral, fontFamily: fonts.body }}>
                     Projected Annual Income: <strong>{formatCurrency(results.netIncome)}</strong>
@@ -1161,7 +1446,7 @@ const TallTinyROICalculator = () => {
                       borderRadius: '24px 4px'
                     }}
                   >
-                    Get Assessment
+                    Submit Interest
                   </button>
                 </div>
               </div>
@@ -1373,7 +1658,7 @@ const TallTinyROICalculator = () => {
         {/* Disclaimer */}
         <div className="mt-8 text-center">
           <p className="text-xs" style={{ color: colors.neutralLight, fontFamily: fonts.body }}>
-            * ROI calculations are estimates based on current Blue Mountains market conditions. 
+            * ROI calculations are estimates based on current Blue Mountains market conditions and real host performance data. 
             Actual results may vary based on location, property setup, marketing effectiveness, and market changes.
             Past performance does not guarantee future results. This ROI tool is for general advice only, any investment decisions need to take into account your individual situation.
             <a 
