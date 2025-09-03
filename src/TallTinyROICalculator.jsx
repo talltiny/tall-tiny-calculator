@@ -4,7 +4,7 @@ const TallTinyROICalculator = () => {
   // Model pricing and details - Updated with Dan's actual costs
   const modelData = {
     studio: {
-      price: 90000,
+      price: 100000,
       size: '4.8m × 2.5m × 4.0m',
       features: 'Perfect studio/office space',
       description: 'Ideal for creative professionals or as a compact guest retreat',
@@ -12,7 +12,7 @@ const TallTinyROICalculator = () => {
       image: '/assets/studio_iso_1.avif'
     },
     backyard: {
-      price: 105000,
+      price: 115000,
       size: '6.0m × 2.5m × 4.0m',
       features: 'Queen bed + workspace',
       description: 'The perfect balance of space and functionality for guests',
@@ -20,7 +20,7 @@ const TallTinyROICalculator = () => {
       image: '/assets/backyard_iso_1.avif'
     },
     weekender: {
-      price: 135000, // Updated to Lewis' actual cost
+      price: 140000, // Updated to Lewis' actual cost
       size: '7.2m × 2.5m × 4.0m',
       features: 'Premium guest experience',
       description: 'Luxury tiny home designed for weekend escapes',
@@ -28,7 +28,7 @@ const TallTinyROICalculator = () => {
       image: '/assets/weekender_iso.avif'
     },
     residence: {
-      price: 155000,
+      price: 165000,
       size: '8.4m × 2.5m × 4.0m',
       features: 'Full-sized living experience',
       description: 'Complete tiny home with all amenities for extended stays',
